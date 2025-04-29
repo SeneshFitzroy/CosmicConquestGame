@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cosmic Conquest Button Test</title>
+    <style>
+        body {
+            background-color: #041428;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .game-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid #00a2ff;
+            border-radius: 20px;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .game-button:hover {
+            background-color: rgba(0, 162, 255, 0.3);
+            box-shadow: 0 0 15px #00a2ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <h1>Button Test Page</h1>
+        <button class="game-button" data-button="cosmic-codex" onclick="testClick('Cosmic Codex')">
+            📜 Cosmic Codex
+        </button>
+        <button class="game-button" data-button="settings" onclick="testClick('Settings')">
+            ⚙️ Settings
+        </button>
+        <div id="status" style="margin-top: 30px; padding: 15px; border: 1px dashed white;">
+            Click a button to test...
+        </div>
+    </div>
+
+    <script>
+        function testClick(buttonName) {
+            document.getElementById('status').innerHTML = buttonName + ' button was clicked at ' + new Date().toLocaleTimeString();
+        }
+    </script>
+</body>
+</html>

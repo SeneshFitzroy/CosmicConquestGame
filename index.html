@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fun Quest - Path to Victory</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/modals.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -57,8 +58,154 @@
             <div id="game-message">Welcome to Fun Quest! Roll the dice to begin.</div>
             <button id="reset-game" class="game-button">Reset Game</button>
         </div>
+
+        <div class="button-container">
+            <button class="game-button" data-button="cosmic-codex">
+                <img src="images/codex-icon.png" alt="Codex Icon"> Cosmic Codex
+            </button>
+            <button class="game-button" data-button="settings">
+                <img src="images/settings-icon.png" alt="Settings Icon"> Settings
+            </button>
+        </div>
     </div>
     
     <script src="script.js"></script>
+    <script src="js/buttonHandlers.js"></script>
+
+    <!-- Emergency inline script to ensure button functionality -->
+<script>
+    // This will run as soon as it's parsed
+    console.log("Inline script executing");
+    
+    // Direct function to handle button clicks
+    function handleCosmicCodexClick() {
+        alert("Cosmic Codex clicked (inline)");
+        var modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+        modal.style.zIndex = '9999';
+        
+        var content = document.createElement('div');
+        content.style.width = '80%';
+        content.style.maxWidth = '600px';
+        content.style.margin = '50px auto';
+        content.style.backgroundColor = 'white';
+        content.style.padding = '20px';
+        content.style.borderRadius = '10px';
+        
+        var title = document.createElement('h2');
+        title.textContent = 'Cosmic Codex';
+        
+        var closeBtn = document.createElement('button');
+        closeBtn.textContent = 'Close';
+        closeBtn.onclick = function() {
+            document.body.removeChild(modal);
+        };
+        
+        content.appendChild(title);
+        content.appendChild(document.createTextNode('Game instructions would appear here.'));
+        content.appendChild(document.createElement('br'));
+        content.appendChild(closeBtn);
+        modal.appendChild(content);
+        
+        document.body.appendChild(modal);
+    }
+    
+    function handleSettingsClick() {
+        alert("Settings clicked (inline)");
+        var modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+        modal.style.zIndex = '9999';
+        
+        var content = document.createElement('div');
+        content.style.width = '80%';
+        content.style.maxWidth = '600px';
+        content.style.margin = '50px auto';
+        content.style.backgroundColor = 'white';
+        content.style.padding = '20px';
+        content.style.borderRadius = '10px';
+        
+        var title = document.createElement('h2');
+        title.textContent = 'Settings';
+        
+        var closeBtn = document.createElement('button');
+        closeBtn.textContent = 'Close';
+        closeBtn.onclick = function() {
+            document.body.removeChild(modal);
+        };
+        
+        content.appendChild(title);
+        content.appendChild(document.createTextNode('Game settings would appear here.'));
+        content.appendChild(document.createElement('br'));
+        content.appendChild(closeBtn);
+        modal.appendChild(content);
+        
+        document.body.appendChild(modal);
+    }
+    
+    // Set up immediately and on window load
+    function setupInlineHandlers() {
+        console.log("Setting up inline handlers");
+        
+        // Find the buttons by data attributes, class, or content
+        var codexButton = document.querySelector('[data-button="cosmic-codex"]');
+        var settingsButton = document.querySelector('[data-button="settings"]');
+        
+        // Log what we found
+        console.log("Inline script found Cosmic Codex button:", !!codexButton);
+        console.log("Inline script found Settings button:", !!settingsButton);
+        
+        // If buttons are found, add direct onclick handlers
+        if (codexButton) {
+            codexButton.onclick = handleCosmicCodexClick;
+            console.log("Added inline handler to Cosmic Codex button");
+        }
+        
+        if (settingsButton) {
+            settingsButton.onclick = handleSettingsClick;
+            console.log("Added inline handler to Settings button");
+        }
+        
+        // If buttons weren't found using data attributes, try other methods
+        if (!codexButton || !settingsButton) {
+            var allButtons = document.querySelectorAll('button');
+            
+            for (var i = 0; i < allButtons.length; i++) {
+                var btn = allButtons[i];
+                if (btn.textContent.includes('Cosmic Codex')) {
+                    btn.onclick = handleCosmicCodexClick;
+                    console.log("Found Cosmic Codex button by text");
+                }
+                if (btn.textContent.includes('Settings')) {
+                    btn.onclick = handleSettingsClick;
+                    console.log("Found Settings button by text");
+                }
+            }
+        }
+    }
+    
+    // Try to set up immediately if the DOM is ready
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        setupInlineHandlers();
+    }
+    
+    // Also set up when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', setupInlineHandlers);
+    
+    // And when the window is fully loaded
+    window.addEventListener('load', setupInlineHandlers);
+    
+    // As a last resort, try again after a delay
+    setTimeout(setupInlineHandlers, 1000);
+</script>
 </body>
 </html>

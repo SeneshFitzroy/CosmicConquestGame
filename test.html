@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Test</title>
+    <style>
+        .game-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .modal-content {
+            background: white;
+            margin: 15% auto;
+            padding: 20px;
+            width: 70%;
+            border: 2px solid #ff9900;
+        }
+    </style>
+</head>
+<body>
+    <h1>Button Test Page</h1>
+    
+    <button id="testButton1">Test Cosmic Codex</button>
+    <button id="testButton2">Test Settings</button>
+    
+    <script>
+        document.getElementById('testButton1').addEventListener('click', function() {
+            console.log('Test button 1 clicked');
+            const modal = document.createElement('div');
+            modal.className = 'game-modal';
+            modal.style.display = 'block';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h2>Test Modal 1</h2>
+                    <p>This is a test modal!</p>
+                    <button onclick="this.closest('.game-modal').style.display='none'">Close</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        });
+        
+        document.getElementById('testButton2').addEventListener('click', function() {
+            console.log('Test button 2 clicked');
+            const modal = document.createElement('div');
+            modal.className = 'game-modal';
+            modal.style.display = 'block';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h2>Test Modal 2</h2>
+                    <p>This is another test modal!</p>
+                    <button onclick="this.closest('.game-modal').style.display='none'">Close</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        });
+    </script>
+</body>
+</html>

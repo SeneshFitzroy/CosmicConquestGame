@@ -1,0 +1,19 @@
+/* CSS for game modals */
+
+/* Essential modal display properties */
+.game-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999; /* Higher z-index to ensure it appears on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: auto;
+}
+
+/* Force display when needed */
+.game-modal[style*="display: block"] {
+    display: block !important;
+}
