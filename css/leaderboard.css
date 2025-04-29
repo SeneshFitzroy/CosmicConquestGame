@@ -1,0 +1,144 @@
+/* Styling for the customizable leaderboard */
+
+.leaderboard-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: rgba(4, 20, 40, 0.9);
+    border: 2px solid #00ff9d;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+    color: #e0e0e0;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.leaderboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #00ff9d;
+}
+
+.leaderboard-header h2 {
+    margin: 0;
+    color: #00ff9d;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+}
+
+.leaderboard-btn {
+    background-color: #00ff9d;
+    color: #041428;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.leaderboard-btn:hover {
+    background-color: #00cc7d;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+    transform: translateY(-2px);
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.leaderboard-table th {
+    padding: 0.75rem;
+    background-color: rgba(0, 255, 157, 0.2);
+    color: #00ff9d;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.leaderboard-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid rgba(0, 255, 157, 0.3);
+}
+
+.leaderboard-table tr:hover td {
+    background-color: rgba(0, 255, 157, 0.1);
+}
+
+.species-select, .player-name-input {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #e0e0e0;
+    border: 1px solid #00ff9d;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-family: 'Orbitron', sans-serif;
+    width: 100%;
+    max-width: 150px;
+}
+
+.player-name-input {
+    text-align: center;
+}
+
+.win-btn, .lose-btn, .delete-btn {
+    border: none;
+    border-radius: 4px;
+    padding: 0.3rem 0.6rem;
+    margin: 0 0.2rem;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.win-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.lose-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #555;
+    color: white;
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+}
+
+.win-btn:hover, .lose-btn:hover, .delete-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+@media screen and (max-width: 768px) {
+    .leaderboard-table {
+        font-size: 0.8rem;
+    }
+    
+    .leaderboard-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .leaderboard-btn {
+        width: 100%;
+    }
+    
+    .species-select, .player-name-input {
+        max-width: 90px;
+        padding: 0.3rem;
+    }
+    
+    .win-btn, .lose-btn, .delete-btn {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+    }
+}
