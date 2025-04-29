@@ -1,0 +1,276 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #65c1f7, #5a4fcf);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.game-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.game-title {
+    font-family: 'Fredoka One', cursive;
+    text-align: center;
+    color: #5a4fcf;
+    margin-bottom: 20px;
+    font-size: 36px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.board-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.game-board {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: #f0f0f0;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    min-height: 180px;
+}
+
+.tile {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: bold;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.tile.start {
+    background: #65c1f7;
+}
+
+.tile.end {
+    background: #5cdb5c;
+}
+
+.tile.obstacle {
+    background: #f76565;
+}
+
+.tile.chance {
+    background: #f7d365;
+}
+
+.tile.normal {
+    background: white;
+}
+
+.tile:hover {
+    transform: translateY(-3px);
+}
+
+.player-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.player {
+    padding: 15px;
+    border-radius: 10px;
+    background: #f0f0f0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.player.active {
+    background: #5a4fcf;
+    color: white;
+    transform: scale(1.05);
+}
+
+.player-token {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+    background: #fff;
+    color: #5a4fcf;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.player.active .player-token {
+    background: #f7d365;
+}
+
+.dice-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.dice {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 15px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: #5a4fcf;
+}
+
+.game-button {
+    padding: 12px 24px;
+    background: #5a4fcf;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+}
+
+.game-button:hover {
+    background: #4a3fb0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cards-section {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.card-deck {
+    text-align: center;
+    margin: 10px;
+}
+
+.card-deck h2 {
+    margin-bottom: 10px;
+    color: #5a4fcf;
+    font-size: 20px;
+}
+
+.card-back, .drawn-card {
+    width: 180px;
+    height: 250px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s;
+    perspective: 1000px;
+}
+
+.card-back {
+    background: linear-gradient(135deg, #5a4fcf, #65c1f7);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transform-style: preserve-3d;
+}
+
+.card-back:hover {
+    transform: translateY(-10px) rotateY(10deg);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+.obstacle-deck .card-back {
+    background: linear-gradient(135deg, #f76565, #f54242);
+}
+
+.chance-deck .card-back {
+    background: linear-gradient(135deg, #f7d365, #ffbb00);
+}
+
+.drawn-card {
+    background: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.drawn-card.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.drawn-card h3 {
+    color: #5a4fcf;
+    margin-bottom: 10px;
+}
+
+.drawn-card p {
+    font-size: 14px;
+}
+
+.game-status {
+    background: #f0f0f0;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#game-message {
+    font-size: 18px;
+    margin-bottom: 15px;
+    min-height: 50px;
+}
+
+@media (max-width: 768px) {
+    .board-container {
+        flex-direction: column;
+    }
+    
+    .cards-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .card-deck {
+        margin-bottom: 30px;
+    }
+}

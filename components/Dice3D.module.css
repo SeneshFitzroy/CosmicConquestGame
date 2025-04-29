@@ -1,0 +1,89 @@
+.diceContainer {
+  width: 100px;
+  height: 100px;
+  margin: 30px auto;
+  position: relative;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.dice {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(-50px);
+  transition: transform 0.8s cubic-bezier(0.4, 2.0, 0.2, 1);
+}
+
+.dice:hover {
+  transform: translateZ(-50px) rotateX(10deg) rotateY(10deg);
+}
+
+.rolling {
+  animation: roll 0.8s infinite linear;
+}
+
+.diceShadow {
+  position: absolute;
+  width: 80px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  bottom: -30px;
+  left: 10px;
+  border-radius: 50%;
+  filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.diceFace {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  padding: 10px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dot {
+  background-color: #5a4fcf;
+  border-radius: 50%;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.front {
+  transform: translateZ(50px);
+}
+
+.back {
+  transform: rotateX(180deg) translateZ(50px);
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(50px);
+}
+
+.left {
+  transform: rotateY(-90deg) translateZ(50px);
+}
+
+.top {
+  transform: rotateX(90deg) translateZ(50px);
+}
+
+.bottom {
+  transform: rotateX(-90deg) translateZ(50px);
+}
+
+@keyframes roll {
+  0% {
+    transform: translateZ(-50px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: translateZ(-50px) rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
+}

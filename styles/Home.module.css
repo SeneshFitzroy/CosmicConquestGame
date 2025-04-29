@@ -1,0 +1,620 @@
+/* Ultra Advanced Cosmic Conquest Styling */
+
+.container {
+  /* CSS variables moved from :root to .container */
+  --primary-color: #00e676;
+  --secondary-color: #2979ff;
+  --accent-color: #aa00ff;
+  --danger-color: #ff3d00;
+  --glow-color: #00e676;
+  --bg-dark: #000b27;
+  --bg-light: #0d2149;
+  --text-color: #e0f7fa;
+  --title-glow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+  --card-glow: 0 0 15px rgba(0, 230, 118, 0.3);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-dark);
+  position: relative;
+  overflow: hidden;
+  perspective: 1000px;
+  font-family: 'Orbitron', sans-serif;
+  color: var(--text-color);
+}
+
+.container[data-mode="hardcore"] {
+  --primary-color: #ff3d00;
+  --glow-color: #ff3d00;
+}
+
+.container[data-mode="exploration"] {
+  --primary-color: #aa00ff;
+  --glow-color: #aa00ff;
+}
+
+.starfield {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background-color: white;
+  transition: transform 0.1s ease-out;
+}
+
+.twinkle0 {
+  animation: starTwinkle var(--twinkle-duration, 2s) infinite alternate;
+}
+
+.twinkle1 {
+  animation: starTwinkle2 var(--twinkle-duration, 3s) infinite alternate;
+}
+
+.twinkle2 {
+  animation: starTwinkle3 var(--twinkle-duration, 4s) infinite alternate;
+}
+
+.nebula {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  animation: nebulaPulse 10s infinite alternate;
+  z-index: 0;
+}
+
+.shootingStar {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+  animation: shootingStarAnim 1s linear forwards;
+  z-index: 1;
+}
+
+/* Main Content */
+.main {
+  width: 100%;
+  max-width: 1200px;
+  background: rgba(13, 33, 73, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 0 30px rgba(0, 230, 118, 0.3);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(135deg, rgba(0, 230, 118, 0.1) 0%, transparent 50%),
+    linear-gradient(45deg, rgba(41, 121, 255, 0.1) 0%, transparent 50%);
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Title styling */
+.title {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+  font-size: 3.5rem;
+  text-shadow: var(--title-glow);
+  font-weight: 900;
+  letter-spacing: 3px;
+  position: relative;
+  transition: transform 0.3s, opacity 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+  line-height: 1.1;
+}
+
+.titlePrefix {
+  font-size: 1.2rem;
+  letter-spacing: 10px;
+  opacity: 0.8;
+  margin-bottom: 5px;
+}
+
+.titleSuffix {
+  font-size: 1.8rem;
+  opacity: 0.9;
+  font-weight: 700;
+  margin-top: 5px;
+  letter-spacing: 2px;
+}
+
+.titleUnderline {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  margin-top: 15px;
+  width: 100%;
+  animation: titleUnderlineAnim 1.5s ease forwards;
+}
+
+.titlePulse {
+  animation: titlePulse 2s ease-in-out;
+}
+
+/* Content grid layout */
+.contentGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
+  width: 100%;
+}
+
+/* Game mode selector */
+.modeSelector {
+  grid-column: 1 / 3;
+  background: rgba(13, 33, 73, 0.8);
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid rgba(0, 230, 118, 0.2);
+  box-shadow: var(--card-glow);
+  transition: var(--transition-smooth);
+}
+
+.modeSelector:hover {
+  border-color: rgba(0, 230, 118, 0.5);
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+}
+
+.modeTitle {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.modeOptions {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.modeOption {
+  flex: 1;
+  background: rgba(0, 11, 39, 0.8);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  border: 1px solid transparent;
+}
+
+.modeOption:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.activeMode {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.modeIcon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.modeOption h3 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.modeOption p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Rankings table */
+.rankingsContainer {
+  grid-column: 1 / 2;
+  background: rgba(13, 33, 73, 0.8);
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid rgba(0, 230, 118, 0.2);
+  box-shadow: var(--card-glow);
+  transition: var(--transition-smooth);
+}
+
+.rankingsContainer:hover {
+  border-color: rgba(0, 230, 118, 0.5);
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+}
+
+.rankingsTitle {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.rankingsTable {
+  width: 100%;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.rankingsHeader {
+  display: flex;
+  border-bottom: 1px solid rgba(0, 230, 118, 0.3);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.rankingRow {
+  display: flex;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition-smooth);
+}
+
+.rankingRow:hover {
+  background: rgba(0, 230, 118, 0.1);
+  border-radius: 5px;
+}
+
+.rankColumn { width: 15%; text-align: center; }
+.raceColumn { width: 35%; }
+.statsColumn { width: 15%; text-align: center; }
+.ratioColumn { width: 20%; text-align: center; }
+
+/* Settings panel */
+.settingsPanel {
+  grid-column: 2 / 3;
+  background: rgba(13, 33, 73, 0.8);
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid rgba(0, 230, 118, 0.2);
+  box-shadow: var(--card-glow);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.settingsPanel:hover {
+  border-color: rgba(0, 230, 118, 0.5);
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+}
+
+.settingOption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.settingOption:last-child {
+  border-bottom: none;
+}
+
+.toggleSwitch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggleSwitch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSlider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggleSlider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggleSlider {
+  background-color: var(--primary-color);
+}
+
+input:checked + .toggleSlider:before {
+  transform: translateX(26px);
+}
+
+/* Action buttons */
+.actionButtons {
+  grid-column: 1 / 3;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.actionButton {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.primaryButton {
+  background: var(--primary-color);
+  color: var(--bg-dark);
+  box-shadow: 0 0 10px var(--primary-color);
+  animation: actionButtonPulse 2s infinite;
+}
+
+.primaryButton:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+.secondaryButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.secondaryButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.buttonIcon {
+  font-size: 1.3rem;
+}
+
+/* Game board styling */
+.gameContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gameBoard {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  background: rgba(13, 33, 73, 0.7);
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 15px rgba(0, 230, 118, 0.3);
+}
+
+.tile {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-light);
+  border-radius: 8px;
+  color: var(--text-color);
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.start {
+  background: var(--primary-color);
+  color: var(--bg-dark);
+}
+
+.end {
+  background: var(--accent-color);
+  color: var(--text-color);
+}
+
+.obstacle {
+  background: var(--danger-color);
+  color: var(--bg-dark);
+}
+
+.chance {
+  background: var(--secondary-color);
+  color: var(--bg-dark);
+}
+
+.playerToken {
+  position: absolute;
+  top: 5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: var(--bg-dark);
+  animation: ufoHover 2s infinite ease-in-out;
+}
+
+.gameControls {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.playerInfo {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+
+.player {
+  flex: 1;
+  background: rgba(13, 33, 73, 0.7);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s;
+}
+
+.active {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px var(--primary-color);
+}
+
+.diceSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dice {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--bg-dark);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dice:hover {
+  transform: translateY(-5px) rotate(10deg);
+}
+
+.rolling {
+  animation: roll 0.5s linear infinite;
+}
+
+@keyframes roll {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+.gameButton {
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.gameButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modeSelector,
+  .rankingsContainer,
+  .settingsPanel {
+    grid-column: 1;
+  }
+  
+  .actionButtons {
+    grid-column: 1;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .actionButton {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .titlePrefix {
+    font-size: 1rem;
+  }
+  
+  .titleSuffix {
+    font-size: 1.4rem;
+  }
+  
+  .modeOptions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

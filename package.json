@@ -1,0 +1,18 @@
+{
+  "name": "cosmic-conquest",
+  "version": "1.0.0",
+  "description": "An immersive alien-themed intergalactic board game experience",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^13.5.11",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "author": "",
+  "license": "MIT"
+}
