@@ -838,182 +838,159 @@
             }
         }
 
-        /* Enhanced Custom Cursor System */
-        .custom-cursor-trail {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            animation: cursorTrail 0.8s ease-out forwards;
-            box-shadow: 0 0 10px var(--primary-color);
-        }
-
-        .cosmic-ripple {
-            position: fixed;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            animation: ripple 0.6s ease-out forwards;
-            box-shadow: 0 0 20px var(--primary-color);
-        }
-
-        /* Advanced Achievement System Styles */
-        .achievement-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--card-bg), rgba(255, 215, 0, 0.1));
-            border: 2px solid var(--primary-color);
-            border-radius: 15px;
-            padding: 20px;
-            z-index: 10000;
-            animation: achievementSlideIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(20px);
-            max-width: 350px;
-        }
-
-        @keyframes achievementSlideIn {
-            0% { 
-                transform: translateX(100%) rotate(10deg); 
-                opacity: 0; 
-            }
-            100% { 
-                transform: translateX(0) rotate(0deg); 
-                opacity: 1; 
-            }
-        }
-
-        .achievement-icon {
-            font-size: 2.5rem;
-            animation: achievementBadgeGlow 2s ease-in-out infinite;
-        }
-
-        /* Enhanced Performance Stats Animation */
-        .stats-value {
-            animation: statsCounterUp 0.5s ease-out;
-        }
-
-        /* Theme Transition Effects */
-        body.theme-transitioning {
-            animation: themeTransition 1s ease-in-out;
-        }
-
-        /* Energy Field Enhancement */
-        .energy-field {
-            animation: energyFieldPulse 4s ease-in-out infinite;
-        }
-
-        /* Floating Particle System */
-        .floating-particle {
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1;
-            animation: particleFloat linear forwards;
-        }
-
-        /* Cosmic Alerts */
-        .cosmic-alert {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(40, 40, 60, 0.7));
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--primary-color);
-            border-radius: 15px;
-            padding: 15px 25px;
+        /* Settings Button and Modal Styles */
+        #settings-btn {
+            background-color: #1a237e; /* Dark Indigo */
             color: white;
-            z-index: 9000;
-            animation: alertAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), alertGlow 2s ease-in-out infinite;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 159, 0.3);
-            text-align: center;
-            max-width: 350px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 5px;
         }
 
-        @keyframes alertAppear {
-            from { transform: translateX(-50%) translateY(-30px); opacity: 0; }
-            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        #settings-btn:hover {
+            background-color: #3949ab; /* Lighter Indigo */
+            transform: translateY(-2px);
         }
 
-        @keyframes alertGlow {
-            0%, 100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 159, 0.3); }
-            50% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 255, 159, 0.5); }
+        .settings-modal-content {
+            background: linear-gradient(145deg, #2c3e50, #1a2937);
+            color: #ecf0f1;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #4a6de5;
         }
 
-        /* Enhanced 3D Card Effect */
-        .cosmic-card:hover {
-            transform: 
-                translateY(-15px) 
-                rotateY(15deg) 
-                rotateX(5deg) 
-                rotateZ(-2deg);
-            box-shadow: 
-                15px 15px 30px rgba(0, 0, 0, 0.4), 
-                -5px -5px 20px rgba(255, 255, 255, 0.05), 
-                0 0 30px rgba(157, 0, 255, 0.4);
+        .setting-item {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: rgba(255,255,255,0.05);
+            border-radius: 8px;
         }
 
-        /* Interactive Button Animations */
-        .roll-button, .nav-button, .game-button, .control-button {
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .setting-item label {
+            font-size: 1.1em;
+            color: #bdc3c7;
         }
 
-        .roll-button:hover, .nav-button:hover, .game-button:hover, .control-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            filter: brightness(1.2);
+        .toggle-button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
         }
 
-        .roll-button:active, .nav-button:active, .game-button:active, .control-button:active {
-            transform: translateY(-2px) scale(0.98);
-            filter: brightness(0.95);
+        .toggle-button.active {
+            background-color: #27ae60; /* Emerald Green */
+            color: white;
         }
 
-        /* Enhanced Game Status Indicator */
-        .status-indicator {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            box-shadow: 0 0 10px var(--primary-color);
-            animation: statusPulse 2s ease-in-out infinite;
+        .toggle-button:not(.active) {
+            background-color: #c0392b; /* Alizarin Crimson */
+            color: white;
         }
 
-        @keyframes statusPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.6; }
+        .dropdown-select {
+            padding: 8px 12px;
+            border-radius: 5px;
+            background-color: #34495e;
+            color: #ecf0f1;
+            border: 1px solid #7f8c8d;
+            font-size: 1em;
         }
 
-        /* Immersive Background Effect */
-        .cosmic-portal {
+        .action-button {
+            background-color: #e74c3c; /* Pomegranate */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-button:hover {
+            background-color: #c0392b; /* Darker Pomegranate */
+        }
+
+        /* Cosmic Codex Button */
+        #cosmic-codex-btn {
+            background-color: #4a00e0; /* Deep purple */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 5px;
+        }
+
+        #cosmic-codex-btn:hover {
+            background-color: #8e2de2; /* Lighter purple */
+            transform: translateY(-2px);
+        }
+
+        /* Cosmic Codex Modal */
+        .modal {
+            display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: 
-                radial-gradient(circle, 
-                rgba(157, 0, 255, 0.1) 0%, 
-                rgba(0, 255, 159, 0.05) 40%, 
-                transparent 70%);
-            border-radius: 50%;
-            z-index: -4;
-            animation: portalPulse 15s ease-in-out infinite;
-            opacity: 0.8;
-            filter: blur(10px);
+            z-index: 10001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
         }
 
-        @keyframes portalPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.4; }
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            animation: modalZoom 0.5s ease-out;
+        }
+
+        .close-button {
+            color: var(--primary-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            color: var(--accent-color);
+        }
+
+        /* Custom scrollbar for modals */
+        .modal::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .modal::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -1145,6 +1122,8 @@
                 <button class="game-button" id="resetGame">🔄 Reset Game</button>
                 <button class="game-button" id="showLeaderboard">🏆 Leaderboard</button>
                 <button class="game-button" id="showTutorial">📖 How to Play</button>
+                <button id="cosmic-codex-btn" class="game-button">Cosmic Codex</button>
+                <button id="settings-btn" class="game-button">Settings</button>
             </div>
         </div>
 
@@ -1337,13 +1316,54 @@
         <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeControl" title="Volume">
     </div>
 
+    <!-- Cosmic Codex Button -->
+    <button id="cosmic-codex-btn" class="game-button">Cosmic Codex</button>
+
+    <!-- Cosmic Codex Modal -->
+    <div id="cosmic-codex-modal" class="modal">
+        <div class="modal-content cosmic-modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Cosmic Codex</h2>
+            <p>Detailed information about game lore, species, and technologies will be displayed here.</p>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content settings-modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Game Settings</h2>
+            
+            <div class="setting-item">
+                <label for="sound-toggle">Sound Effects:</label>
+                <button id="sound-toggle-btn" class="toggle-button active">Enabled</button>
+            </div>
+            
+            <div class="setting-item">
+                <label for="theme-select">Visual Theme:</label>
+                <select id="theme-select" class="dropdown-select">
+                    <option value="default">Default Cosmic</option>
+                    <option value="nebula">Nebula Dreams</option>
+                    <option value="void">Void Walker</option>
+                    <option value="starfire">Starfire</option>
+                    <option value="alien">Alien Worlds</option>
+                </select>
+            </div>
+            
+            <div class="setting-item">
+                <label for="reset-game-btn">Game Progress:</label>
+                <button id="reset-game-confirm-btn" class="action-button">Reset Game Data</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ====================================
         // 🌟 GLOBAL UTILITY FUNCTIONS
         // ====================================
         
         // Global cosmic alert function
-        function showCosmicAlert(message, duration = 3000) {
+        function showCosmicAlert(message, duration = 3000, isConfirm = false, onConfirm = null) {
             // Remove any existing alerts
             const existingAlerts = document.querySelectorAll('.cosmic-alert');
             existingAlerts.forEach(alert => alert.remove());
@@ -1360,6 +1380,30 @@
                     alert.remove();
                 }
             }, duration);
+            
+            if (isConfirm) {
+                // Add confirm button
+                const confirmBtn = document.createElement('button');
+                confirmBtn.textContent = 'Confirm';
+                confirmBtn.className = 'confirm-button';
+                confirmBtn.style.cssText = `
+                    margin-left: 10px;
+                    padding: 5px 10px;
+                    background: var(--success-color);
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background 0.3s ease;
+                `;
+                
+                confirmBtn.addEventListener('click', () => {
+                    if (onConfirm) onConfirm();
+                    alert.remove();
+                });
+                
+                alert.appendChild(confirmBtn);
+            }
         }
 
         // Enhanced cursor trail system
@@ -1698,146 +1742,6 @@
 
                 const boost = boosts[Math.floor(Math.random() * boosts.length)];
                 this.showEventModal('⚡ Power Boost', boost.name, boost.effect);
-                
-                this.players[this.currentPlayer].score += 10;
-                this.playTone(880, 250);
-                showCosmicAlert(`⚡ ${boost.name} activated!`, 3000);
-            }
-
-            triggerChallenge() {
-                const challenges = [
-                    { name: 'Asteroid Field', effect: 'Navigate carefully! Roll again to proceed.', penalty: 0 },
-                    { name: 'Black Hole', effect: 'Gravity pulls you back!', penalty: -3 },
-                    { name: 'Solar Flare', effect: 'Energy interference! Lose a turn.', penalty: 0 },
-                    { name: 'Alien Encounter', effect: 'Diplomatic mission required!', penalty: -1 }
-                ];
-
-                const challenge = challenges[Math.floor(Math.random() * challenges.length)];
-                this.showEventModal('🎯 Challenge', challenge.name, challenge.effect);
-                
-                if (challenge.penalty < 0) {
-                    const player = this.players[this.currentPlayer];
-                    player.position = Math.max(0, player.position + challenge.penalty);
-                }
-
-                this.playTone(330, 200);
-                showCosmicAlert(`🎯 ${challenge.name} appeared!`, 3000);
-            }
-
-            drawCard(type) {
-                this.players[this.currentPlayer].cards++;
-                this.playTone(523, 150);
-
-                const cardTypes = {
-                    cosmic: {
-                        title: '🌌 Cosmic Event Card',
-                        cards: [
-                            'Nebula Blessing: Gain 15 points!',
-                            'Meteorite Strike: Move back 2 spaces!',
-                            'Starlight Guidance: Move forward 2 spaces!',
-                            'Galactic Wind: Skip next player\'s turn!'
-                        ]
-                    },
-                    power: {
-                        title: '⚡ Power Boost Card',
-                        cards: [
-                            'Fusion Core: Double your next dice roll!',
-                            'Quantum Tunnel: Teleport to any tile!',
-                            'Energy Shield: Block next penalty!',
-                            'Hyperdrive: Move forward 4 spaces!'
-                        ]
-                    },
-                    challenge: {
-                        title: '🎯 Challenge Card',
-                        cards: [
-                            'Space Pirate Attack: Lose 10 points!',
-                            'Equipment Malfunction: Go back 3 spaces!',
-                            'Cosmic Storm: All players move back 1 space!',
-                            'Gravity Well: Stay in place this turn!'
-                        ]
-                    }
-                };
-
-                const cardData = cardTypes[type];
-                const randomCard = cardData.cards[Math.floor(Math.random() * cardData.cards.length)];
-                
-                this.showEventModal(cardData.title, 'Card Drawn', randomCard);
-                this.updateDisplay();
-            }
-
-            showEventModal(title, subtitle, description) {
-                // Create modal dynamically
-                const modal = document.createElement('div');
-                modal.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0, 0, 0, 0.8);
-                    backdrop-filter: blur(5px);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 5000;
-                `;
-
-                modal.innerHTML = `
-                    <div style="
-                        background: var(--card-bg);
-                        backdrop-filter: blur(20px);
-                        border: 2px solid var(--primary-color);
-                        border-radius: 20px;
-                        padding: 3rem;
-                        max-width: 500px;
-                        text-align: center;
-                        animation: modalZoom 0.3s ease-out;
-                    ">
-                        <h2 style="color: var(--primary-color); margin-bottom: 1rem;">${title}</h2>
-                        <h3 style="color: var(--secondary-color); margin-bottom: 1.5rem;">${subtitle}</h3>
-                        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9);">${description}</p>
-                        <button onclick="this.closest('div').remove()" style="
-                            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-                            border: none;
-                            border-radius: 50px;
-                            color: white;
-                            padding: 1rem 2rem;
-                            font-size: 1rem;
-                            font-weight: 600;
-                            cursor: pointer;
-                        ">✅ Continue</button>
-                    </div>
-                `;
-
-                document.body.appendChild(modal);
-
-                // Auto-remove after 5 seconds
-                setTimeout(() => {
-                    modal.parentNode && modal.remove();
-                }, 5000);
-            }
-
-            updateDisplay() {
-                // Update player positions
-                document.getElementById('p1Position').textContent = this.players[1].position;
-                document.getElementById('p2Position').textContent = this.players[2].position;
-                document.getElementById('p1Score').textContent = this.players[1].score;
-                document.getElementById('p2Score').textContent = this.players[2].score;
-                document.getElementById('p1Moves').textContent = this.players[1].moves;
-                document.getElementById('p2Moves').textContent = this.players[2].moves;
-                document.getElementById('p1Cards').textContent = this.players[1].cards;
-                document.getElementById('p2Cards').textContent = this.players[2].cards;
-
-                // Update game status
-                const statusText = `🚀 Player ${this.currentPlayer}'s turn. Roll the dice!`;
-                document.getElementById('gameStatus').textContent = statusText;
-
-                // Update active player card
-                const player1Card = document.getElementById('player1Card');
-                const player2Card = document.getElementById('player2Card');
-
-                if (this.currentPlayer === 1) {
-                    player
                 
                 this.players[this.currentPlayer].score += 10;
                 this.playTone(880, 250);
@@ -2636,54 +2540,56 @@
             }
 
             applyTheme(themeName) {
-                const theme = this.themes[themeName];
-                if (!theme) return;
-                
-                const root = document.documentElement;
-                root.style.setProperty('--primary-color', theme.primaryColor);
-                root.style.setProperty('--secondary-color', theme.secondaryColor);
-                root.style.setProperty('--accent-color', theme.accentColor);
-                root.style.setProperty('--dark-bg', theme.darkBg);
-                root.style.setProperty('--darker-bg', theme.darkerBg);
-                
-                // Update active theme button
-                document.querySelectorAll('.theme-button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                const activeBtn = document.querySelector(`[data-theme="${themeName}"]`);
-                if (activeBtn) {
-                    activeBtn.classList.add('active');
+                document.body.className = ''; // Clear existing theme classes
+                if (themeName !== 'default') {
+                    document.body.classList.add(themeName + '-theme');
                 }
-                
-                this.currentTheme = themeName;
-                this.saveTheme();
-                
-                // Track theme usage for achievements
-                const themeCount = new Set(JSON.parse(localStorage.getItem('cosmic_themes_used') || '[]'));
-                themeCount.add(themeName);
-                localStorage.setItem('cosmic_themes_used', JSON.stringify([...themeCount]));
-                achievementSystem.updateProgress('theme_master', themeCount.size - achievementSystem.achievements.find(a => a.id === 'theme_master').progress);
-                
-                this.showThemeNotification(theme.name);
+                localStorage.setItem('cosmicTheme', themeName);
+                this.activeTheme = themeName;
+                if (this.soundEnabled) this.playTone(600, 100, 'sine');
+                showCosmicAlert(`Theme changed to ${themeName.replace(/^\w/, c => c.toUpperCase())}`, 2000);
+                // Add theme-specific logic if any (e.g., particle colors)
+                this.updateThemeSpecificElements(themeName);
             }
 
-            showThemeNotification(themeName) {
-                showCosmicAlert(`🎨 ${themeName} theme activated!`, 2000);
+            updateThemeSpecificElements = (themeName) => { // Changed to arrow function
+                // Example: Change particle colors or other theme-dependent visuals
+                console.log(`Updating elements for theme: ${themeName}`);
+                // This is a placeholder for more complex theme updates
+                // For instance, if you have dynamic particle effects:
+                // if (this.particleSystem) {
+                //    this.particleSystem.updateColorsForTheme(themeName);
+                // }
+            }
+            
+            resetGameData = () => { // Changed to arrow function
+                // Reset player scores, positions, achievements, stats, etc.
+                this.players = {
+                    1: { position: 0, score: 0, moves: 0, cards: 0, achievements: [] },
+                    2: { position: 0, score: 0, moves: 0, cards: 0, achievements: [] }
+                };
+                this.achievements = this.getInitialAchievements(); // Reset achievements
+                this.performanceStats = { gamesPlayed: 0, averageScore: 0, totalTimePlayed: 0 };
+                
+                // Clear from localStorage
+                localStorage.removeItem('cosmicConquestGameState');
+                localStorage.removeItem('cosmicAchievements');
+                localStorage.removeItem('cosmicPerformanceStats');
+                
+                // Potentially reset UI elements directly if needed
+                this.updateDisplay(); // Refresh game display
+                
+                console.log("Game data has been reset.");
             }
 
-            bindEvents() {
-                document.querySelectorAll('.theme-button').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const theme = button.getAttribute('data-theme');
-                        this.applyTheme(theme);
-                        
-                        // Play theme change sound
-                        if (cosmicGame.audioContext && cosmicGame.soundEnabled) {
-                            cosmicGame.playTone(660, 200);
-                        }
-                    });
-                });
+            getInitialAchievements = () => { // Changed to arrow function
+                return [
+                    { id: 'first_move', name: 'First Step', description: 'Made your first move.', unlocked: false },
+                    { id: 'won_game', name: 'Cosmic Conqueror', description: 'Won a game.', unlocked: false },
+                    { id: 'high_score_100', name: 'Centurion', description: 'Scored 100 points.', unlocked: false },
+                    { id: 'power_tile_master', name: 'Power Surge', description: 'Landed on 3 power tiles in one game.', unlocked: false },
+                    { id: 'explorer', name: 'Galactic Explorer', description: 'Visited 10 unique tiles.', unlocked: false }
+                ];
             }
         }
 
@@ -3095,6 +3001,194 @@
         // Auto-start performance tracking
         performanceTracker.startGame();
 
+        // Cosmic Codex functionality
+        const cosmicCodexBtn = document.getElementById('cosmic-codex-btn');
+        const cosmicCodexModal = document.getElementById('cosmic-codex-modal');
+        const closeCodexModal = cosmicCodexModal.querySelector('.close-button');
+
+        if (cosmicCodexBtn) {
+            cosmicCodexBtn.addEventListener('click', () => {
+                cosmicCodexModal.style.display = 'block';
+                playTone(500, 150, 'sawtooth'); // Play a sound when opening codex
+            });
+        }
+
+        if (closeCodexModal) {
+            closeCodexModal.addEventListener('click', () => {
+                cosmicCodexModal.style.display = 'none';
+            });
+        }
+
+        // Close modal if clicked outside
+        window.addEventListener('click', (event) => {
+            if (event.target === cosmicCodexModal) {
+                cosmicCodexModal.style.display = 'none';
+            }
+        });
+
+        // Settings functionality
+        const settingsBtn = document.getElementById('settings-btn');
+        const settingsModal = document.getElementById('settings-modal');
+        const closeSettingsModal = settingsModal.querySelector('.close-button');
+        const soundToggleBtn = document.getElementById('sound-toggle-btn');
+        const themeSelect = document.getElementById('theme-select');
+        const resetGameConfirmBtn = document.getElementById('reset-game-confirm-btn');
+
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => {
+                settingsModal.style.display = 'block';
+                if (cosmicGame && cosmicGame.soundEnabled) { // Check if cosmicGame exists
+                    soundToggleBtn.classList.add('active');
+                    soundToggleBtn.textContent = 'Enabled';
+                } else {
+                    soundToggleBtn.classList.remove('active');
+                    soundToggleBtn.textContent = 'Disabled';
+                }
+                // Set current theme in dropdown
+                const currentTheme = document.body.className.split(' ').find(cls => cls.endsWith('-theme')) || 'default';
+                themeSelect.value = currentTheme.replace('-theme', '');
+                
+                playTone(500, 150, 'sawtooth'); // Play a sound when opening settings
+            });
+        }
+
+        if (closeSettingsModal) {
+            closeSettingsModal.addEventListener('click', () => {
+                settingsModal.style.display = 'none';
+            });
+        }
+
+        if (soundToggleBtn) {
+            soundToggleBtn.addEventListener('click', () => {
+                if (cosmicGame) { // Check if cosmicGame exists
+                    cosmicGame.toggleSound(); // Use the game's method
+                    if (cosmicGame.soundEnabled) {
+                        soundToggleBtn.classList.add('active');
+                        soundToggleBtn.textContent = 'Enabled';
+                        playTone(700, 100);
+                    } else {
+                        soundToggleBtn.classList.remove('active');
+                        soundToggleBtn.textContent = 'Disabled';
+                    }
+                } else {
+                    console.warn("cosmicGame object not found to toggle sound.");
+                }
+            });
+        }
+
+        if (themeSelect) {
+            themeSelect.addEventListener('click', () => { // Changed to click to ensure sound plays before value changes
+                 if (cosmicGame && cosmicGame.soundEnabled) playTone(400, 50, 'triangle');
+            });
+            themeSelect.addEventListener('change', () => {
+                const selectedTheme = themeSelect.value;
+                if (cosmicGame) { // Check if cosmicGame exists
+                     cosmicGame.applyTheme(selectedTheme); // Use the game's method
+                } else {
+                    console.warn("cosmicGame object not found to apply theme.");
+                    // Fallback if game object is not ready
+                    document.body.className = selectedTheme + '-theme'; 
+                    localStorage.setItem('cosmicTheme', selectedTheme);
+                }
+            });
+        }
+
+        if (resetGameConfirmBtn) {
+            resetGameConfirmBtn.addEventListener('click', () => {
+                showCosmicAlert('Are you sure you want to reset all game data? This cannot be undone.', 5000, true, () => {
+                    if (cosmicGame) { // Check if cosmicGame exists
+                        cosmicGame.resetGameData(); // Assumes this method exists in your game class
+                        showCosmicAlert('Game data has been reset.', 3000);
+                        playTone(300, 200, 'square');
+                    } else {
+                        console.warn("cosmicGame object not found to reset game data.");
+                        // Basic fallback
+                        localStorage.removeItem('cosmicConquestGameState');
+                        localStorage.removeItem('cosmicAchievements');
+                        localStorage.removeItem('cosmicPerformanceStats');
+                        showCosmicAlert('Local game data cleared (fallback).', 3000);
+                    }
+                    // Potentially reload or update UI further
+                });
+            });
+        }
+
+        // Close settings modal if clicked outside
+        window.addEventListener('click', (event) => {
+            if (event.target === settingsModal) {
+                settingsModal.style.display = 'none';
+            }
+        });
+
+        // Ensure applyTheme method exists in UltimateCosmicConquest or add it
+        // Ensure resetGameData method exists in UltimateCosmicConquest or add it
+        // Inside UltimateCosmicConquest class
+        // ...existing code...
+            applyTheme = (themeName) => { // Changed to arrow function
+                document.body.className = ''; // Clear existing theme classes
+                if (themeName !== 'default') {
+                    document.body.classList.add(themeName + '-theme');
+                }
+                localStorage.setItem('cosmicTheme', themeName);
+                this.activeTheme = themeName;
+                if (this.soundEnabled) this.playTone(600, 100, 'sine');
+                showCosmicAlert(`Theme changed to ${themeName.replace(/^\w/, c => c.toUpperCase())}`, 2000);
+                // Add theme-specific logic if any (e.g., particle colors)
+                this.updateThemeSpecificElements(themeName);
+            }
+
+            updateThemeSpecificElements = (themeName) => { // Changed to arrow function
+                // Example: Change particle colors or other theme-dependent visuals
+                console.log(`Updating elements for theme: ${themeName}`);
+                // This is a placeholder for more complex theme updates
+                // For instance, if you have dynamic particle effects:
+                // if (this.particleSystem) {
+                //    this.particleSystem.updateColorsForTheme(themeName);
+                // }
+            }
+            
+            resetGameData = () => { // Changed to arrow function
+                // Reset player scores, positions, achievements, stats, etc.
+                this.players = {
+                    1: { position: 0, score: 0, moves: 0, cards: 0, achievements: [] },
+                    2: { position: 0, score: 0, moves: 0, cards: 0, achievements: [] }
+                };
+                this.achievements = this.getInitialAchievements(); // Reset achievements
+                this.performanceStats = { gamesPlayed: 0, averageScore: 0, totalTimePlayed: 0 };
+                
+                // Clear from localStorage
+                localStorage.removeItem('cosmicConquestGameState');
+                localStorage.removeItem('cosmicAchievements');
+                localStorage.removeItem('cosmicPerformanceStats');
+                
+                // Potentially reset UI elements directly if needed
+                this.updateDisplay(); // Refresh game display
+                
+                console.log("Game data has been reset.");
+            }
+
+            getInitialAchievements = () => { // Changed to arrow function
+                return [
+                    { id: 'first_move', name: 'First Step', description: 'Made your first move.', unlocked: false },
+                    { id: 'won_game', name: 'Cosmic Conqueror', description: 'Won a game.', unlocked: false },
+                    { id: 'high_score_100', name: 'Centurion', description: 'Scored 100 points.', unlocked: false },
+                    { id: 'power_tile_master', name: 'Power Surge', description: 'Landed on 3 power tiles in one game.', unlocked: false },
+                    { id: 'explorer', name: 'Galactic Explorer', description: 'Visited 10 unique tiles.', unlocked: false }
+                ];
+            }
+        }
+
+        // ====================================
+        // 🎮 INITIALIZE GAME
+        // ====================================
+        cosmicGame = new UltimateCosmicConquest();
+
+        // Show cosmic alert for welcome message
+        setTimeout(() => {
+            showCosmicAlert('Welcome to Ultimate Cosmic Conquest! Prepare for an interdimensional journey.', 5000);
+        }, 1000);
+
+        // Log initialization
         console.log('🌌 Ultimate Cosmic Conquest - All Enhanced Systems Initialized! 🚀');
         console.log('🏆 Achievement System: Ready');
         console.log('📊 Performance Tracking: Active');  
