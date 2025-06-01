@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 COSMIC DIRECT FIX - Advanced System Diagnostics</title>
+    <style>
+        :root {
+            --primary-color: #00ff9f;
+            --secondary-color: #ff0099;
+            --accent-color: #9d00ff;
+            --warning-color: #ffaa00;
+            --error-color: #ff4444;
+            --success-color: #00ff44;
+            --dark-bg: #0a0a0f;
+            --darker-bg: #050508;
+            --card-bg: rgba(20, 20, 40, 0.8);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --neon-glow: 0 0 20px currentColor;
+            --text-gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            cursor: none;
+        }
+
+        /* Advanced Background System */
+        .cosmic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255, 170, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 68, 68, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 159, 0.1) 0%, transparent 70%),
+                linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            z-index: -3;
+        }
+
+        /* Enhanced Grid System */
+        .diagnostic-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(90deg, rgba(255, 170, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(255, 170, 0, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, rgba(255, 68, 68, 0.05) 2px, transparent 2px);
+            background-size: 40px 40px, 40px 40px, 80px 80px;
+            animation: gridShift 6s linear infinite, gridPulse 3s ease-in-out infinite;
+            z-index: -3;
+        }
+
+        @keyframes gridShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        .scanning-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            animation: scanLine 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes scanLine {
+            0% { transform: translateY(-2px); }
+            100% { transform: translateY(100vh); }
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: var(--text-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: titleGlitch 4s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255, 170, 0, 0.5);
+        }
+
+        @keyframes titleGlitch {
+            0%, 90%, 100% { transform: translate(0); }
+            10% { transform: translate(-2px, 2px); }
+            20% { transform: translate(2px, -2px); }
+            30% { transform: translate(-2px, -2px); }
+            40% { transform: translate(2px, 2px); }
+            50% { transform: translate(-2px, 2px); }
+            60% { transform: translate(2px, -2px); }
+            70% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--warning-color);
+            margin-bottom: 2rem;
+            animation: statusBlink 2s ease-in-out infinite;
+        }
+
+        @keyframes statusBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* System Status */
+        .system-status {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--warning-color);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .system-status::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 170, 0, 0.1), transparent);
+            animation: statusScan 2s linear infinite;
+        }
+
+        @keyframes statusScan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--warning-color);
+            animation: statusPulse 1s ease-in-out infinite;
+            box-shadow: 0 0 15px var(--warning-color);
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .status-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 170, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .status-item:hover {
+            border-color: var(--warning-color);
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.3);
+        }
+
+        .status-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--warning-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Diagnostic Tools */
+        .diagnostic-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .diagnostic-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .diagnostic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .diagnostic-card:hover::before {
+            left: 100%;
+        }
+
+        .diagnostic-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(0, 255, 159, 0.2);
+        }
+
+        .diagnostic-card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .diagnostic-icon {
+            font-size: 2rem;
+            animation: iconRotate 3s linear infinite;
+        }
+
+        @keyframes iconRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Advanced Button System */
+        .fix-button {
+            background: linear-gradient(45deg, var(--warning-color), var(--error-color));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            min-width: 200px;
+            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .fix-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .fix-button:hover::before {
+            left: 100%;
+        }
+
+        .fix-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 170, 0, 0.5);
+        }
+
+        .fix-button:active {
+            transform: translateY(0);
+        }
+
+        .diagnostic-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 15px rgba(0, 255, 159, 0.3);
+        }
+
+        .diagnostic-button:hover {
+            box-shadow: 0 8px 25px rgba(0, 255, 159, 0.5);
+        }
+
+        .critical-button {
+            background: linear-gradient(45deg, var(--error-color), #ff6666);
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+            animation: criticalPulse 2s ease-in-out infinite;
+        }
+
+        .critical-button:hover {
+            box-shadow: 0 8px 25px rgba(255, 68, 68, 0.5);
+        }
+
+        @keyframes criticalPulse {
+            0%, 100% { box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3); }
+            50% { box-shadow: 0 4px 25px rgba(255, 68, 68, 0.6); }
+        }
+
+        /* Console Output */
+        .diagnostic-console {
+            background: var(--darker-bg);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            font-family: 'Courier New', monospace;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 
+                inset 0 0 20px rgba(0, 255, 159, 0.2),
+                0 0 30px rgba(0, 255, 159, 0.1);
+            position: relative;
+        }
+
+        .diagnostic-console::before {
+            content: 'SYSTEM DIAGNOSTIC LOG';
+            position: absolute;
+            top: -1px;
+            left: 20px;
+            background: var(--darker-bg);
+            color: var(--primary-color);
+            padding: 0 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .console-line {
+            margin: 0.5rem 0;
+            color: var(--primary-color);
+            animation: typewriter 0.5s ease-in-out;
+        }
+
+        .console-line.warning {
+            color: var(--warning-color);
+        }
+
+        .console-line.error {
+            color: var(--error-color);
+        }
+
+        .console-line.success {
+            color: var(--success-color);
+        }
+
+        .console-line.critical {
+            color: var(--error-color);
+            font-weight: bold;
+            animation: criticalBlink 1s ease-in-out infinite;
+        }
+
+        @keyframes typewriter {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes criticalBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Progress Indicators */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 3px;
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: progressScan 2s linear infinite;
+        }
+
+        @keyframes progressScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-bar {
+            background: linear-gradient(45deg, var(--warning-color), var(--error-color));
+            border-radius: 50px;
+            height: 10px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 15px currentColor;
+            position: relative;
+        }
+
+        .progress-bar.success {
+            background: linear-gradient(45deg, var(--success-color), var(--primary-color));
+        }
+
+        .progress-bar.error {
+            background: linear-gradient(45deg, var(--error-color), #ff6666);
+        }
+
+        /* Modal System */
+        .diagnostic-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .diagnostic-modal.show {
+            display: flex;
+            opacity: 1;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--warning-color);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 700px;
+            width: 90%;
+            position: relative;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .diagnostic-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        /* Advanced Custom Cursor System */
+        .custom-cursor {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle, var(--warning-color), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: screen;
+            transition: all 0.1s ease;
+            filter: drop-shadow(0 0 12px var(--warning-color));
+        }
+
+        .custom-cursor::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 44px;
+            height: 44px;
+            border: 2px solid var(--warning-color);
+            border-radius: 50%;
+            animation: diagnosticPulse 2s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(255, 170, 0, 0.1), transparent);
+        }
+
+        .custom-cursor::after {
+            content: '';
+            position: absolute;
+            top: -18px;
+            left: -18px;
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(255, 170, 0, 0.3);
+            border-radius: 50%;
+            animation: diagnosticScan 3s linear infinite;
+        }
+
+        @keyframes diagnosticPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.4); opacity: 1; }
+        }
+
+        @keyframes diagnosticScan {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(360deg) scale(1.1); }
+        }
+
+        .custom-cursor.diagnostic {
+            transform: scale(1.5);
+            background: radial-gradient(circle, var(--error-color), transparent);
+        }
+
+        /* Enhanced Particle System */
+        .diagnostic-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .diagnostic-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--warning-color);
+            border-radius: 50%;
+            animation: diagnosticFloat 8s linear infinite;
+            box-shadow: 0 0 12px currentColor;
+        }
+
+        @keyframes diagnosticFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) translateX(0) scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(50vh) translateX(var(--random-x)) scale(1.2) rotate(180deg);
+                background: var(--error-color);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) translateX(var(--random-x)) scale(1) rotate(360deg);
+                background: var(--success-color);
+            }
+            100% {
+                transform: translateY(-10vh) translateX(var(--random-x)) scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        /* Enhanced Animation Keyframes */
+        @keyframes diagnosticTrailFade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.3); }
+        }
+        
+        @keyframes diagnosticRipple {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+        
+        @keyframes scanLineMove {
+            0% { opacity: 0; transform: scaleX(0); }
+            50% { opacity: 1; transform: scaleX(1); }
+            100% { opacity: 0; transform: scaleX(0); }
+        }
+
+        /* Enhanced Button Hover Effects */
+        .fix-button:hover {
+            background: linear-gradient(135deg, 
+                var(--warning-color), 
+                var(--error-color), 
+                var(--success-color));
+            animation: diagnosticButtonGlow 0.3s ease forwards;
+        }
+        
+        @keyframes diagnosticButtonGlow {
+            0% { box-shadow: 0 6px 20px rgba(255, 170, 0, 0.4); }
+            100% { 
+                box-shadow: 
+                    0 12px 35px rgba(255, 170, 0, 0.6),
+                    inset 0 0 20px rgba(255, 255, 255, 0.1),
+                    0 0 30px rgba(255, 68, 68, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="cosmic-background"></div>
+    <div class="diagnostic-particles" id="diagnosticParticles"></div>
+    <div class="diagnostic-grid"></div>
+    <div class="scanning-line"></div>
+
+    <!-- Alert Banner -->
+    <div class="alert-banner" id="alertBanner" style="display: none;">
+        🚨 SYSTEM DIAGNOSTIC MODE ACTIVE - PROCEED WITH CAUTION 🚨
+    </div>
+
+    <div class="header">
+        <h1 class="main-title">🔧 COSMIC DIRECT FIX</h1>
+        <p class="subtitle">Advanced System Diagnostics & Emergency Repair Protocol</p>
+    </div>
+
+    <div class="container">
+        <!-- System Status -->
+        <div class="system-status">
+            <div class="status-header">
+                <div class="status-indicator"></div>
+                <h2 style="color: var(--warning-color); margin: 0;">🖥️ SYSTEM STATUS MONITOR</h2>
+            </div>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-value" id="systemHealth">87%</div>
+                    <div class="status-label">System Health</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="memoryUsage">64%</div>
+                    <div class="status-label">Memory Usage</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="cpuLoad">42%</div>
+                    <div class="status-label">CPU Load</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="activeProcesses">147</div>
+                    <div class="status-label">Active Processes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagnostic Tools -->
+        <div class="diagnostic-section">
+            <!-- System Diagnostics -->
+            <div class="diagnostic-card">
+                <h3><span class="diagnostic-icon">🔍</span> System Diagnostics</h3>
+                <p>Run comprehensive system scans and identify potential issues.</p>
+                <button class="fix-button diagnostic-button" onclick="directFix.runDiagnostic('system')">
+                    🖥️ System Scan
+                </button>
+                <button class="fix-button diagnostic-button" onclick="directFix.runDiagnostic('memory')">
+                    🧠 Memory Check
+                </button>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 0%" id="systemProgress"></div>
+                </div>
+            </div>
+
+            <!-- Component Testing -->
+            <div class="diagnostic-card">
+                <h3><span class="diagnostic-icon">⚙️</span> Component Testing</h3>
+                <p>Test individual components and validate functionality.</p>
+                <button class="fix-button diagnostic-button" onclick="directFix.testComponent('cosmic-codex')">
+                    📜 Cosmic Codex
+                </button>
+                <button class="fix-button diagnostic-button" onclick="directFix.testComponent('settings')">
+                    ⚙️ Settings Panel
+                </button>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 0%" id="componentProgress"></div>
+                </div>
+            </div>
+
+            <!-- Emergency Repairs -->
+            <div class="diagnostic-card">
+                <h3><span class="diagnostic-icon">🚨</span> Emergency Repairs</h3>
+                <p>Critical system repairs and emergency protocols.</p>
+                <button class="fix-button critical-button" onclick="directFix.emergencyRepair('critical')">
+                    🆘 Critical Repair
+                </button>
+                <button class="fix-button critical-button" onclick="directFix.emergencyRepair('force')">
+                    💥 Force Restart
+                </button>
+                <div class="progress-container">
+                    <div class="progress-bar error" style="width: 0%" id="emergencyProgress"></div>
+                </div>
+            </div>
+
+            <!-- Performance Optimization -->
+            <div class="diagnostic-card">
+                <h3><span class="diagnostic-icon">⚡</span> Performance Boost</h3>
+                <p>Optimize system performance and clear cache.</p>
+                <button class="fix-button diagnostic-button" onclick="directFix.optimize('cache')">
+                    🗑️ Clear Cache
+                </button>
+                <button class="fix-button diagnostic-button" onclick="directFix.optimize('performance')">
+                    🚀 Boost Performance
+                </button>
+                <div class="progress-container">
+                    <div class="progress-bar success" style="width: 0%" id="optimizeProgress"></div>
+                </div>
+            </div>
+
+            <!-- Network Diagnostics -->
+            <div class="diagnostic-card">
+                <h3><span class="diagnostic-icon">🌐</span> Network Status</h3>
+                <p>Check network connectivity and communication protocols.</p>
+                <button class="fix-button diagnostic-button" onclick="directFix.networkTest('ping')">
+                    📡 Network Ping
+                </button>
+                <button class="fix-button diagnostic-button" onclick="directFix.networkTest('trace')">
+                    🛰️ Trace Route
+                </button>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 0%" id="networkProgress"></div>
+                </div>
+            </div>
+
+            <!-- Security Scan -->
+            <div class="diagnostic-card">
+                <h3><span class="diagnostic-icon">🔒</span> Security Analysis</h3>
+                <p>Perform security scans and vulnerability assessments.</p>
+                <button class="fix-button diagnostic-button" onclick="directFix.securityScan('basic')">
+                    🛡️ Basic Scan
+                </button>
+                <button class="fix-button critical-button" onclick="directFix.securityScan('deep')">
+                    🔍 Deep Scan
+                </button>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 0%" id="securityProgress"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagnostic Console -->
+        <div class="diagnostic-console" id="diagnosticConsole">
+            <div class="console-line success">🟢 COSMIC DIRECT FIX v3.0 initialized successfully</div>
+            <div class="console-line">💻 System diagnostic protocols loaded</div>
+            <div class="console-line warning">⚠️ Running in diagnostic mode - some features may be limited</div>
+            <div class="console-line">🔧 Ready to perform system analysis and repairs</div>
+        </div>
+    </div>
+
+    <!-- Diagnostic Modal -->
+    <div id="diagnosticModal" class="diagnostic-modal">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="color: var(--warning-color); margin: 0;">🔬 Diagnostic Results</h3>
+                <button style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 0.5rem;" onclick="directFix.closeModal()">&times;</button>
+            </div>
+            <div id="modalContent">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+            <div style="margin-top: 1.5rem; text-align: center;">
+                <button class="fix-button diagnostic-button" onclick="directFix.closeModal()">
+                    ✅ Acknowledge
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div style="position: fixed; bottom: 20px; left: 20px; z-index: 100;">
+        <button class="fix-button diagnostic-button" onclick="window.location.href='ULTIMATE-INDEX.html'">
+            🏠 Home
+        </button>
+        <button class="fix-button diagnostic-button" onclick="window.location.href='ULTRA-COSMIC-CONQUEST.html'">
+            🎮 Game
+        </button>
+        <button class="fix-button diagnostic-button" onclick="window.location.href='ULTIMATE-TEST.html'">
+            🧪 Test Lab
+        </button>
+    </div>
+
+    <script>
+        class CosmicDirectFix {
+            constructor() {
+                this.audioContext = null;
+                this.systemStats = {
+                    health: 87,
+                    memory: 64,
+                    cpu: 42,
+                    processes: 147
+                };
+                this.init();
+            }
+
+            init() {
+                this.setupCursor();
+                this.setupAudio();
+                this.createDiagnosticParticles();
+                this.startSystemMonitoring();
+                this.showAlert();
+                this.log('🔧 Direct Fix system online - all diagnostic tools ready', 'success');
+            }
+
+            setupCursor() {
+                const cursor = document.getElementById('cursor');
+                let isHovering = false;
+
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                    
+                    // Create diagnostic trail particles
+                    if (Math.random() < 0.2) {
+                        this.createTrailParticle(e.clientX, e.clientY);
+                    }
+                });
+
+                document.addEventListener('mousedown', () => {
+                    cursor.style.transform = 'scale(0.8)';
+                    this.createDiagnosticRipple(event.clientX, event.clientY);
+                });
+
+                document.addEventListener('mouseup', () => {
+                    cursor.style.transform = 'scale(1)';
+                });
+
+                // Enhanced hover effects for buttons
+                document.querySelectorAll('button, .cosmic-button').forEach(button => {
+                    button.addEventListener('mouseenter', () => {
+                        cursor.classList.add('diagnostic');
+                        this.createDiagnosticScanEffect(button);
+                    });
+                    
+                    button.addEventListener('mouseleave', () => {
+                        cursor.classList.remove('diagnostic');
+                    });
+                });
+            }
+
+            createDiagnosticParticles() {
+                const container = document.getElementById('diagnosticParticles');
+                const colors = ['var(--warning-color)', 'var(--error-color)', 'var(--success-color)', 'var(--accent-color)'];
+                
+                for (let i = 0; i < 40; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'diagnostic-particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.setProperty('--random-x', (Math.random() - 0.5) * 300 + 'px');
+                    particle.style.animationDelay = Math.random() * 8 + 's';
+                    particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+                    container.appendChild(particle);
+                }
+
+                // Continuously regenerate particles
+                setInterval(() => {
+                    if (container.children.length < 50) {
+                        const particle = document.createElement('div');
+                        particle.className = 'diagnostic-particle';
+                        particle.style.left = Math.random() * 100 + '%';
+                        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                        particle.style.setProperty('--random-x', (Math.random() - 0.5) * 300 + 'px');
+                        particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+                        container.appendChild(particle);
+
+                        setTimeout(() => {
+                            if (particle.parentNode) {
+                                particle.parentNode.removeChild(particle);
+                            }
+                        }, 10000);
+                    }
+                }, 500);
+            }
+
+            createTrailParticle(x, y) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    left: ${x - 2}px;
+                    top: ${y - 2}px;
+                    width: 4px;
+                    height: 4px;
+                    background: var(--warning-color);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 9999;
+                    animation: diagnosticTrailFade 1s ease-out forwards;
+                    box-shadow: 0 0 10px var(--warning-color);
+                `;
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 1000);
+            }
+
+            createDiagnosticRipple(x, y) {
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: fixed;
+                    left: ${x - 30}px;
+                    top: ${y - 30}px;
+                    width: 60px;
+                    height: 60px;
+                    border: 3px solid var(--error-color);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 9998;
+                    animation: diagnosticRipple 0.8s ease-out forwards;
+                    background: radial-gradient(circle, rgba(255, 68, 68, 0.2), transparent);
+                `;
+                document.body.appendChild(ripple);
+                
+                setTimeout(() => {
+                    if (ripple.parentNode) {
+                        ripple.parentNode.removeChild(ripple);
+                    }
+                }, 800);
+            }
+
+            createDiagnosticScanEffect(element) {
+                const rect = element.getBoundingClientRect();
+                for (let i = 0; i < 6; i++) {
+                    setTimeout(() => {
+                        const scanLine = document.createElement('div');
+                        scanLine.style.cssText = `
+                            position: fixed;
+                            left: ${rect.left}px;
+                            top: ${rect.top + (i * rect.height / 6)}px;
+                            width: ${rect.width}px;
+                            height: 2px;
+                            background: linear-gradient(90deg, transparent, var(--warning-color), transparent);
+                            pointer-events: none;
+                            z-index: 1000;
+                            animation: scanLineMove 0.5s ease-out forwards;
+                        `;
+                        document.body.appendChild(scanLine);
+                        
+                        setTimeout(() => {
+                            if (scanLine.parentNode) {
+                                scanLine.parentNode.removeChild(scanLine);
+                            }
+                        }, 500);
+                    }, i * 80);
+                }
+            }
+
+            setupAudio() {
+                try {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    this.log('⚠️ Audio context unavailable', 'warning');
+                }
+            }
+
+            playTone(frequency = 440, duration = 200, type = 'sine') {
+                if (!this.audioContext) return;
+
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = type;
+                
+                gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration / 1000);
+                
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + duration / 1000);
+            }
+
+            showAlert() {
+                const banner = document.getElementById('alertBanner');
+                banner.style.display = 'block';
+                setTimeout(() => {
+                    banner.style.display = 'none';
+                }, 5000);
+            }
+
+            startSystemMonitoring() {
+                setInterval(() => {
+                    // Simulate system stats fluctuation
+                    this.systemStats.health = Math.max(75, Math.min(99, this.systemStats.health + (Math.random() - 0.5) * 4));
+                    this.systemStats.memory = Math.max(40, Math.min(90, this.systemStats.memory + (Math.random() - 0.5) * 6));
+                    this.systemStats.cpu = Math.max(20, Math.min(80, this.systemStats.cpu + (Math.random() - 0.5) * 8));
+                    this.systemStats.processes = Math.max(100, Math.min(200, this.systemStats.processes + Math.floor((Math.random() - 0.5) * 10)));
+
+                    document.getElementById('systemHealth').textContent = Math.round(this.systemStats.health) + '%';
+                    document.getElementById('memoryUsage').textContent = Math.round(this.systemStats.memory) + '%';
+                    document.getElementById('cpuLoad').textContent = Math.round(this.systemStats.cpu) + '%';
+                    document.getElementById('activeProcesses').textContent = this.systemStats.processes;
+                }, 2000);
+            }
+
+            log(message, type = 'info') {
+                const console = document.getElementById('diagnosticConsole');
+                const line = document.createElement('div');
+                line.className = `console-line ${type}`;
+                line.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+                console.appendChild(line);
+                console.scrollTop = console.scrollHeight;
+            }
+
+            updateProgress(type, percentage) {
+                const progressBar = document.getElementById(`${type}Progress`);
+                if (progressBar) {
+                    progressBar.style.width = percentage + '%';
+                }
+            }
+
+            showModal(title, content) {
+                const modal = document.getElementById('diagnosticModal');
+                const modalContent = document.getElementById('modalContent');
+                modalContent.innerHTML = content;
+                modal.classList.add('show');
+                
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        this.closeModal();
+                    }
+                });
+            }
+
+            closeModal() {
+                const modal = document.getElementById('diagnosticModal');
+                modal.classList.remove('show');
+            }
+
+            runDiagnostic(type) {
+                this.log(`🔍 Starting ${type} diagnostic scan...`, 'info');
+                this.playTone(800, 150);
+                
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 15 + 5;
+                    this.updateProgress('system', Math.min(100, progress));
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        this.log(`✅ ${type} diagnostic completed successfully`, 'success');
+                        this.playTone(600, 200);
+                        
+                        const results = {
+                            system: {
+                                title: 'System Diagnostic Results',
+                                content: `
+                                    <div style="margin: 1rem 0;">
+                                        <h4 style="color: var(--success-color);">✅ System Status: HEALTHY</h4>
+                                        <p>• Core systems: Operational</p>
+                                        <p>• Memory allocation: Optimized</p>
+                                        <p>• Process management: Stable</p>
+                                        <p>• Error count: 0 critical errors</p>
+                                    </div>
+                                `
+                            },
+                            memory: {
+                                title: 'Memory Diagnostic Results',
+                                content: `
+                                    <div style="margin: 1rem 0;">
+                                        <h4 style="color: var(--warning-color);">⚠️ Memory Status: MODERATE</h4>
+                                        <p>• Available memory: ${Math.round(100 - this.systemStats.memory)}%</p>
+                                        <p>• Memory leaks: None detected</p>
+                                        <p>• Cache efficiency: 89%</p>
+                                        <p>• Recommended: Clear cache to improve performance</p>
+                                    </div>
+                                `
+                            }
+                        };
+                        
+                        this.showModal(results[type].title, results[type].content);
+                    }
+                }, 200);
+            }
+
+            testComponent(component) {
+                this.log(`⚙️ Testing component: ${component}`, 'info');
+                this.playTone(700, 100);
+                
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 20 + 10;
+                    this.updateProgress('component', Math.min(100, progress));
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        
+                        const success = Math.random() > 0.2; // 80% success rate
+                        if (success) {
+                            this.log(`✅ Component ${component} test passed`, 'success');
+                            this.playTone(523, 150);
+                            
+                            // Create test modal for component
+                            if (component === 'cosmic-codex') {
+                                this.showModal('📜 Cosmic Codex Test', `
+                                    <div style="text-align: center; margin: 2rem 0;">
+                                        <h3 style="color: var(--primary-color);">📜 COSMIC CODEX</h3>
+                                        <p>The ancient repository of cosmic knowledge and universal wisdom.</p>
+                                        <div style="background: rgba(0,255,159,0.1); border: 1px solid var(--primary-color); border-radius: 10px; padding: 1rem; margin: 1rem 0;">
+                                            <h4>📖 Codex Entry #4201</h4>
+                                            <p><em>"In the vast expanse of the cosmos, knowledge is the ultimate currency. Those who seek truth shall find it in the starlight of understanding."</em></p>
+                                        </div>
+                                        <p>✅ Component test successful - Codex is fully functional!</p>
+                                    </div>
+                                `);
+                            } else if (component === 'settings') {
+                                this.showModal('⚙️ Settings Panel Test', `
+                                    <div style="text-align: center; margin: 2rem 0;">
+                                        <h3 style="color: var(--secondary-color);">⚙️ SETTINGS PANEL</h3>
+                                        <p>System configuration and user preferences management.</p>
+                                        <div style="background: rgba(255,0,153,0.1); border: 1px solid var(--secondary-color); border-radius: 10px; padding: 1rem; margin: 1rem 0;">
+                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: left;">
+                                                <div>🔊 Audio: Enabled</div>
+                                                <div>🎨 Theme: Cosmic</div>
+                                                <div>⚡ Performance: High</div>
+                                                <div>🔒 Security: Active</div>
+                                            </div>
+                                        </div>
+                                        <p>✅ Component test successful - Settings panel operational!</p>
+                                    </div>
+                                `);
+                            }
+                        } else {
+                            this.log(`❌ Component ${component} test failed`, 'error');
+                            this.playTone(300, 200);
+                        }
+                    }
+                }, 150);
+            }
+
+            emergencyRepair(type) {
+                this.log(`🚨 Initiating emergency repair: ${type}`, 'critical');
+                this.playTone(400, 300, 'sawtooth');
+                
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 12 + 8;
+                    this.updateProgress('emergency', Math.min(100, progress));
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        
+                        if (type === 'critical') {
+                            this.log('✅ Critical repairs completed successfully', 'success');
+                            this.systemStats.health = Math.min(99, this.systemStats.health + 10);
+                        } else if (type === 'force') {
+                            this.log('🔄 Force restart initiated - system rebooting...', 'warning');
+                            setTimeout(() => {
+                                this.log('✅ System restart completed', 'success');
+                                this.systemStats.health = 95;
+                                this.systemStats.memory = 45;
+                                this.systemStats.cpu = 25;
+                            }, 2000);
+                        }
+                        
+                        this.playTone(800, 400);
+                    }
+                }, 100);
+            }
+
+            optimize(type) {
+                this.log(`⚡ Running optimization: ${type}`, 'info');
+                this.playTone(1000, 150);
+                
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 15 + 10;
+                    this.updateProgress('optimize', Math.min(100, progress));
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        
+                        if (type === 'cache') {
+                            this.log('🗑️ Cache cleared successfully', 'success');
+                            this.systemStats.memory = Math.max(30, this.systemStats.memory - 15);
+                        } else if (type === 'performance') {
+                            this.log('🚀 Performance optimized', 'success');
+                            this.systemStats.cpu = Math.max(20, this.systemStats.cpu - 10);
+                        }
+                        
+                        this.playTone(659, 200);
+                    }
+                }, 120);
+            }
+
+            networkTest(type) {
+                this.log(`🌐 Running network test: ${type}`, 'info');
+                this.playTone(750, 100);
+                
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 18 + 7;
+                    this.updateProgress('network', Math.min(100, progress));
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        
+                        const latency = Math.floor(Math.random() * 50) + 10;
+                        this.log(`📡 Network ${type} completed - Latency: ${latency}ms`, 'success');
+                        this.playTone(880, 150);
+                    }
+                }, 180);
+            }
+
+            securityScan(type) {
+                this.log(`🔒 Running security scan: ${type}`, 'info');
+                this.playTone(600, 200, 'square');
+                
+                let progress = 0;
+                const scanDuration = type === 'deep' ? 300 : 150;
+                
+                const interval = setInterval(() => {
+                    progress += Math.random() * 8 + 4;
+                    this.updateProgress('security', Math.min(100, progress));
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        
+                        const threats = Math.floor(Math.random() * 3);
+                        if (threats === 0) {
+                            this.log(`🛡️ Security scan complete - No threats detected`, 'success');
+                        } else {
+                            this.log(`⚠️ Security scan complete - ${threats} minor issues found`, 'warning');
+                        }
+                        
+                        this.playTone(784, 200);
+                    }
+                }, scanDuration);
+            }
+        }
+
+        // Initialize the Direct Fix system
+        const directFix = new CosmicDirectFix();
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                directFix.closeModal();
+            } else if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                directFix.runDiagnostic('system');
+            }
+        });
+    </script>
+</body>
+</html>

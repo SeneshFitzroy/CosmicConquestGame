@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌌 ULTIMATE COSMIC CONQUEST - Interdimensional Gaming Experience</title>
+    <style>
+        :root {
+            --primary-color: #00ff9f;
+            --secondary-color: #ff0099;
+            --accent-color: #9d00ff;
+            --warning-color: #ffaa00;
+            --success-color: #00ff44;
+            --error-color: #ff4444;
+            --dark-bg: #0a0a0f;
+            --darker-bg: #050508;
+            --card-bg: rgba(20, 20, 40, 0.9);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --neon-glow: 0 0 20px currentColor;
+            --text-gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            cursor: none;
+        }
+
+        /* Advanced Background System */
+        .cosmic-environment {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(157, 0, 255, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 159, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 10%, rgba(255, 0, 153, 0.2) 0%, transparent 60%),
+                linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+        }
+
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(255, 255, 255, 0.8), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: starTwinkle 4s ease-in-out infinite alternate;
+            z-index: -2;
+        }
+
+        @keyframes starTwinkle {
+            from { opacity: 0.6; }
+            to { opacity: 1; }
+        }
+
+        .nebula-clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 30% 70%, rgba(255, 0, 153, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse at 70% 30%, rgba(157, 0, 255, 0.15) 0%, transparent 70%);
+            animation: nebulaFloat 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes nebulaFloat {
+            0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+            33% { transform: translateX(20px) translateY(-10px) scale(1.1); }
+            66% { transform: translateX(-10px) translateY(15px) scale(0.9); }
+        }
+
+        /* Header Section */
+        .cosmic-header {
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .main-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            background: var(--text-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: titlePulse 4s ease-in-out infinite;
+            text-shadow: 0 0 40px rgba(0, 255, 159, 0.5);
+            letter-spacing: 3px;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1) rotateY(0deg); }
+            50% { transform: scale(1.05) rotateY(2deg); }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 3rem;
+            animation: subtitleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtitleGlow {
+            from { text-shadow: 0 0 15px var(--accent-color); }
+            to { text-shadow: 0 0 30px var(--accent-color), 0 0 45px var(--accent-color); }
+        }
+
+        /* Game Container */
+        .game-arena {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Game Board */
+        .board-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 255, 159, 0.2);
+        }
+
+        .board-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: boardScan 3s linear infinite;
+        }
+
+        @keyframes boardScan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .board-tile {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--card-bg), rgba(255, 255, 255, 0.1));
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .board-tile:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 25px rgba(0, 255, 159, 0.4);
+        }
+
+        .board-tile.special {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            animation: specialPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes specialPulse {
+            0%, 100% { box-shadow: 0 0 15px var(--accent-color); }
+            50% { box-shadow: 0 0 30px var(--accent-color), 0 0 45px var(--accent-color); }
+        }
+
+        .board-tile.start {
+            background: linear-gradient(135deg, var(--success-color), var(--primary-color));
+            font-size: 0.9rem;
+        }
+
+        .board-tile.finish {
+            background: linear-gradient(135deg, var(--warning-color), #ff6600);
+            font-size: 0.9rem;
+            animation: finishGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes finishGlow {
+            0%, 100% { box-shadow: 0 0 20px var(--warning-color); }
+            50% { box-shadow: 0 0 40px var(--warning-color), 0 0 60px var(--warning-color); }
+        }
+
+        /* Player Section */
+        .players-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .player-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .player-card.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 30px rgba(0, 255, 159, 0.4);
+            transform: scale(1.02);
+        }
+
+        .player-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 159, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .player-card.active::before {
+            left: 100%;
+        }
+
+        .player-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(0, 255, 159, 0.3);
+            animation: avatarFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes avatarFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .player-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Dice Section */
+        .dice-arena {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--secondary-color);
+            border-radius: 25px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .dice-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .cosmic-dice {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--warning-color), #ff6600);
+            border: 3px solid var(--primary-color);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            animation: diceFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes diceFloat {
+            0%, 100% { transform: rotateX(0deg) rotateY(0deg); }
+            50% { transform: rotateX(10deg) rotateY(10deg); }
+        }
+
+        .cosmic-dice.rolling {
+            animation: diceRoll 1s ease-in-out;
+        }
+
+        @keyframes diceRoll {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            75% { transform: rotate(270deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .roll-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 1.5rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 8px 25px rgba(0, 255, 159, 0.4);
+        }
+
+        .roll-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .roll-button:hover::before {
+            left: 100%;
+        }
+
+        .roll-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0, 255, 159, 0.6);
+        }
+
+        .roll-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Cards Section */
+        .cards-arena {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card-deck {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-deck:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px rgba(157, 0, 255, 0.3);
+        }
+
+        .card-deck h3 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .cosmic-card {
+            width: 150px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--card-bg), rgba(255, 255, 255, 0.1));
+            border: 2px solid var(--accent-color);
+            border-radius: 15px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cosmic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(157, 0, 255, 0.2), transparent);
+            animation: cardShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes cardShimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .cosmic-card:hover {
+            transform: translateY(-10px) rotateY(10deg);
+            box-shadow: 0 15px 30px rgba(157, 0, 255, 0.4);
+        }
+
+        /* Control Panel */
+        .control-panel {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--warning-color);
+            border-radius: 25px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .control-button {
+            background: linear-gradient(45deg, var(--warning-color), #ff6600);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .control-button:hover::before {
+            left: 100%;
+        }
+
+        .control-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 170, 0, 0.4);
+        }
+
+        /* Game Status */
+        .game-status {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .status-text {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Advanced Custom Cursor System */
+        .ultimate-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            mix-blend-mode: screen;
+            transition: transform 0.1s ease;
+        }
+
+        .ultimate-cursor::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: gamingPulse 2s infinite;
+        }
+
+        .ultimate-cursor::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: targetingOrbit 3s linear infinite;
+        }
+
+        @keyframes gamingPulse {
+            0%, 100% { transform: scale(0.8); opacity: 0.4; }
+            50% { transform: scale(1.3); opacity: 0.1; }
+        }
+
+        @keyframes targetingOrbit {
+            0% { transform: rotate(0deg) scale(1); opacity: 0.6; }
+            50% { transform: rotate(180deg) scale(1.1); opacity: 0.3; }
+            100% { transform: rotate(360deg) scale(1); opacity: 0.6; }
+        }
+
+        /* Enhanced Particle System */
+        .gaming-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .gaming-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            animation: gamingFloat 8s ease-in-out infinite;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        @keyframes gamingFloat {
+            0%, 100% { 
+                transform: translateY(100vh) rotate(0deg) scale(0.5); 
+                opacity: 0; 
+                background: var(--primary-color);
+            }
+            10% { 
+                opacity: 1; 
+                background: var(--primary-color);
+            }
+            25% { 
+                background: var(--secondary-color);
+            }
+            50% { 
+                background: var(--accent-color);
+                transform: translateY(50vh) rotate(180deg) scale(1);
+            }
+            75% { 
+                background: var(--warning-color);
+            }
+            90% { 
+                opacity: 1; 
+                background: var(--success-color);
+            }
+            100% { 
+                transform: translateY(-10vh) rotate(360deg) scale(0.5); 
+                opacity: 0; 
+                background: var(--primary-color);
+            }
+        }
+
+        /* Enhanced Background Layers */
+        .aurora-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%, 
+                rgba(0, 255, 159, 0.1) 50%, 
+                transparent 70%
+            );
+            animation: auroraShift 15s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes auroraShift {
+            0%, 100% { transform: translateX(0) skewX(0deg); opacity: 0.3; }
+            33% { transform: translateX(20px) skewX(2deg); opacity: 0.6; }
+            66% { transform: translateX(-10px) skewX(-1deg); opacity: 0.4; }
+        }
+
+        /* Enhanced Hover Effects */
+        .game-button:hover, .ultra-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 255, 159, 0.4), 0 0 30px var(--primary-color);
+            animation: buttonGlow 0.3s ease-in-out;
+        }
+
+        @keyframes buttonGlow {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.3) saturate(1.5); }
+            100% { filter: brightness(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Advanced Custom Cursor -->
+    <div class="ultimate-cursor"></div>
+    
+    <!-- Enhanced Particle System -->
+    <div class="gaming-particles"></div>
+    
+    <!-- Background Layers -->
+    <div class="cosmic-environment"></div>
+    <div class="starfield"></div>
+    <div class="nebula-clouds"></div>
+    <div class="aurora-layer"></div>
+
+    <div class="cosmic-header">
+        <h1 class="main-title">🌌 ULTIMATE COSMIC CONQUEST</h1>
+        <p class="subtitle">Interdimensional Gaming Experience</p>
+    </div>
+
+    <div class="game-arena">
+        <!-- Game Status -->
+        <div class="game-status">
+            <div class="status-text" id="gameStatus">🚀 Welcome to Cosmic Conquest! Player 1's turn to roll the dice.</div>
+        </div>
+
+        <!-- Game Board -->
+        <div class="board-section">
+            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem; font-size: 2rem;">
+                🎯 Cosmic Battle Arena
+            </h2>
+            <div class="game-board" id="gameBoard">
+                <!-- Board tiles will be generated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Players Section -->
+        <div class="players-section">
+            <div class="player-card active" id="player1Card">
+                <div class="player-avatar">P1</div>
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Cosmic Explorer</h3>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="p1Position">0</div>
+                        <div class="stat-label">Position</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="p1Score">0</div>
+                        <div class="stat-label">Score</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="p1Moves">0</div>
+                        <div class="stat-label">Moves</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="p1Cards">0</div>
+                        <div class="stat-label">Cards</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="player-card" id="player2Card">
+                <div class="player-avatar">P2</div>
+                <h3 style="color: var(--secondary-color); margin-bottom: 1rem;">Galactic Warrior</h3>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="p2Position">0</div>
+                        <div class="stat-label">Position</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="p2Score">0</div>
+                        <div class="stat-label">Score</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="p2Moves">0</div>
+                        <div class="stat-label">Moves</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="p2Cards">0</div>
+                        <div class="stat-label">Cards</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dice Section -->
+        <div class="dice-arena">
+            <h2 style="color: var(--secondary-color); margin-bottom: 2rem; font-size: 2rem;">
+                🎲 Quantum Dice Portal
+            </h2>
+            <div class="dice-container">
+                <div class="cosmic-dice" id="diceDisplay">?</div>
+                <button class="roll-button" id="rollDice" onclick="cosmicGame.rollDice()">
+                    🎯 ROLL COSMIC DICE
+                </button>
+            </div>
+        </div>
+
+        <!-- Cards Section -->
+        <div class="cards-arena">
+            <div class="card-deck">
+                <h3>🌟 Cosmic Events</h3>
+                <div class="cosmic-card" id="cosmicCard" onclick="cosmicGame.drawCard('cosmic')">
+                    🌌<br>Draw Card
+                </div>
+                <p style="margin-top: 1rem; color: rgba(255,255,255,0.8);">Special cosmic events that can change the game!</p>
+            </div>
+
+            <div class="card-deck">
+                <h3>⚡ Power Boosts</h3>
+                <div class="cosmic-card" id="powerCard" onclick="cosmicGame.drawCard('power')">
+                    ⚡<br>Draw Card
+                </div>
+                <p style="margin-top: 1rem; color: rgba(255,255,255,0.8);">Powerful abilities to enhance your journey!</p>
+            </div>
+
+            <div class="card-deck">
+                <h3>🎯 Challenge Cards</h3>
+                <div class="cosmic-card" id="challengeCard" onclick="cosmicGame.drawCard('challenge')">
+                    🎯<br>Draw Card
+                </div>
+                <p style="margin-top: 1rem; color: rgba(255,255,255,0.8);">Test your skills with epic challenges!</p>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <button class="control-button" onclick="cosmicGame.resetGame()">
+                🔄 Reset Game
+            </button>
+            <button class="control-button" onclick="cosmicGame.pauseGame()">
+                ⏸️ Pause Game
+            </button>
+            <button class="control-button" onclick="cosmicGame.showRules()">
+                📜 Game Rules
+            </button>
+            <button class="control-button" onclick="cosmicGame.toggleSound()">
+                🔊 Toggle Sound
+            </button>
+            <button class="control-button" onclick="cosmicGame.showStats()">
+                📊 Statistics
+            </button>
+            <button class="control-button" onclick="cosmicGame.saveGame()">
+                💾 Save Game
+            </button>
+        </div>
+    </div>
+
+    <!-- Victory Overlay -->
+    <div class="victory-overlay" id="victoryOverlay">
+        <div class="victory-content">
+            <div class="victory-title">🏆 COSMIC VICTORY! 🏆</div>
+            <p style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 2rem;">
+                Congratulations, <span id="winnerName">Champion</span>!
+            </p>
+            <button class="roll-button" onclick="cosmicGame.resetGame()">
+                🚀 Play Again
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-button" onclick="window.location.href='ULTIMATE-INDEX.html'">
+            🏠 Home
+        </button>
+        <button class="nav-button" onclick="window.location.href='ULTIMATE-LEADERBOARD.html'">
+            🏆 Leaderboard
+        </button>
+        <button class="nav-button" onclick="window.location.href='ULTIMATE-TEST.html'">
+            🧪 Test Lab
+        </button>
+    </div>
+
+    <script>
+        // Enhanced Gaming Cursor System
+        const ultimateCursor = document.querySelector('.ultimate-cursor');
+        let mouseX = 0, mouseY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            ultimateCursor.style.left = mouseX - 10 + 'px';
+            ultimateCursor.style.top = mouseY - 10 + 'px';
+            
+            // Create gaming trail particles
+            if (Math.random() < 0.15) {
+                createGamingTrail(mouseX, mouseY);
+            }
+        });
+
+        // Gaming Trail Effects
+        function createGamingTrail(x, y) {
+            const trail = document.createElement('div');
+            trail.style.cssText = `
+                position: fixed;
+                left: ${x - 3}px;
+                top: ${y - 3}px;
+                width: 6px;
+                height: 6px;
+                background: var(--primary-color);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                animation: trailFade 1s ease-out forwards;
+                box-shadow: 0 0 8px var(--primary-color);
+            `;
+            
+            const keyframes = `
+                @keyframes trailFade {
+                    0% { opacity: 0.8; transform: scale(1); }
+                    100% { opacity: 0; transform: scale(0.3); }
+                }
+            `;
+            
+            if (!document.querySelector('#trail-styles')) {
+                const style = document.createElement('style');
+                style.id = 'trail-styles';
+                style.textContent = keyframes;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 1000);
+        }
+
+        // Enhanced Click Effects
+        document.addEventListener('click', (e) => {
+            createGamingRipple(e.clientX, e.clientY);
+        });
+
+        function createGamingRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: fixed;
+                left: ${x - 25}px;
+                top: ${y - 25}px;
+                width: 50px;
+                height: 50px;
+                border: 2px solid var(--primary-color);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                animation: gamingRipple 0.8s ease-out forwards;
+            `;
+            
+            const rippleKeyframes = `
+                @keyframes gamingRipple {
+                    0% { transform: scale(0.5); opacity: 1; }
+                    100% { transform: scale(3); opacity: 0; }
+                }
+            `;
+            
+            if (!document.querySelector('#ripple-styles')) {
+                const style = document.createElement('style');
+                style.id = 'ripple-styles';
+                style.textContent = rippleKeyframes;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 800);
+        }
+
+        // Enhanced Particle System
+        function createGamingParticles() {
+            const container = document.querySelector('.gaming-particles');
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'gaming-particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+                    
+                    container.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (particle.parentNode) particle.remove();
+                    }, 8000);
+                }, i * 200);
+            }
+        }
+
+        // Hover Particle Effects
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.matches('.game-button, .ultra-button, .board-tile')) {
+                createHoverGamingParticles(e.target);
+            }
+        });
+
+        function createHoverGamingParticles(element) {
+            const rect = element.getBoundingClientRect();
+            
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `
+                        position: fixed;
+                        left: ${rect.left + Math.random() * rect.width}px;
+                        top: ${rect.top + Math.random() * rect.height}px;
+                        width: 4px;
+                        height: 4px;
+                        background: var(--secondary-color);
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 9997;
+                        animation: hoverSparkle 1.5s ease-out forwards;
+                        box-shadow: 0 0 6px var(--secondary-color);
+                    `;
+                    
+                    const sparkleKeyframes = `
+                        @keyframes hoverSparkle {
+                            0% { opacity: 1; transform: translateY(0) scale(1); }
+                            100% { opacity: 0; transform: translateY(-30px) scale(0.3); }
+                        }
+                    `;
+                    
+                    if (!document.querySelector('#sparkle-styles')) {
+                        const style = document.createElement('style');
+                        style.id = 'sparkle-styles';
+                        style.textContent = sparkleKeyframes;
+                        document.head.appendChild(style);
+                    }
+                    
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 1500);
+                }, i * 100);
+            }
+        }
+
+        // Initialize Enhanced Gaming Systems
+        document.addEventListener('DOMContentLoaded', () => {
+            createGamingParticles();
+            
+            // Regenerate particles periodically
+            setInterval(createGamingParticles, 12000);
+        });
+
+        class UltimateCosmicConquest {
+            constructor() {
+                this.currentPlayer = 1;
+                this.gameState = 'playing';
+                this.soundEnabled = true;
+                this.audioContext = null;
+                this.boardSize = 64; // 8x8 grid
+                
+                this.players = {
+                    1: { position: 0, score: 0, moves: 0, cards: 0 },
+                    2: { position: 0, score: 0, moves: 0, cards: 0 }
+                };
+
+                this.specialTiles = [7, 15, 23, 31, 39, 47, 55]; // Special event tiles
+                this.powerTiles = [11, 19, 27, 35, 43, 51]; // Power boost tiles
+                this.challengeTiles = [3, 12, 20, 28, 36, 44, 52, 60]; // Challenge tiles
+
+                this.init();
+            }
+
+            init() {
+                this.setupAudio();
+                this.createBoard();
+                this.updateDisplay();
+                this.playStartSound();
+            }
+
+            setupAudio() {
+                try {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    console.warn('Audio context not available');
+                }
+            }
+
+            playTone(frequency = 440, duration = 200, type = 'sine') {
+                if (!this.audioContext || !this.soundEnabled) return;
+
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = type;
+                
+                gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration / 1000);
+                
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + duration / 1000);
+            }
+
+            playStartSound() {
+                this.playTone(523, 200);
+                setTimeout(() => this.playTone(659, 200), 200);
+                setTimeout(() => this.playTone(784, 300), 400);
+            }
+
+            createBoard() {
+                const board = document.getElementById('gameBoard');
+                board.innerHTML = '';
+
+                for (let i = 0; i < this.boardSize; i++) {
+                    const tile = document.createElement('div');
+                    tile.className = 'board-tile';
+                    tile.id = `tile-${i}`;
+                    
+                    if (i === 0) {
+                        tile.classList.add('start');
+                        tile.innerHTML = '🚀<br>START';
+                    } else if (i === this.boardSize - 1) {
+                        tile.classList.add('finish');
+                        tile.innerHTML = '🏁<br>FINISH';
+                    } else if (this.specialTiles.includes(i)) {
+                        tile.classList.add('special');
+                        tile.innerHTML = `🌟<br>${i}`;
+                    } else if (this.powerTiles.includes(i)) {
+                        tile.classList.add('special');
+                        tile.innerHTML = `⚡<br>${i}`;
+                    } else if (this.challengeTiles.includes(i)) {
+                        tile.classList.add('special');
+                        tile.innerHTML = `🎯<br>${i}`;
+                    } else {
+                        tile.innerHTML = i;
+                    }
+
+                    tile.addEventListener('click', () => this.onTileClick(i));
+                    board.appendChild(tile);
+                }
+            }
+
+            onTileClick(tileIndex) {
+                this.playTone(800, 100);
+                // Add visual feedback
+                const tile = document.getElementById(`tile-${tileIndex}`);
+                tile.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    tile.style.transform = '';
+                }, 200);
+            }
+
+            rollDice() {
+                if (this.gameState !== 'playing') return;
+
+                const diceElement = document.getElementById('diceDisplay');
+                const rollButton = document.getElementById('rollDice');
+                
+                rollButton.disabled = true;
+                diceElement.classList.add('rolling');
+                
+                this.playTone(440, 100);
+                
+                // Animate dice roll
+                let rollCount = 0;
+                const rollInterval = setInterval(() => {
+                    diceElement.textContent = Math.floor(Math.random() * 6) + 1;
+                    rollCount++;
+                    
+                    if (rollCount >= 10) {
+                        clearInterval(rollInterval);
+                        const finalRoll = Math.floor(Math.random() * 6) + 1;
+                        diceElement.textContent = finalRoll;
+                        diceElement.classList.remove('rolling');
+                        
+                        this.movePlayer(finalRoll);
+                        rollButton.disabled = false;
+                    }
+                }, 100);
+            }
+
+            movePlayer(steps) {
+                const player = this.players[this.currentPlayer];
+                const oldPosition = player.position;
+                player.position = Math.min(player.position + steps, this.boardSize - 1);
+                player.moves++;
+
+                this.playTone(659, 150);
+
+                // Animate movement
+                this.animateMovement(oldPosition, player.position);
+
+                // Check for special tile effects
+                this.checkTileEffect(player.position);
+
+                // Check for victory
+                if (player.position >= this.boardSize - 1) {
+                    this.endGame();
+                    return;
+                }
+
+                // Switch players
+                this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+                this.updateDisplay();
+            }
+
+            animateMovement(from, to) {
+                // Add visual trail effect
+                for (let i = from + 1; i <= to; i++) {
+                    setTimeout(() => {
+                        const tile = document.getElementById(`tile-${i}`);
+                        tile.style.background = 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))';
+                        tile.style.transform = 'scale(1.1)';
+                        
+                        setTimeout(() => {
+                            tile.style.background = '';
+                            tile.style.transform = '';
+                        }, 200);
+                    }, (i - from) * 100);
+                }
+            }
+
+            checkTileEffect(position) {
+                if (this.specialTiles.includes(position)) {
+                    this.triggerSpecialEvent();
+                } else if (this.powerTiles.includes(position)) {
+                    this.triggerPowerBoost();
+                } else if (this.challengeTiles.includes(position)) {
+                    this.triggerChallenge();
+                }
+            }
+
+            triggerSpecialEvent() {
+                const events = [
+                    { name: 'Cosmic Boost', effect: 'Move forward 3 spaces!', bonus: 3 },
+                    { name: 'Star Storm', effect: 'Move back 2 spaces!', bonus: -2 },
+                    { name: 'Wormhole', effect: 'Teleport forward 5 spaces!', bonus: 5 },
+                    { name: 'Time Shift', effect: 'Take another turn!', bonus: 0 }
+                ];
+
+                const event = events[Math.floor(Math.random() * events.length)];
+                this.showEventModal('🌟 Cosmic Event', event.name, event.effect);
+                
+                if (event.bonus !== 0) {
+                    const player = this.players[this.currentPlayer];
+                    player.position = Math.max(0, Math.min(player.position + event.bonus, this.boardSize - 1));
+                }
+
+                this.playTone(1047, 300);
+            }
+
+            triggerPowerBoost() {
+                const boosts = [
+                    { name: 'Energy Surge', effect: 'Score doubles this turn!', type: 'score' },
+                    { name: 'Quantum Leap', effect: 'Next roll is doubled!', type: 'dice' },
+                    { name: 'Shield Activation', effect: 'Immune to next penalty!', type: 'protection' },
+                    { name: 'Cosmic Vision', effect: 'See next 3 cards!', type: 'vision' }
+                ];
+
+                const boost = boosts[Math.floor(Math.random() * boosts.length)];
+                this.showEventModal('⚡ Power Boost', boost.name, boost.effect);
+                
+                this.players[this.currentPlayer].score += 10;
+                this.playTone(880, 250);
+            }
+
+            triggerChallenge() {
+                const challenges = [
+                    { name: 'Asteroid Field', effect: 'Navigate carefully! Roll again to proceed.', penalty: 0 },
+                    { name: 'Black Hole', effect: 'Gravity pulls you back!', penalty: -3 },
+                    { name: 'Solar Flare', effect: 'Energy interference! Lose a turn.', penalty: 0 },
+                    { name: 'Alien Encounter', effect: 'Diplomatic mission required!', penalty: -1 }
+                ];
+
+                const challenge = challenges[Math.floor(Math.random() * challenges.length)];
+                this.showEventModal('🎯 Challenge', challenge.name, challenge.effect);
+                
+                if (challenge.penalty < 0) {
+                    const player = this.players[this.currentPlayer];
+                    player.position = Math.max(0, player.position + challenge.penalty);
+                }
+
+                this.playTone(330, 200);
+            }
+
+            drawCard(type) {
+                this.players[this.currentPlayer].cards++;
+                this.playTone(523, 150);
+
+                const cardTypes = {
+                    cosmic: {
+                        title: '🌌 Cosmic Event Card',
+                        cards: [
+                            'Nebula Blessing: Gain 15 points!',
+                            'Meteorite Strike: Move back 2 spaces!',
+                            'Starlight Guidance: Move forward 2 spaces!',
+                            'Galactic Wind: Skip next player\'s turn!'
+                        ]
+                    },
+                    power: {
+                        title: '⚡ Power Boost Card',
+                        cards: [
+                            'Fusion Core: Double your next dice roll!',
+                            'Quantum Tunnel: Teleport to any tile!',
+                            'Energy Shield: Block next penalty!',
+                            'Hyperdrive: Move forward 4 spaces!'
+                        ]
+                    },
+                    challenge: {
+                        title: '🎯 Challenge Card',
+                        cards: [
+                            'Space Pirate Attack: Lose 10 points!',
+                            'Equipment Malfunction: Go back 3 spaces!',
+                            'Cosmic Storm: All players move back 1 space!',
+                            'Gravity Well: Stay in place this turn!'
+                        ]
+                    }
+                };
+
+                const cardData = cardTypes[type];
+                const randomCard = cardData.cards[Math.floor(Math.random() * cardData.cards.length)];
+                
+                this.showEventModal(cardData.title, 'Card Drawn', randomCard);
+                this.updateDisplay();
+            }
+
+            showEventModal(title, subtitle, description) {
+                // Create modal dynamically
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
+                    backdrop-filter: blur(5px);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 5000;
+                `;
+
+                modal.innerHTML = `
+                    <div style="
+                        background: var(--card-bg);
+                        backdrop-filter: blur(20px);
+                        border: 2px solid var(--primary-color);
+                        border-radius: 20px;
+                        padding: 3rem;
+                        max-width: 500px;
+                        text-align: center;
+                        animation: modalZoom 0.3s ease-out;
+                    ">
+                        <h2 style="color: var(--primary-color); margin-bottom: 1rem;">${title}</h2>
+                        <h3 style="color: var(--secondary-color); margin-bottom: 1.5rem;">${subtitle}</h3>
+                        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9);">${description}</p>
+                        <button onclick="this.closest('div').remove()" style="
+                            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+                            border: none;
+                            border-radius: 50px;
+                            color: white;
+                            padding: 1rem 2rem;
+                            font-size: 1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                        ">✅ Continue</button>
+                    </div>
+                `;
+
+                document.body.appendChild(modal);
+
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    if (modal.parentNode) {
+                        modal.remove();
+                    }
+                }, 5000);
+            }
+
+            updateDisplay() {
+                // Update player positions
+                document.getElementById('p1Position').textContent = this.players[1].position;
+                document.getElementById('p2Position').textContent = this.players[2].position;
+                document.getElementById('p1Score').textContent = this.players[1].score;
+                document.getElementById('p2Score').textContent = this.players[2].score;
+                document.getElementById('p1Moves').textContent = this.players[1].moves;
+                document.getElementById('p2Moves').textContent = this.players[2].moves;
+                document.getElementById('p1Cards').textContent = this.players[1].cards;
+                document.getElementById('p2Cards').textContent = this.players[2].cards;
+
+                // Update active player
+                const p1Card = document.getElementById('player1Card');
+                const p2Card = document.getElementById('player2Card');
+                
+                if (this.currentPlayer === 1) {
+                    p1Card.classList.add('active');
+                    p2Card.classList.remove('active');
+                } else {
+                    p2Card.classList.add('active');
+                    p1Card.classList.remove('active');
+                }
+
+                // Update game status
+                const status = document.getElementById('gameStatus');
+                if (this.gameState === 'playing') {
+                    status.textContent = `🚀 Player ${this.currentPlayer}'s turn to roll the cosmic dice!`;
+                }
+            }
+
+            endGame() {
+                this.gameState = 'finished';
+                const winner = this.currentPlayer;
+                
+                document.getElementById('winnerName').textContent = `Player ${winner}`;
+                document.getElementById('victoryOverlay').style.display = 'flex';
+                
+                // Victory sound sequence
+                this.playTone(523, 200);
+                setTimeout(() => this.playTone(659, 200), 200);
+                setTimeout(() => this.playTone(784, 200), 400);
+                setTimeout(() => this.playTone(1047, 500), 600);
+            }
+
+            resetGame() {
+                this.currentPlayer = 1;
+                this.gameState = 'playing';
+                this.players = {
+                    1: { position: 0, score: 0, moves: 0, cards: 0 },
+                    2: { position: 0, score: 0, moves: 0, cards: 0 }
+                };
+                
+                document.getElementById('victoryOverlay').style.display = 'none';
+                document.getElementById('diceDisplay').textContent = '?';
+                
+                this.updateDisplay();
+                this.playStartSound();
+            }
+
+            pauseGame() {
+                this.gameState = this.gameState === 'paused' ? 'playing' : 'paused';
+                const status = document.getElementById('gameStatus');
+                
+                if (this.gameState === 'paused') {
+                    status.textContent = '⏸️ Game Paused - Click Pause again to resume';
+                } else {
+                    this.updateDisplay();
+                }
+                
+                this.playTone(400, 150);
+            }
+
+            showRules() {
+                this.showEventModal(
+                    '📜 Cosmic Conquest Rules',
+                    'How to Play',
+                    `🎯 Objective: Be the first to reach the finish line!<br><br>
+                     🎲 Roll the dice to move forward<br>
+                     🌟 Land on special tiles for events<br>
+                     📝 Draw cards for power-ups and challenges<br>
+                     🏆 First player to tile 63 wins!`
+                );
+            }
+
+            toggleSound() {
+                this.soundEnabled = !this.soundEnabled;
+                this.playTone(this.soundEnabled ? 800 : 400, 150);
+            }
+
+            showStats() {
+                const p1 = this.players[1];
+                const p2 = this.players[2];
+                
+                this.showEventModal(
+                    '📊 Game Statistics',
+                    'Current Game Stats',
+                    `Player 1: ${p1.position} position, ${p1.score} points, ${p1.moves} moves<br>
+                     Player 2: ${p2.position} position, ${p2.score} points, ${p2.moves} moves<br>
+                     Current Turn: Player ${this.currentPlayer}`
+                );
+            }
+
+            saveGame() {
+                const gameData = {
+                    players: this.players,
+                    currentPlayer: this.currentPlayer,
+                    gameState: this.gameState,
+                    timestamp: Date.now()
+                };
+                
+                localStorage.setItem('cosmicConquestSave', JSON.stringify(gameData));
+                this.showEventModal('💾 Game Saved', 'Save Successful', 'Your game has been saved successfully!');
+                this.playTone(659, 200);
+            }
+        }
+
+        // Initialize the game
+        const cosmicGame = new UltimateCosmicConquest();
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                cosmicGame.rollDice();
+            } else if (e.key === 'r' || e.key === 'R') {
+                cosmicGame.resetGame();
+            } else if (e.key === 'p' || e.key === 'P') {
+                cosmicGame.pauseGame();
+            }
+        });
+
+        // Add CSS for modal animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes modalZoom {
+                0% { transform: scale(0.7) rotate(5deg); opacity: 0; }
+                100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
