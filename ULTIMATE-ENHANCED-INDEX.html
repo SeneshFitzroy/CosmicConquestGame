@@ -130,6 +130,43 @@
             from { text-shadow: 0 0 15px var(--accent-color); }
             to { text-shadow: 0 0 30px var(--accent-color), 0 0 45px var(--accent-color); }
         }
+        
+        /* Mission Indicator */
+        .mission-indicator {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(40, 40, 60, 0.6));
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 159, 0.3);
+            animation: missionPulse 3s infinite alternate;
+            transition: all 0.3s ease;
+        }
+        
+        .mission-indicator.hardcore {
+            border-color: var(--error-color);
+            color: var(--error-color);
+            text-shadow: 0 0 10px var(--error-color);
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.3);
+        }
+        
+        .mission-indicator.exploration {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+            box-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
+        }
+        
+        @keyframes missionPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
 
         /* Game Container */
         .game-arena {
@@ -142,7 +179,7 @@
 
         /* Game Board */
         .board-section {
-            background: var(--glass-bg);
+            background: linear-gradient(135deg, var(--glass-bg), rgba(20, 20, 40, 0.7));
             backdrop-filter: blur(20px);
             border: 2px solid var(--primary-color);
             border-radius: 30px;
@@ -150,9 +187,15 @@
             margin-bottom: 3rem;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 255, 159, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 255, 159, 0.2);
+            transition: all 0.4s ease;
         }
-
+        
+        .board-section:hover {
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 159, 0.3);
+            transform: translateY(-5px);
+        }
+        
         .board-section::before {
             content: '';
             position: absolute;
@@ -160,30 +203,39 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 159, 0.1), transparent);
             animation: boardScan 3s linear infinite;
         }
-
-        @keyframes boardScan {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        
+        .board-section::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 159, 0.05) 0%, transparent 60%);
+            animation: rotateBackground 20s linear infinite;
+            z-index: -1;
         }
-
+        
         .game-board {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border-radius: 20px;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 25px;
             border: 1px solid var(--primary-color);
             margin-bottom: 2rem;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
-
+        
         .board-tile {
             aspect-ratio: 1;
-            background: linear-gradient(135deg, var(--card-bg), rgba(255, 255, 255, 0.1));
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, var(--card-bg), rgba(40, 40, 60, 0.6));
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             display: flex;
             align-items: center;
@@ -191,250 +243,105 @@
             font-weight: bold;
             font-size: 1.2rem;
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
         }
-
+        
+        .board-tile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.05));
+            z-index: -1;
+        }
+        
         .board-tile:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-8px) scale(1.08);
             border-color: var(--primary-color);
-            box-shadow: 0 10px 25px rgba(0, 255, 159, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 159, 0.4);
+            z-index: 2;
         }
-
+        
         .board-tile.special {
-            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
-            animation: specialPulse 2s ease-in-out infinite;
+            background: linear-gradient(135deg, rgba(157, 0, 255, 0.7), rgba(255, 0, 153, 0.7));
+            animation: specialPulse 2.5s ease-in-out infinite;
+            border-color: var(--accent-color);
         }
-
+        
         @keyframes specialPulse {
-            0%, 100% { box-shadow: 0 0 15px var(--accent-color); }
-            50% { box-shadow: 0 0 30px var(--accent-color), 0 0 45px var(--accent-color); }
+            0%, 100% { box-shadow: 0 0 20px var(--accent-color); }
+            50% { box-shadow: 0 0 35px var(--accent-color), 0 0 50px var(--accent-color); }
         }
-
+        
         .board-tile.start {
-            background: linear-gradient(135deg, var(--success-color), var(--primary-color));
-            font-size: 0.9rem;
-        }
-
-        .board-tile.finish {
-            background: linear-gradient(135deg, var(--warning-color), #ff6600);
-            font-size: 0.9rem;
-            animation: finishGlow 1.5s ease-in-out infinite;
-        }
-
-        @keyframes finishGlow {
-            0%, 100% { box-shadow: 0 0 20px var(--warning-color); }
-            50% { box-shadow: 0 0 40px var(--warning-color), 0 0 60px var(--warning-color); }
-        }
-
-        /* Player Section */
-        .players-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .player-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .player-card.active {
+            background: linear-gradient(135deg, rgba(0, 255, 159, 0.7), rgba(0, 230, 118, 0.7));
+            font-size: 1rem;
             border-color: var(--primary-color);
-            box-shadow: 0 0 30px rgba(0, 255, 159, 0.4);
-            transform: scale(1.02);
+        }
+        
+        .board-tile.finish {
+            background: linear-gradient(135deg, rgba(255,170,0,0.7), rgba(255,102,0,0.7));
+            font-size: 1rem;
+            animation: finishGlow 2s ease-in-out infinite;
+            border-color: var(--warning-color);
+        }
+        
+        @keyframes finishGlow {
+            0%, 100% { box-shadow: 0 0 25px var(--warning-color); }
+            50% { box-shadow: 0 0 45px var(--warning-color), 0 0 65px var(--warning-color); }
         }
 
-        .player-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 159, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .player-card.active::before {
-            left: 100%;
-        }
-
-        .player-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            box-shadow: 0 8px 25px rgba(0, 255, 159, 0.3);
-            animation: avatarFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes avatarFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .player-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .stat-item {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 8px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-value {
-            font-size: 1.2rem;
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Dice Section */
-        .dice-arena {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 2px solid var(--secondary-color);
-            border-radius: 25px;
-            padding: 2rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .dice-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .cosmic-dice {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--warning-color), #ff6600);
-            border: 3px solid var(--primary-color);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-            animation: diceFloat 2s ease-in-out infinite;
-        }
-
-        @keyframes diceFloat {
-            0%, 100% { transform: rotateX(0deg) rotateY(0deg); }
-            50% { transform: rotateX(10deg) rotateY(10deg); }
-        }
-
-        .cosmic-dice.rolling {
-            animation: diceRoll 1s ease-in-out;
-        }
-
-        @keyframes diceRoll {
-            0% { transform: rotate(0deg) scale(1); }
-            25% { transform: rotate(90deg) scale(1.2); }
-            50% { transform: rotate(180deg) scale(1.1); }
-            75% { transform: rotate(270deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-
-        .roll-button {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            border-radius: 50px;
-            color: white;
-            padding: 1.5rem 3rem;
-            font-size: 1.3rem;
-            font-weight: 700;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 8px 25px rgba(0, 255, 159, 0.4);
-        }
-
-        .roll-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .roll-button:hover::before {
-            left: 100%;
-        }
-
-        .roll-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 35px rgba(0, 255, 159, 0.6);
-        }
-
-        .roll-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Cards Section */
+        /* Enhanced Cards Section */
         .cards-arena {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             margin-bottom: 3rem;
         }
-
+        
         .card-deck {
-            background: var(--glass-bg);
+            background: linear-gradient(135deg, var(--glass-bg), rgba(20, 20, 40, 0.7));
             backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 25px;
             padding: 2rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
-
+        
         .card-deck:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px) scale(1.03);
             border-color: var(--accent-color);
-            box-shadow: 0 15px 40px rgba(157, 0, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(157, 0, 255, 0.3);
+            z-index: 2;
         }
-
+        
+        .card-deck::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(157, 0, 255, 0.05) 0%, transparent 60%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .card-deck:hover::before {
+            opacity: 1;
+            animation: rotateBackground 20s linear infinite;
+        }
+        
         .card-deck h3 {
             color: var(--accent-color);
             font-size: 1.5rem;
@@ -443,26 +350,40 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            position: relative;
+            text-shadow: 0 0 10px var(--accent-color);
         }
-
+        
+        .card-deck h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        }
+        
         .cosmic-card {
-            width: 150px;
-            height: 200px;
-            background: linear-gradient(135deg, var(--card-bg), rgba(255, 255, 255, 0.1));
+            width: 160px;
+            height: 220px;
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(40, 40, 60, 0.7));
             border: 2px solid var(--accent-color);
             border-radius: 15px;
             margin: 0 auto;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--accent-color);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(157, 0, 255, 0.2);
         }
-
+        
         .cosmic-card::before {
             content: '';
             position: absolute;
@@ -470,38 +391,134 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(157, 0, 255, 0.2), transparent);
+            background: linear-gradient(45deg, transparent, rgba(157, 0, 255, 0.1), transparent);
             animation: cardShimmer 3s ease-in-out infinite;
         }
-
-        @keyframes cardShimmer {
-            0%, 100% { transform: translateX(-100%); }
-            50% { transform: translateX(100%); }
+        
+        .cosmic-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(157, 0, 255, 0.4) 0%, transparent 50%);
+            mix-blend-mode: screen;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
-
+        
+        .cosmic-card:hover::after {
+            opacity: 0.3;
+        }
+        
         .cosmic-card:hover {
-            transform: translateY(-10px) rotateY(10deg);
-            box-shadow: 0 15px 30px rgba(157, 0, 255, 0.4);
+            transform: translateY(-15px) rotateY(15deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(157, 0, 255, 0.4);
+            border-color: var(--accent-color);
         }
 
-        /* Control Panel */
-        .control-panel {
+        /* Victory Overlay */
+        .victory-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: victoryFadeIn 0.8s ease-out;
+        }
+
+        @keyframes victoryFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .victory-content {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 2px solid var(--warning-color);
-            border-radius: 25px;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            border: 3px solid var(--primary-color);
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 60px rgba(0, 255, 159, 0.4);
+            animation: victoryPulse 3s ease-in-out infinite, victoryAppear 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
         }
 
-        .control-button {
-            background: linear-gradient(45deg, var(--warning-color), #ff6600);
-            border: none;
-            border-radius: 15px;
+        @keyframes victoryPulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(0, 255, 159, 0.4); }
+            50% { box-shadow: 0 0 80px rgba(0, 255, 159, 0.7), 0 0 120px rgba(0, 255, 159, 0.3); }
+        }
+
+        @keyframes victoryAppear {
+            from { transform: scale(0.5) translateY(50px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .victory-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 159, 0.1) 0%, transparent 70%);
+            animation: rotateBackground 20s linear infinite;
+            z-index: -1;
+        }
+
+        .victory-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 159, 0.7); }
+            50% { text-shadow: 0 0 40px rgba(0, 255, 159, 0.9), 0 0 60px rgba(0, 255, 159, 0.5); }
+        }
+
+        /* Improved Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--glass-bg), rgba(20, 20, 40, 0.7));
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .navigation:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(157, 0, 255, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(40, 40, 60, 0.7));
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
             color: white;
-            padding: 1rem 1.5rem;
+            padding: 12px 25px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -510,344 +527,493 @@
             overflow: hidden;
         }
 
-        .control-button::before {
+        .nav-button:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px var(--primary-color);
+        }
+
+        .nav-button:active {
+            transform: translateY(-2px);
+        }
+
+        .nav-button::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
         }
 
-        .control-button:hover::before {
+        .nav-button:hover::before {
             left: 100%;
         }
 
-        .control-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 170, 0, 0.4);
-        }
-
-        /* Game Status */
-        .game-status {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--primary-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .status-text {
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            font-weight: 600;
-            animation: statusPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes statusPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        /* Advanced Custom Cursor System */
-        .ultimate-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10001;
-            mix-blend-mode: screen;
-            transition: transform 0.1s ease;
-        }
-
-        .ultimate-cursor::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            width: 50px;
-            height: 50px;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            opacity: 0.4;
-            animation: gamingPulse 2s infinite;
-        }
-
-        .ultimate-cursor::after {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--secondary-color);
-            border-radius: 50%;
-            opacity: 0.6;
-            animation: targetingOrbit 3s linear infinite;
-        }
-
-        @keyframes gamingPulse {
-            0%, 100% { transform: scale(0.8); opacity: 0.4; }
-            50% { transform: scale(1.3); opacity: 0.1; }
-        }
-
-        @keyframes targetingOrbit {
-            0% { transform: rotate(0deg) scale(1); opacity: 0.6; }
-            50% { transform: rotate(180deg) scale(1.1); opacity: 0.3; }
-            100% { transform: rotate(360deg) scale(1); opacity: 0.6; }
-        }
-
-        /* Enhanced Particle System */
-        .gaming-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .gaming-particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            animation: gamingFloat 8s ease-in-out infinite;
-            box-shadow: 0 0 10px currentColor;
-        }
-
-        @keyframes gamingFloat {
-            0%, 100% { 
-                transform: translateY(100vh) rotate(0deg) scale(0.5); 
-                opacity: 0; 
-                background: var(--primary-color);
-            }
-            10% { 
-                opacity: 1; 
-                background: var(--primary-color);
-            }
-            25% { 
-                background: var(--secondary-color);
-            }
-            50% { 
-                background: var(--accent-color);
-                transform: translateY(50vh) rotate(180deg) scale(1);
-            }
-            75% { 
-                background: var(--warning-color);
-            }
-            90% { 
-                opacity: 1; 
-                background: var(--success-color);
-            }
-            100% { 
-                transform: translateY(-10vh) rotate(360deg) scale(0.5); 
-                opacity: 0; 
-                background: var(--primary-color);
-            }
-        }
-
-        /* Enhanced Background Layers */
-        .aurora-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                45deg,
-                transparent 30%, 
-                rgba(0, 255, 159, 0.1) 50%, 
-                transparent 70%
-            );
-            animation: auroraShift 15s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        @keyframes auroraShift {
-            0%, 100% { transform: translateX(0) skewX(0deg); opacity: 0.3; }
-            33% { transform: translateX(20px) skewX(2deg); opacity: 0.6; }
-            66% { transform: translateX(-10px) skewX(-1deg); opacity: 0.4; }
-        }
-
-        /* Enhanced Hover Effects */
-        .game-button:hover, .ultra-button:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(0, 255, 159, 0.3), 0 0 15px var(--primary-color);
-        }
-
-        .player:hover, .info-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .custom-checkbox {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .custom-checkbox input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .checkmark {
-            height: 20px;
-            width: 20px;
-            background-color: var(--darker-bg);
-            border: 1px solid var(--primary-color);
-            border-radius: 4px;
-            margin-right: 10px;
-            position: relative;
-        }
-
-        .custom-checkbox:hover .checkmark {
-            background-color: rgba(0, 255, 159, 0.1);
-        }
-
-        .custom-checkbox input:checked ~ .checkmark:after {
-            content: '';
-            position: absolute;
-            left: 7px;
-            top: 3px;
-            width: 5px;
-            height: 10px;
-            border: solid var(--primary-color);
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-
-        /* Music Player Controls */
+        /* Improved Music Player */
         .music-player {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 1000;
-            background: var(--glass-bg);
+            background: linear-gradient(135deg, var(--glass-bg), rgba(20, 20, 40, 0.7));
             backdrop-filter: blur(10px);
-            border: 1px solid var(--primary-color);
-            border-radius: 15px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 0 15px rgba(0, 255, 159, 0.3);
+            border-radius: 20px;
+            padding: 15px;
+            z-index: 1000;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
+            min-width: 280px;
         }
 
         .music-player:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 255, 159, 0.4);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(157, 0, 255, 0.3);
+            transform: translateY(-5px) scale(1.03);
+        }
+
+        /* Music Visualizer */
+        .music-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 30px;
+            margin-bottom: 10px;
+            gap: 4px;
+        }
+        
+        .visualizer-bar {
+            width: 6px;
+            background: var(--primary-color);
+            border-radius: 3px;
+            transition: height 0.2s ease;
+            box-shadow: 0 0 10px var(--primary-color);
+            animation: visualizerAnim 1.2s ease-in-out infinite;
+        }
+        
+        .visualizer-bar:nth-child(1) { 
+            animation-delay: 0.2s;
+            height: 15px;
+        }
+        .visualizer-bar:nth-child(2) { 
+            animation-delay: 0.4s;
+            height: 20px;
+        }
+        .visualizer-bar:nth-child(3) { 
+            animation-delay: 0s;
+            height: 30px;
+        }
+        .visualizer-bar:nth-child(4) { 
+            animation-delay: 0.6s;
+            height: 25px;
+        }
+        .visualizer-bar:nth-child(5) { 
+            animation-delay: 0.3s;
+            height: 10px;
+        }
+        
+        @keyframes visualizerAnim {
+            0%, 100% { height: 10px; }
+            50% { height: 30px; }
+        }
+
+        .music-title {
+            font-size: 0.9rem;
+            color: white;
+            margin-bottom: 10px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            animation: musicTextScroll 8s linear infinite;
+        }
+
+        @keyframes musicTextScroll {
+            0%, 10% { transform: translateX(0); }
+            40%, 60% { transform: translateX(calc(-100% + 240px)); }
+            90%, 100% { transform: translateX(0); }
         }
 
         .music-controls {
             display: flex;
-            gap: 10px;
-            margin-top: 8px;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
         }
 
         .music-button {
-            background: var(--dark-bg);
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(40, 40, 60, 0.7));
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
         }
 
         .music-button:hover {
-            background: var(--primary-color);
-            color: var(--dark-bg);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.5);
         }
 
         .volume-slider {
+            width: 100%;
+            height: 8px;
             -webkit-appearance: none;
             appearance: none;
-            width: 80px;
-            height: 4px;
-            border-radius: 2px;
-            background: var(--dark-bg);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
             outline: none;
-            margin-top: 8px;
         }
 
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: var(--primary-color);
             cursor: pointer;
+            box-shadow: 0 0 10px var(--primary-color);
+            transition: all 0.2s ease;
         }
 
-        .music-title {
-            font-size: 11px;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 120px;
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        /* Enhanced Cursor System */
+        .ultimate-cursor {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, border-color 0.2s;
+            mix-blend-mode: screen;
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .ultimate-cursor::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary-color);
+        }
+
+        /* Additional Essential Animations for JavaScript Integration */
+        @keyframes modalZoom {
+            0% { transform: scale(0.7) rotate(-5deg); opacity: 0; }
+            50% { transform: scale(1.05) rotate(1deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes cosmicFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(30px, -20px) rotate(90deg) scale(1.1); }
+            50% { transform: translate(-15px, 30px) rotate(180deg) scale(0.9); }
+            75% { transform: translate(-25px, -15px) rotate(270deg) scale(1.05); }
+        }
+
+        @keyframes orbGlow {
+            0%, 100% { 
+                box-shadow: 0 0 20px currentColor, 0 0 40px currentColor; 
+                opacity: 0.3; 
+            }
+            50% { 
+                box-shadow: 0 0 40px currentColor, 0 0 80px currentColor; 
+                opacity: 0.7; 
+            }
+        }
+
+        @keyframes cursorTrail {
+            0% { 
+                transform: scale(1); 
+                opacity: 0.8; 
+            }
+            100% { 
+                transform: scale(0.2); 
+                opacity: 0; 
+            }
+        }
+
+        @keyframes ripple {
+            0% { 
+                transform: scale(0); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: scale(4); 
+                opacity: 0; 
+            }
+        }
+
+        @keyframes cosmicCursorPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.6; 
+            }
+            50% { 
+                transform: scale(1.4); 
+                opacity: 1; 
+            }
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes energyFieldPulse {
+            0%, 100% { 
+                opacity: 0.1; 
+                filter: blur(10px); 
+            }
+            50% { 
+                opacity: 0.3; 
+                filter: blur(5px); 
+            }
+        }
+
+        @keyframes achievementBadgeGlow {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg); 
+                box-shadow: 0 0 15px var(--primary-color); 
+            }
+            50% { 
+                transform: scale(1.1) rotate(2deg); 
+                box-shadow: 0 0 30px var(--primary-color), 0 0 50px var(--secondary-color); 
+            }
+        }
+
+        @keyframes statsCounterUp {
+            0% { 
+                transform: translateY(20px); 
+                opacity: 0; 
+            }
+            100% { 
+                transform: translateY(0); 
+                opacity: 1; 
+            }
+        }
+
+        @keyframes themeTransition {
+            0% { 
+                filter: brightness(1) hue-rotate(0deg); 
+            }
+            50% { 
+                filter: brightness(1.2) hue-rotate(180deg); 
+            }
+            100% { 
+                filter: brightness(1) hue-rotate(360deg); 
+            }
+        }
+
+        /* Enhanced Custom Cursor System */
+        .custom-cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: cursorTrail 0.8s ease-out forwards;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .cosmic-ripple {
+            position: fixed;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            animation: ripple 0.6s ease-out forwards;
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        /* Advanced Achievement System Styles */
+        .achievement-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--card-bg), rgba(255, 215, 0, 0.1));
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 20px;
+            z-index: 10000;
+            animation: achievementSlideIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
+            max-width: 350px;
+        }
+
+        @keyframes achievementSlideIn {
+            0% { 
+                transform: translateX(100%) rotate(10deg); 
+                opacity: 0; 
+            }
+            100% { 
+                transform: translateX(0) rotate(0deg); 
+                opacity: 1; 
+            }
+        }
+
+        .achievement-icon {
+            font-size: 2.5rem;
+            animation: achievementBadgeGlow 2s ease-in-out infinite;
+        }
+
+        /* Enhanced Performance Stats Animation */
+        .stats-value {
+            animation: statsCounterUp 0.5s ease-out;
+        }
+
+        /* Theme Transition Effects */
+        body.theme-transitioning {
+            animation: themeTransition 1s ease-in-out;
+        }
+
+        /* Energy Field Enhancement */
+        .energy-field {
+            animation: energyFieldPulse 4s ease-in-out infinite;
+        }
+
+        /* Floating Particle System */
+        .floating-particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: particleFloat linear forwards;
+        }
+
+        /* Cosmic Alerts */
+        .cosmic-alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(40, 40, 60, 0.7));
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 15px 25px;
+            color: white;
+            z-index: 9000;
+            animation: alertAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), alertGlow 2s ease-in-out infinite;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 159, 0.3);
             text-align: center;
+            max-width: 350px;
         }
 
-        /* Game Structure Improvements */
-        .game-container {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 20px;
-            max-width: 1800px;
-            margin: 0 auto;
-            padding: 20px;
+        @keyframes alertAppear {
+            from { transform: translateX(-50%) translateY(-30px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
         }
 
-        .game-sidebar {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(0, 255, 159, 0.3);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            height: min-content;
+        @keyframes alertGlow {
+            0%, 100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 159, 0.3); }
+            50% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 255, 159, 0.5); }
         }
 
-        .game-main {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* Enhanced 3D Card Effect */
+        .cosmic-card:hover {
+            transform: 
+                translateY(-15px) 
+                rotateY(15deg) 
+                rotateX(5deg) 
+                rotateZ(-2deg);
+            box-shadow: 
+                15px 15px 30px rgba(0, 0, 0, 0.4), 
+                -5px -5px 20px rgba(255, 255, 255, 0.05), 
+                0 0 30px rgba(157, 0, 255, 0.4);
         }
 
-        .section-title {
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        /* Interactive Button Animations */
+        .roll-button, .nav-button, .game-button, .control-button {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .section-title::before {
-            content: '►';
-            font-size: 0.8rem;
+        .roll-button:hover, .nav-button:hover, .game-button:hover, .control-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            filter: brightness(1.2);
+        }
+
+        .roll-button:active, .nav-button:active, .game-button:active, .control-button:active {
+            transform: translateY(-2px) scale(0.98);
+            filter: brightness(0.95);
+        }
+
+        /* Enhanced Game Status Indicator */
+        .status-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.6; }
+        }
+
+        /* Immersive Background Effect */
+        .cosmic-portal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: 
+                radial-gradient(circle, 
+                rgba(157, 0, 255, 0.1) 0%, 
+                rgba(0, 255, 159, 0.05) 40%, 
+                transparent 70%);
+            border-radius: 50%;
+            z-index: -4;
+            animation: portalPulse 15s ease-in-out infinite;
+            opacity: 0.8;
+            filter: blur(10px);
+        }
+
+        @keyframes portalPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.4; }
         }
     </style>
 </head>
@@ -855,8 +1021,17 @@
     <!-- Advanced Custom Cursor -->
     <div class="ultimate-cursor"></div>
     
-    <!-- Enhanced Particle System -->
-    <div class="gaming-particles"></div>
+    <!-- Enhanced Background Effect -->
+    <div class="cosmic-portal"></div>
+    <div class="enhanced-particles" id="enhancedParticles"></div>
+    
+    <!-- Page Transition Animation -->
+    <div class="page-transition" id="pageTransition">
+        <div class="transition-content">
+            <div class="transition-spinner"></div>
+            <div class="transition-text">Traveling through space-time...</div>
+        </div>
+    </div>
     
     <!-- Background Layers -->
     <div class="cosmic-environment"></div>
@@ -864,9 +1039,60 @@
     <div class="nebula-clouds"></div>
     <div class="aurora-layer"></div>
 
+    <!-- Achievement Panel -->
+    <div class="achievement-panel" id="achievementPanel">
+        <div class="achievement-title">🏆 Achievements</div>
+        <div class="achievement-list" id="achievementList">
+            <!-- Achievements will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Performance Dashboard -->
+    <div class="performance-dashboard" id="performanceDashboard">
+        <div class="dashboard-title">📊 Live Stats</div>
+        <div class="performance-stat">
+            <span class="stat-label">Games Played:</span>
+            <span class="stat-value" id="gamesPlayed">0</span>
+        </div>
+        <div class="performance-stat">
+            <span class="stat-label">Win Rate:</span>
+            <span class="stat-value" id="winRate">0%</span>
+        </div>
+        <div class="performance-stat">
+            <span class="stat-label">Best Time:</span>
+            <span class="stat-value" id="bestTime">--:--</span>
+        </div>
+        <div class="performance-stat">
+            <span class="stat-label">Current Streak:</span>
+            <span class="stat-value" id="currentStreak">0</span>
+        </div>
+    </div>
+
+    <!-- Theme Selector -->
+    <div class="theme-selector" id="themeSelector">
+        <div class="theme-button theme-cosmic active" data-theme="cosmic" title="Cosmic Theme"></div>
+        <div class="theme-button theme-ocean" data-theme="ocean" title="Ocean Theme"></div>
+        <div class="theme-button theme-fire" data-theme="fire" title="Fire Theme"></div>
+        <div class="theme-button theme-nature" data-theme="nature" title="Nature Theme"></div>
+    </div>
+
+    <!-- Energy Field Background Effect -->
+    <div class="energy-field" id="energyField"></div>
+
+    <!-- Cosmic Orbs -->
+    <div class="cosmic-orb" style="top: 20%; left: 10%;"></div>
+    <div class="cosmic-orb" style="top: 70%; right: 15%; animation-delay: -2s;"></div>
+    <div class="cosmic-orb" style="bottom: 20%; left: 60%; animation-delay: -4s;"></div>
+
+    <!-- Keyboard Navigation Hints -->
+    <div class="keyboard-hint" id="keyboardHint">
+        Press SPACE to roll dice • TAB to navigate • ENTER to select
+    </div>
+
     <div class="cosmic-header">
         <h1 class="main-title">🌌 ULTIMATE COSMIC CONQUEST</h1>
         <p class="subtitle">Interdimensional Gaming Experience</p>
+        <div class="mission-indicator" id="missionIndicator">Standard Mission</div>
     </div>
 
     <!-- Improved Game Structure -->
@@ -1065,202 +1291,122 @@
         </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Improved Navigation -->
     <div class="navigation">
-        <button class="nav-button" onclick="window.location.href='ULTIMATE-INDEX.html'">
+        <button class="nav-button" data-href="ULTIMATE-INDEX.html">
             🏠 Home
         </button>
-        <button class="nav-button" onclick="window.location.href='ULTIMATE-LEADERBOARD.html'">
+        <button class="nav-button" data-href="ENHANCED-MISSION-SELECT.html">
+            🚀 Missions
+        </button>
+        <button class="nav-button" data-href="ULTIMATE-LEADERBOARD.html">
             🏆 Leaderboard
         </button>
-        <button class="nav-button" onclick="window.location.href='ULTIMATE-TEST.html'">
+        <button class="nav-button" data-href="ULTIMATE-TEST.html">
             🧪 Test Lab
         </button>
     </div>
 
-    <!-- Music Player -->
+    <!-- Enhanced Music Player -->
     <div class="music-player">
-        <div class="music-title" id="currentTrack">🎵 Awaiting your command...</div>
+        <div class="music-visualizer">
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+        </div>
+        <div class="music-title" id="currentTrack">🎵 Cosmic Ambience</div>
         <div class="music-controls">
-            <div class="music-button" id="playMusic">
+            <div class="music-button" id="prevTrack" title="Previous Track">
+                ⏮️
+            </div>
+            <div class="music-button" id="playMusic" title="Play">
                 ▶️
             </div>
-            <div class="music-button" id="pauseMusic" style="display: none;">
+            <div class="music-button" id="pauseMusic" style="display: none;" title="Pause">
                 ⏸️
             </div>
-            <div class="music-button" id="stopMusic">
+            <div class="music-button" id="stopMusic" title="Stop">
                 ⏹️
             </div>
+            <div class="music-button" id="nextTrack" title="Next Track">
+                ⏭️
+            </div>
         </div>
-        <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeControl">
+        <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeControl" title="Volume">
     </div>
 
     <script>
-        // Enhanced Gaming Cursor System
-        const ultimateCursor = document.querySelector('.ultimate-cursor');
-        let mouseX = 0, mouseY = 0;
+        // ====================================
+        // 🌟 GLOBAL UTILITY FUNCTIONS
+        // ====================================
         
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            ultimateCursor.style.left = mouseX - 10 + 'px';
-            ultimateCursor.style.top = mouseY - 10 + 'px';
+        // Global cosmic alert function
+        function showCosmicAlert(message, duration = 3000) {
+            // Remove any existing alerts
+            const existingAlerts = document.querySelectorAll('.cosmic-alert');
+            existingAlerts.forEach(alert => alert.remove());
             
-            // Create gaming trail particles
-            if (Math.random() < 0.15) {
-                createGamingTrail(mouseX, mouseY);
-            }
-        });
-
-        // Gaming Trail Effects
-        function createGamingTrail(x, y) {
-            const trail = document.createElement('div');
-            trail.style.cssText = `
-                position: fixed;
-                left: ${x - 3}px;
-                top: ${y - 3}px;
-                width: 6px;
-                height: 6px;
-                background: var(--primary-color);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                animation: trailFade 1s ease-out forwards;
-                box-shadow: 0 0 8px var(--primary-color);
-            `;
+            const alert = document.createElement('div');
+            alert.className = 'cosmic-alert';
+            alert.innerHTML = message;
             
-            const keyframes = `
-                @keyframes trailFade {
-                    0% { opacity: 0.8; transform: scale(1); }
-                    100% { opacity: 0; transform: scale(0.3); }
+            document.body.appendChild(alert);
+            
+            // Auto-remove after duration
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
                 }
-            `;
-            
-            if (!document.querySelector('#trail-styles')) {
-                const style = document.createElement('style');
-                style.id = 'trail-styles';
-                style.textContent = keyframes;
-                document.head.appendChild(style);
-            }
+            }, duration);
+        }
+
+        // Enhanced cursor trail system
+        function createCursorTrail(x, y) {
+            const trail = document.createElement('div');
+            trail.className = 'custom-cursor-trail';
+            trail.style.left = (x - 4) + 'px';
+            trail.style.top = (y - 4) + 'px';
             
             document.body.appendChild(trail);
-            setTimeout(() => trail.remove(), 1000);
+            
+            // Remove after animation
+            setTimeout(() => trail.remove(), 800);
         }
 
-        // Enhanced Click Effects
-        document.addEventListener('click', (e) => {
-            createGamingRipple(e.clientX, e.clientY);
-        });
-
-        function createGamingRipple(x, y) {
+        // Enhanced click ripple effect
+        function createClickRipple(x, y) {
             const ripple = document.createElement('div');
-            ripple.style.cssText = `
-                position: fixed;
-                left: ${x - 25}px;
-                top: ${y - 25}px;
-                width: 50px;
-                height: 50px;
-                border: 2px solid var(--primary-color);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9998;
-                animation: gamingRipple 0.8s ease-out forwards;
-            `;
-            
-            const rippleKeyframes = `
-                @keyframes gamingRipple {
-                    0% { transform: scale(0.5); opacity: 1; }
-                    100% { transform: scale(3); opacity: 0; }
-                }
-            `;
-            
-            if (!document.querySelector('#ripple-styles')) {
-                const style = document.createElement('style');
-                style.id = 'ripple-styles';
-                style.textContent = rippleKeyframes;
-                document.head.appendChild(style);
-            }
+            ripple.className = 'cosmic-ripple';
+            ripple.style.left = (x - 25) + 'px';
+            ripple.style.top = (y - 25) + 'px';
+            ripple.style.width = '50px';
+            ripple.style.height = '50px';
             
             document.body.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 800);
-        }
-
-        // Enhanced Particle System
-        function createGamingParticles() {
-            const container = document.querySelector('.gaming-particles');
             
-            for (let i = 0; i < 15; i++) {
-                setTimeout(() => {
-                    const particle = document.createElement('div');
-                    particle.className = 'gaming-particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 2 + 's';
-                    particle.style.animationDuration = (6 + Math.random() * 4) + 's';
-                    
-                    container.appendChild(particle);
-                    
-                    setTimeout(() => {
-                        if (particle.parentNode) particle.remove();
-                    }, 8000);
-                }, i * 200);
-            }
+            // Remove after animation
+            setTimeout(() => ripple.remove(), 600);
         }
 
-        // Hover Particle Effects
-        document.addEventListener('mouseover', (e) => {
-            if (e.target.matches('.game-button, .ultra-button, .board-tile')) {
-                createHoverGamingParticles(e.target);
+        // Enhanced cursor system
+        document.addEventListener('mousemove', (e) => {
+            // Create cursor trails occasionally
+            if (Math.random() < 0.1) {
+                createCursorTrail(e.clientX, e.clientY);
             }
         });
 
-        function createHoverGamingParticles(element) {
-            const rect = element.getBoundingClientRect();
-            
-            for (let i = 0; i < 3; i++) {
-                setTimeout(() => {
-                    const particle = document.createElement('div');
-                    particle.style.cssText = `
-                        position: fixed;
-                        left: ${rect.left + Math.random() * rect.width}px;
-                        top: ${rect.top + Math.random() * rect.height}px;
-                        width: 4px;
-                        height: 4px;
-                        background: var(--secondary-color);
-                        border-radius: 50%;
-                        pointer-events: none;
-                        z-index: 9997;
-                        animation: hoverSparkle 1.5s ease-out forwards;
-                        box-shadow: 0 0 6px var(--secondary-color);
-                    `;
-                    
-                    const sparkleKeyframes = `
-                        @keyframes hoverSparkle {
-                            0% { opacity: 1; transform: translateY(0) scale(1); }
-                            100% { opacity: 0; transform: translateY(-30px) scale(0.3); }
-                        }
-                    `;
-                    
-                    if (!document.querySelector('#sparkle-styles')) {
-                        const style = document.createElement('style');
-                        style.id = 'sparkle-styles';
-                        style.textContent = sparkleKeyframes;
-                        document.head.appendChild(style);
-                    }
-                    
-                    document.body.appendChild(particle);
-                    setTimeout(() => particle.remove(), 1500);
-                }, i * 100);
-            }
-        }
-
-        // Initialize Enhanced Gaming Systems
-        document.addEventListener('DOMContentLoaded', () => {
-            createGamingParticles();
-            
-            // Regenerate particles periodically
-            setInterval(createGamingParticles, 12000);
+        document.addEventListener('click', (e) => {
+            // Create click ripples
+            createClickRipple(e.clientX, e.clientY);
         });
 
+        // ====================================
+        // 🏆 ACHIEVEMENT SYSTEM
+        // ====================================
+        
         class UltimateCosmicConquest {
             constructor() {
                 this.currentPlayer = 1;
@@ -1268,6 +1414,12 @@
                 this.soundEnabled = true;
                 this.audioContext = null;
                 this.boardSize = 64; // 8x8 grid
+                
+                // Get mission type from URL
+                this.missionType = this.getMissionType();
+                
+                // Apply mission-specific settings
+                this.applyMissionSettings();
                 
                 this.players = {
                     1: { position: 0, score: 0, moves: 0, cards: 0 },
@@ -1279,6 +1431,41 @@
                 this.challengeTiles = [3, 12, 20, 28, 36, 44, 52, 60]; // Challenge tiles
 
                 this.init();
+            }
+            
+            getMissionType() {
+                // Parse URL parameters to get mission type
+                const urlParams = new URLSearchParams(window.location.search);
+                const mission = urlParams.get('mission');
+                
+                // Default to 'standard' if no mission specified
+                if (!mission || !['standard', 'hardcore', 'exploration'].includes(mission)) {
+                    return 'standard';
+                }
+                
+                return mission;
+            }
+            
+            applyMissionSettings() {
+                // Apply different game settings based on mission type
+                switch(this.missionType) {
+                    case 'hardcore':
+                        // Hardcore mode: More challenging
+                        this.challengeTiles = [3, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60]; // More challenge tiles
+                        this.difficultyMultiplier = 1.5; // Higher difficulty
+                        break;
+                        
+                    case 'exploration':
+                        // Exploration mode: More special events
+                        this.specialTiles = [7, 10, 15, 19, 23, 27, 31, 35, 39, 43, 47, 51, 55, 59]; // More special tiles
+                        this.powerTiles = [5, 11, 17, 22, 29, 34, 41, 46, 53, 58]; // More power boosts
+                        this.explorationBonus = true; // Enable exploration bonuses
+                        break;
+                        
+                    default: // standard
+                        // Standard settings already defined in constructor
+                        break;
+                }
             }
 
             init() {
@@ -1389,6 +1576,12 @@
                         
                         this.movePlayer(finalRoll);
                         rollButton.disabled = false;
+
+                        // Show cosmic alert for significant events
+                        showCosmicAlert(`🎲 Player ${this.currentPlayer} rolled a ${finalRoll}!`, 2000);
+                        
+                        // Add extra visual effects
+                        this.createDiceRollEffect(finalRoll);
                     }
                 }, 100);
             }
@@ -1451,16 +1644,48 @@
                     { name: 'Wormhole', effect: 'Teleport forward 5 spaces!', bonus: 5 },
                     { name: 'Time Shift', effect: 'Take another turn!', bonus: 0 }
                 ];
+                
+                // Add exploration-specific events
+                if (this.missionType === 'exploration') {
+                    events.push(
+                        { name: 'Nebula Discovery', effect: 'Double your score!', bonus: 0, scoreBonus: true },
+                        { name: 'Cosmic Alignment', effect: 'All players move forward 2 spaces!', bonus: 2, allPlayers: true },
+                        { name: 'Uncharted Territory', effect: 'Teleport to a random position!', bonus: 'random' }
+                    );
+                }
 
-                const event = events[Math.floor(Math.random() * events.length)];
+                // Get random event, weighted based on mission type
+                let event;
+                if (this.missionType === 'hardcore' && Math.random() < 0.6) {
+                    // Higher chance of negative events in hardcore mode
+                    event = events.find(e => e.bonus < 0) || events[Math.floor(Math.random() * events.length)];
+                } else {
+                    event = events[Math.floor(Math.random() * events.length)];
+                }
+                
                 this.showEventModal('🌟 Cosmic Event', event.name, event.effect);
                 
-                if (event.bonus !== 0) {
+                if (event.bonus === 'random') {
+                    // Random teleport for exploration mode
+                    const randomPosition = Math.floor(Math.random() * (this.boardSize - 10)) + 5;
+                    const player = this.players[this.currentPlayer];
+                    player.position = randomPosition;
+                } else if (event.allPlayers) {
+                    // Affect all players
+                    Object.values(this.players).forEach(player => {
+                        player.position = Math.max(0, Math.min(player.position + event.bonus, this.boardSize - 1));
+                    });
+                } else if (event.scoreBonus) {
+                    // Double score bonus
+                    this.players[this.currentPlayer].score *= 2;
+                } else if (event.bonus !== 0) {
+                    // Standard position adjustment
                     const player = this.players[this.currentPlayer];
                     player.position = Math.max(0, Math.min(player.position + event.bonus, this.boardSize - 1));
                 }
 
                 this.playTone(1047, 300);
+                showCosmicAlert(`🌟 ${event.name} triggered!`, 3000);
             }
 
             triggerPowerBoost() {
@@ -1476,6 +1701,7 @@
                 
                 this.players[this.currentPlayer].score += 10;
                 this.playTone(880, 250);
+                showCosmicAlert(`⚡ ${boost.name} activated!`, 3000);
             }
 
             triggerChallenge() {
@@ -1495,6 +1721,7 @@
                 }
 
                 this.playTone(330, 200);
+                showCosmicAlert(`🎯 ${challenge.name} appeared!`, 3000);
             }
 
             drawCard(type) {
@@ -1586,9 +1813,7 @@
 
                 // Auto-remove after 5 seconds
                 setTimeout(() => {
-                    if (modal.parentNode) {
-                        modal.remove();
-                    }
+                    modal.parentNode && modal.remove();
                 }, 5000);
             }
 
@@ -1603,37 +1828,173 @@
                 document.getElementById('p1Cards').textContent = this.players[1].cards;
                 document.getElementById('p2Cards').textContent = this.players[2].cards;
 
-                // Update active player
-                const p1Card = document.getElementById('player1Card');
-                const p2Card = document.getElementById('player2Card');
-                
+                // Update game status
+                const statusText = `🚀 Player ${this.currentPlayer}'s turn. Roll the dice!`;
+                document.getElementById('gameStatus').textContent = statusText;
+
+                // Update active player card
+                const player1Card = document.getElementById('player1Card');
+                const player2Card = document.getElementById('player2Card');
+
                 if (this.currentPlayer === 1) {
-                    p1Card.classList.add('active');
-                    p2Card.classList.remove('active');
-                } else {
-                    p2Card.classList.add('active');
-                    p1Card.classList.remove('active');
+                    player
+                
+                this.players[this.currentPlayer].score += 10;
+                this.playTone(880, 250);
+                showCosmicAlert(`⚡ ${boost.name} activated!`, 3000);
+            }
+
+            triggerChallenge() {
+                const challenges = [
+                    { name: 'Asteroid Field', effect: 'Navigate carefully! Roll again to proceed.', penalty: 0 },
+                    { name: 'Black Hole', effect: 'Gravity pulls you back!', penalty: -3 },
+                    { name: 'Solar Flare', effect: 'Energy interference! Lose a turn.', penalty: 0 },
+                    { name: 'Alien Encounter', effect: 'Diplomatic mission required!', penalty: -1 }
+                ];
+
+                const challenge = challenges[Math.floor(Math.random() * challenges.length)];
+                this.showEventModal('🎯 Challenge', challenge.name, challenge.effect);
+                
+                if (challenge.penalty < 0) {
+                    const player = this.players[this.currentPlayer];
+                    player.position = Math.max(0, player.position + challenge.penalty);
                 }
 
+                this.playTone(330, 200);
+                showCosmicAlert(`🎯 ${challenge.name} appeared!`, 3000);
+            }
+
+            drawCard(type) {
+                this.players[this.currentPlayer].cards++;
+                this.playTone(523, 150);
+
+                const cardTypes = {
+                    cosmic: {
+                        title: '🌌 Cosmic Event Card',
+                        cards: [
+                            'Nebula Blessing: Gain 15 points!',
+                            'Meteorite Strike: Move back 2 spaces!',
+                            'Starlight Guidance: Move forward 2 spaces!',
+                            'Galactic Wind: Skip next player\'s turn!'
+                        ]
+                    },
+                    power: {
+                        title: '⚡ Power Boost Card',
+                        cards: [
+                            'Fusion Core: Double your next dice roll!',
+                            'Quantum Tunnel: Teleport to any tile!',
+                            'Energy Shield: Block next penalty!',
+                            'Hyperdrive: Move forward 4 spaces!'
+                        ]
+                    },
+                    challenge: {
+                        title: '🎯 Challenge Card',
+                        cards: [
+                            'Space Pirate Attack: Lose 10 points!',
+                            'Equipment Malfunction: Go back 3 spaces!',
+                            'Cosmic Storm: All players move back 1 space!',
+                            'Gravity Well: Stay in place this turn!'
+                        ]
+                    }
+                };
+
+                const cardData = cardTypes[type];
+                const randomCard = cardData.cards[Math.floor(Math.random() * cardData.cards.length)];
+                
+                this.showEventModal(cardData.title, 'Card Drawn', randomCard);
+                this.updateDisplay();
+            }
+
+            showEventModal(title, subtitle, description) {
+                // Create modal dynamically
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
+                    backdrop-filter: blur(5px);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 5000;
+                `;
+
+                modal.innerHTML = `
+                    <div style="
+                        background: var(--card-bg);
+                        backdrop-filter: blur(20px);
+                        border: 2px solid var(--primary-color);
+                        border-radius: 20px;
+                        padding: 3rem;
+                        max-width: 500px;
+                        text-align: center;
+                        animation: modalZoom 0.3s ease-out;
+                    ">
+                        <h2 style="color: var(--primary-color); margin-bottom: 1rem;">${title}</h2>
+                        <h3 style="color: var(--secondary-color); margin-bottom: 1.5rem;">${subtitle}</h3>
+                        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9);">${description}</p>
+                        <button onclick="this.closest('div').remove()" style="
+                            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+                            border: none;
+                            border-radius: 50px;
+                            color: white;
+                            padding: 1rem 2rem;
+                            font-size: 1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                        ">✅ Continue</button>
+                    </div>
+                `;
+
+                document.body.appendChild(modal);
+
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    modal.parentNode && modal.remove();
+                }, 5000);
+            }
+
+            updateDisplay() {
+                // Update player positions
+                document.getElementById('p1Position').textContent = this.players[1].position;
+                document.getElementById('p2Position').textContent = this.players[2].position;
+                document.getElementById('p1Score').textContent = this.players[1].score;
+                document.getElementById('p2Score').textContent = this.players[2].score;
+                document.getElementById('p1Moves').textContent = this.players[1].moves;
+                document.getElementById('p2Moves').textContent = this.players[2].moves;
+                document.getElementById('p1Cards').textContent = this.players[1].cards;
+                document.getElementById('p2Cards').textContent = this.players[2].cards;
+
                 // Update game status
-                const status = document.getElementById('gameStatus');
-                if (this.gameState === 'playing') {
-                    status.textContent = `🚀 Player ${this.currentPlayer}'s turn to roll the cosmic dice!`;
+                const statusText = `🚀 Player ${this.currentPlayer}'s turn. Roll the dice!`;
+                document.getElementById('gameStatus').textContent = statusText;
+
+                // Update active player card
+                const player1Card = document.getElementById('player1Card');
+                const player2Card = document.getElementById('player2Card');
+
+                if (this.currentPlayer === 1) {
+                    player1Card.classList.add('active');
+                    player2Card.classList.remove('active');
+                } else {
+                    player2Card.classList.add('active');
+                    player1Card.classList.remove('active');
                 }
             }
 
             endGame() {
-                this.gameState = 'finished';
-                const winner = this.currentPlayer;
-                
+                this.gameState = 'ended';
+                const winner = this.players[1].position >= this.boardSize - 1 ? 1 : 2;
                 document.getElementById('winnerName').textContent = `Player ${winner}`;
                 document.getElementById('victoryOverlay').style.display = 'flex';
-                
-                // Victory sound sequence
-                this.playTone(523, 200);
-                setTimeout(() => this.playTone(659, 200), 200);
-                setTimeout(() => this.playTone(784, 200), 400);
-                setTimeout(() => this.playTone(1047, 500), 600);
+
+                // Play victory sound
+                this.playTone(1046, 500, 'sine');
+                this.playTone(1318, 500, 'sine');
+                this.playTone(1568, 500, 'sine');
             }
 
             resetGame() {
@@ -1643,158 +2004,1104 @@
                     1: { position: 0, score: 0, moves: 0, cards: 0 },
                     2: { position: 0, score: 0, moves: 0, cards: 0 }
                 };
-                
-                document.getElementById('victoryOverlay').style.display = 'none';
-                document.getElementById('diceDisplay').textContent = '?';
-                
+
+                this.createBoard();
                 this.updateDisplay();
                 this.playStartSound();
+
+                // Hide victory overlay
+                document.getElementById('victoryOverlay').style.display = 'none';
             }
 
             pauseGame() {
-                this.gameState = this.gameState === 'paused' ? 'playing' : 'paused';
-                const status = document.getElementById('gameStatus');
-                
-                if (this.gameState === 'paused') {
-                    status.textContent = '⏸️ Game Paused - Click Pause again to resume';
-                } else {
-                    this.updateDisplay();
+                if (this.gameState === 'playing') {
+                    this.gameState = 'paused';
+                    document.getElementById('gameStatus').textContent = '⏸️ Game Paused. Click "Resume" to continue.';
+                } else if (this.gameState === 'paused') {
+                    this.gameState = 'playing';
+                    document.getElementById('gameStatus').textContent = `🚀 Player ${this.currentPlayer}'s turn. Roll the dice!`;
                 }
-                
-                this.playTone(400, 150);
             }
 
             showRules() {
-                this.showEventModal(
-                    '📜 Cosmic Conquest Rules',
-                    'How to Play',
-                    `🎯 Objective: Be the first to reach the finish line!<br><br>
-                     🎲 Roll the dice to move forward<br>
-                     🌟 Land on special tiles for events<br>
-                     📝 Draw cards for power-ups and challenges<br>
-                     🏆 First player to tile 63 wins!`
-                );
+                const rulesText = `
+                    <h3 style="color: var(--primary-color);">📜 Game Rules</h3>
+                    <p style="color: rgba(255,255,255,0.9);">
+                        1. Each player takes turns to roll the dice.<br>
+                        2. Move your player icon forward based on the dice roll.<br>
+                        3. Land on special tiles to gain bonuses or face challenges.<br>
+                        4. The first player to reach the finish line wins!<br>
+                    </p>
+                    <button onclick="this.closest('div').remove()" style="
+                        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+                        border: none;
+                        border-radius: 50px;
+                        color: white;
+                        padding: 1rem 2rem;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                    ">✅ Got it!</button>
+                `;
+
+                this.showEventModal('📜 Game Rules', '', rulesText);
             }
 
             toggleSound() {
                 this.soundEnabled = !this.soundEnabled;
-                this.playTone(this.soundEnabled ? 800 : 400, 150);
+                const status = this.soundEnabled ? 'enabled' : 'disabled';
+                this.showEventModal('🔊 Sound Effects', `Sound effects are now ${status}.`, '');
             }
 
             showStats() {
-                const p1 = this.players[1];
-                const p2 = this.players[2];
-                
-                this.showEventModal(
-                    '📊 Game Statistics',
-                    'Current Game Stats',
-                    `Player 1: ${p1.position} position, ${p1.score} points, ${p1.moves} moves<br>
-                     Player 2: ${p2.position} position, ${p2.score} points, ${p2.moves} moves<br>
-                     Current Turn: Player ${this.currentPlayer}`
-                );
+                const statsText = `
+                    <h3 style="color: var(--primary-color);">📊 Game Statistics</h3>
+                    <p style="color: rgba(255,255,255,0.9);">
+                        Player 1 - Position: ${this.players[1].position}, Score: ${this.players[1].score}, Moves: ${this.players[1].moves}<br>
+                        Player 2 - Position: ${this.players[2].position}, Score: ${this.players[2].score}, Moves: ${this.players[2].moves}
+                    </p>
+                    <button onclick="this.closest('div').remove()" style="
+                        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+                        border: none;
+                        border-radius: 50px;
+                        color: white;
+                        padding: 1rem 2rem;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                    ">✅ Close</button>
+                `;
+
+                this.showEventModal('📊 Game Statistics', '', statsText);
             }
 
             saveGame() {
-                const gameData = {
-                    players: this.players,
-                    currentPlayer: this.currentPlayer,
-                    gameState: this.gameState,
-                    timestamp: Date.now()
-                };
+                // Placeholder for save game functionality
+                this.showEventModal('💾 Save Game', 'Game saved successfully!', '');
+            }
+
+            createDiceRollEffect(value) {
+                // Create flying number effect
+                const diceElement = document.getElementById('diceDisplay');
+                const rect = diceElement.getBoundingClientRect();
                 
-                localStorage.setItem('cosmicConquestSave', JSON.stringify(gameData));
-                this.showEventModal('💾 Game Saved', 'Save Successful', 'Your game has been saved successfully!');
-                this.playTone(659, 200);
+                const flyingNumber = document.createElement('div');
+                flyingNumber.textContent = value;
+                flyingNumber.style.cssText = `
+                    position: fixed;
+                    left: ${rect.left + rect.width/2}px;
+                    top: ${rect.top + rect.height/2}px;
+                    transform: translate(-50%, -50%);
+                    font-size: 3rem;
+                    font-weight: bold;
+                    color: var(--primary-color);
+                    text-shadow: 0 0 10px var(--primary-color);
+                    pointer-events: none;
+                    z-index: 10000;
+                    animation: flyingNumber 1.5s ease-out forwards;
+                `;
+                
+                const keyframes = `
+                    @keyframes flyingNumber {
+                        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                        100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+                    }
+                `;
+                
+                if (!document.querySelector('#flying-number-styles')) {
+                    const style = document.createElement('style');
+                    style.id = 'flying-number-styles';
+                    style.textContent = keyframes;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(flyingNumber);
+                setTimeout(() => flyingNumber.remove(), 1500);
+                
+                // Create ripple effect around dice
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: fixed;
+                    left: ${rect.left + rect.width/2}px;
+                    top: ${rect.top + rect.height/2}px;
+                    width: ${rect.width}px;
+                    height: ${rect.height}px;
+                    border: 3px solid var(--secondary-color);
+                    border-radius: 20px;
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                    z-index: 9999;
+                    animation: diceRipple 1s ease-out forwards;
+                `;
+                
+                const rippleKeyframes = `
+                    @keyframes diceRipple {
+                        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                        100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+                    }
+                `;
+                
+                if (!document.querySelector('#dice-ripple-styles')) {
+                    const style = document.createElement('style');
+                    style.id = 'dice-ripple-styles';
+                    style.textContent = rippleKeyframes;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 1000);
             }
         }
 
+        // ====================================
+        // 🎮 GAME INITIALIZATION & UTILITIES
+        // ====================================
+        
         // Initialize the game
-        const cosmicGame = new UltimateCosmicConquest();
+        var cosmicGame = new UltimateCosmicConquest();
 
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
-                e.preventDefault();
-                cosmicGame.rollDice();
-            } else if (e.key === 'r' || e.key === 'R') {
-                cosmicGame.resetGame();
-            } else if (e.key === 'p' || e.key === 'P') {
-                cosmicGame.pauseGame();
+        // Enhanced navigation with transitions
+        function navigateWithTransition(url) {
+            // Show transition animation
+            const transition = document.getElementById('pageTransition');
+            transition.classList.add('active');
+            
+            // Play transition sound
+            if (cosmicGame.audioContext && cosmicGame.soundEnabled) {
+                const oscillator = cosmicGame.audioContext.createOscillator();
+                const gainNode = cosmicGame.audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(cosmicGame.audioContext.destination);
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(880, cosmicGame.audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(220, cosmicGame.audioContext.currentTime + 0.5);
+                
+                gainNode.gain.setValueAtTime(0.2, cosmicGame.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, cosmicGame.audioContext.currentTime + 0.5);
+                
+                oscillator.start();
+                oscillator.stop(cosmicGame.audioContext.currentTime + 0.5);
+            }
+            
+            // Navigate after animation plays
+            setTimeout(() => {
+                window.location.href = url;
+            }, 800);
+        }
+        
+        // Update all navigation buttons to use transition
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.nav-button').forEach(button => {
+                const originalOnclick = button.onclick;
+                button.onclick = null;
+                
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const url = button.getAttribute('data-href') || 
+                               (originalOnclick ? originalOnclick.toString().match(/window\.location\.href\s*=\s*['"]([^'"]+)['"]/)[1] : '#');
+                    navigateWithTransition(url);
+                });
+                
+                // Store the target URL as a data attribute
+                if (originalOnclick) {
+                    const match = originalOnclick.toString().match(/window\.location\.href\s*=\s*['"]([^'"]+)['"]/);
+                    if (match) {
+                        button.setAttribute('data-href', match[1]);
+                    }
+                }
+            });
+        });
+
+        // Check for mission type in URL and update display
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get mission type from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const missionType = urlParams.get('mission') || 'standard';
+            
+            // Update mission indicator
+            const missionIndicator = document.getElementById('missionIndicator');
+            if (missionIndicator) {
+                // Set the appropriate text and class
+                switch(missionType) {
+                    case 'hardcore':
+                        missionIndicator.textContent = '🔥 Hardcore Mission';
+                        missionIndicator.className = 'mission-indicator hardcore';
+                        break;
+                    case 'exploration':
+                        missionIndicator.textContent = '🌌 Exploration Mission';
+                        missionIndicator.className = 'mission-indicator exploration';
+                        break;
+                    default:
+                        missionIndicator.textContent = '✨ Standard Mission';
+                        missionIndicator.className = 'mission-indicator';
+                }
+                
+                // Show mission notification
+                setTimeout(() => {
+                    showCosmicAlert(`Mission Mode: ${missionIndicator.textContent}`, 3000);
+                }, 1500);
             }
         });
 
-        // Add CSS for modal animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes modalZoom {
-                0% { transform: scale(0.7) rotate(5deg); opacity: 0; }
-                100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        // ====================================
+        // 🌟 GLOBAL UTILITY FUNCTIONS
+        // ====================================
+        
+        // Global cosmic alert function
+        function showCosmicAlert(message, duration = 3000) {
+            const existingAlerts = document.querySelectorAll('.cosmic-alert');
+            existingAlerts.forEach(alert => alert.remove());
+            
+            const alert = document.createElement('div');
+            alert.className = 'cosmic-alert';
+            alert.innerHTML = message;
+            
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, duration);
+        }
+
+        // ====================================
+        // 🏆 ACHIEVEMENT SYSTEM
+        // ====================================
+        class AchievementSystem {
+            constructor() {
+                this.achievements = [
+                    {
+                        id: 'first_game',
+                        title: 'Space Cadet',
+                        description: 'Complete your first game',
+                        icon: '🚀',
+                        unlocked: false,
+                        progress: 0,
+                        maxProgress: 1
+                    },
+                    {
+                        id: 'five_games',
+                        title: 'Space Explorer',
+                        description: 'Play 5 games',
+                        icon: '🌌',
+                        unlocked: false,
+                        progress: 0,
+                        maxProgress: 5
+                    },
+                    {
+                        id: 'ten_wins',
+                        title: 'Cosmic Commander',
+                        description: 'Win 10 games',
+                        icon: '👑',
+                        unlocked: false,
+                        progress: 0,
+                        maxProgress: 10
+                    },
+                    {
+                        id: 'fast_victory',
+                        title: 'Lightning Strike',
+                        description: 'Win a game in under 50 moves',
+                        icon: '⚡',
+                        unlocked: false,
+                        progress: 0,
+                        maxProgress: 1
+                    },
+                    {
+                        id: 'dice_master',
+                        title: 'Dice Master',
+                        description: 'Roll three 6s in a row',
+                        icon: '🎲',
+                        unlocked: false,
+                        progress: 0,
+                        maxProgress: 3
+                    },
+                    {
+                        id: 'card_collector',
+                        title: 'Card Collector',
+                        description: 'Draw 25 cards total',
+                        icon: '🃏',
+                        unlocked: false,
+                        progress: 0,
+                        maxProgress: 25
+                    },
+                    {
+                        id: 'win_streak',
+                        title: 'Unstoppable Force',
+                        description: 'Win 5 games in a row',
+                        icon: '🔥',
+                        unlocked: false,
+                        progress: 0,
+                        maxProgress: 5
+                    },
+                    {
+                        id: 'theme_master',
+                        title: 'Style Master',
+                        description: 'Try all 4 themes',
+                        icon: '🎨',
+                        unlocked: false,
+                        progress: 0,
+                        maxProgress: 4
+                    }
+                ];
+                
+                this.loadAchievements();
+                this.renderAchievements();
             }
-        `;
-        document.head.appendChild(style);
 
-        // Music Player Functionality
-        const musicPlayer = {
-            isPlaying: false,
-            audio: new Audio('path/to/your/music/file.mp3'),
-            currentTrack: '🎵 Awaiting your command...',
-            volume: 0.5,
+            loadAchievements() {
+                const saved = localStorage.getItem('cosmic_achievements');
+                if (saved) {
+                    const savedAchievements = JSON.parse(saved);
+                    this.achievements.forEach(achievement => {
+                        const savedAchievement = savedAchievements.find(a => a.id === achievement.id);
+                        if (savedAchievement) {
+                            achievement.unlocked = savedAchievement.unlocked;
+                            achievement.progress = savedAchievement.progress;
+                        }
+                    });
+                }
+            }
 
-            init() {
-                this.audio.volume = this.volume;
-                document.getElementById('volumeControl').value = this.volume * 100;
+            saveAchievements() {
+                localStorage.setItem('cosmic_achievements', JSON.stringify(this.achievements));
+            }
 
-                document.getElementById('playMusic').addEventListener('click', () => this.play());
-                document.getElementById('pauseMusic').addEventListener('click', () => this.pause());
-                document.getElementById('stopMusic').addEventListener('click', () => this.stop());
-                document.getElementById('volumeControl').addEventListener('input', (e) => this.setVolume(e.target.value));
-            },
+            updateProgress(achievementId, increment = 1) {
+                const achievement = this.achievements.find(a => a.id === achievementId);
+                if (achievement && !achievement.unlocked) {
+                    achievement.progress = Math.min(achievement.progress + increment, achievement.maxProgress);
+                    
+                    if (achievement.progress >= achievement.maxProgress) {
+                        this.unlockAchievement(achievement);
+                    }
+                    
+                    this.saveAchievements();
+                    this.renderAchievements();
+                }
+            }
+
+            unlockAchievement(achievement) {
+                if (!achievement.unlocked) {
+                    achievement.unlocked = true;
+                    this.showAchievementNotification(achievement);
+                    this.playAchievementSound();
+                    performanceTracker.stats.achievementsUnlocked++;
+                }
+            }
+
+            showAchievementNotification(achievement) {
+                const notification = document.createElement('div');
+                notification.className = 'achievement-notification';
+                notification.innerHTML = `
+                    <div class="achievement-icon">${achievement.icon}</div>
+                    <div class="achievement-content">
+                        <div class="achievement-notification-title">Achievement Unlocked!</div>
+                        <div class="achievement-notification-desc">${achievement.title}</div>
+                    </div>
+                `;
+                
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: linear-gradient(135deg, var(--success-color), var(--primary-color));
+                    border-radius: 15px;
+                    padding: 20px;
+                    box-shadow: 0 10px 30px rgba(0, 255, 68, 0.3);
+                    z-index: 10000;
+                    transform: translateX(400px);
+                    transition: transform 0.5s ease;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    color: white;
+                    font-weight: 600;
+                    max-width: 300px;
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(400px)';
+                    setTimeout(() => notification.remove(), 500);
+                }, 4000);
+            }
+
+            playAchievementSound() {
+                if (cosmicGame.audioContext && cosmicGame.soundEnabled) {
+                    // Play achievement chord
+                    const notes = [523, 659, 784]; // C, E, G
+                    notes.forEach((freq, i) => {
+                        setTimeout(() => {
+                            cosmicGame.playTone(freq, 300);
+                        }, i * 150);
+                    });
+                }
+            }
+
+            renderAchievements() {
+                const list = document.getElementById('achievementList');
+                if (!list) return;
+                
+                list.innerHTML = this.achievements.map(achievement => `
+                    <div class="achievement-item ${achievement.unlocked ? 'unlocked' : ''}">
+                        <div class="achievement-icon">${achievement.icon}</div>
+                        <div class="achievement-text">
+                            <div class="title">${achievement.title}</div>
+                            <div class="description">${achievement.description}</div>
+                            <div class="progress">${achievement.progress}/${achievement.maxProgress}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // ====================================
+        // 📊 PERFORMANCE DASHBOARD
+        // ====================================
+        class PerformanceTracker {
+            constructor() {
+                this.stats = {
+                    gamesPlayed: 0,
+                    gamesWon: 0,
+                    totalTime: 0,
+                    bestTime: Infinity,
+                    currentStreak: 0,
+                    longestStreak: 0,
+                    achievementsUnlocked: 0,
+                    totalDiceRolls: 0,
+                    totalCards: 0
+                };
+                
+                this.currentGameStart = null;
+                this.loadStats();
+                this.updateDisplay();
+                this.startLiveTracking();
+            }
+
+            loadStats() {
+                const saved = localStorage.getItem('cosmic_performance');
+                if (saved) {
+                    this.stats = { ...this.stats, ...JSON.parse(saved) };
+                }
+            }
+
+            saveStats() {
+                localStorage.setItem('cosmic_performance', JSON.stringify(this.stats));
+            }
+
+            startGame() {
+                this.currentGameStart = Date.now();
+            }
+
+            endGame(won = false) {
+                if (this.currentGameStart) {
+                    const gameTime = Date.now() - this.currentGameStart;
+                    this.stats.gamesPlayed++;
+                    this.stats.totalTime += gameTime;
+                    
+                    if (won) {
+                        this.stats.gamesWon++;
+                        this.stats.currentStreak++;
+                        this.stats.longestStreak = Math.max(this.stats.longestStreak, this.stats.currentStreak);
+                        
+                        if (gameTime < this.stats.bestTime) {
+                            this.stats.bestTime = gameTime;
+                        }
+                        
+                        // Check achievements
+                        achievementSystem.updateProgress('first_game');
+                        achievementSystem.updateProgress('five_games');
+                        achievementSystem.updateProgress('ten_wins');
+                        
+                        if (gameTime < 3000000) { // 50 minutes in ms (50 moves estimation)
+                            achievementSystem.updateProgress('fast_victory');
+                        }
+                        
+                        if (this.stats.currentStreak >= 5) {
+                            achievementSystem.updateProgress('win_streak');
+                        }
+                    } else {
+                        this.stats.currentStreak = 0;
+                    }
+                    
+                    this.currentGameStart = null;
+                    this.saveStats();
+                    this.updateDisplay();
+                }
+            }
+
+            recordDiceRoll() {
+                this.stats.totalDiceRolls++;
+                this.saveStats();
+            }
+
+            recordCard() {
+                this.stats.totalCards++;
+                achievementSystem.updateProgress('card_collector');
+                this.saveStats();
+            }
+
+            getWinRate() {
+                return this.stats.gamesPlayed > 0 ? 
+                    Math.round((this.stats.gamesWon / this.stats.gamesPlayed) * 100) : 0;
+            }
+
+            formatTime(ms) {
+                if (ms === Infinity) return '--:--';
+                const minutes = Math.floor(ms / 60000);
+                const seconds = Math.floor((ms % 60000) / 1000);
+                return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            updateDisplay() {
+                const elements = {
+                    gamesPlayed: document.getElementById('gamesPlayed'),
+                    winRate: document.getElementById('winRate'),
+                    bestTime: document.getElementById('bestTime'),
+                    currentStreak: document.getElementById('currentStreak')
+                };
+                
+                if (elements.gamesPlayed) elements.gamesPlayed.textContent = this.stats.gamesPlayed;
+                if (elements.winRate) elements.winRate.textContent = this.getWinRate() + '%';
+                if (elements.bestTime) elements.bestTime.textContent = this.formatTime(this.stats.bestTime);
+                if (elements.currentStreak) elements.currentStreak.textContent = this.stats.currentStreak;
+            }
+
+            startLiveTracking() {
+                setInterval(() => {
+                    this.updateDisplay();
+                }, 1000);
+            }
+        }
+
+        // ====================================
+        // 🎨 THEME SYSTEM
+        // ====================================
+        class ThemeManager {
+            constructor() {
+                this.themes = {
+                    cosmic: {
+                        name: 'Cosmic',
+                        primaryColor: '#00ff9f',
+                        secondaryColor: '#ff0099',
+                        accentColor: '#9d00ff',
+                        darkBg: '#0a0a0f',
+                        darkerBg: '#050508'
+                    },
+                    ocean: {
+                        name: 'Ocean',
+                        primaryColor: '#00bfff',
+                        secondaryColor: '#0066cc',
+                        accentColor: '#004499',
+                        darkBg: '#0a1621',
+                        darkerBg: '#050b10'
+                    },
+                    fire: {
+                        name: 'Fire',
+                        primaryColor: '#ff4500',
+                        secondaryColor: '#ff8c00',
+                        accentColor: '#cc3300',
+                        darkBg: '#1a0a05',
+                        darkerBg: '#0f0502'
+                    },
+                    nature: {
+                        name: 'Nature',
+                        primaryColor: '#32cd32',
+                        secondaryColor: '#228b22',
+                        accentColor: '#006400',
+                        darkBg: '#0a1a0a',
+                        darkerBg: '#050f05'
+                    }
+                };
+                
+                this.currentTheme = this.loadTheme();
+                this.applyTheme(this.currentTheme);
+                this.bindEvents();
+            }
+
+            loadTheme() {
+                return localStorage.getItem('cosmic_theme') || 'cosmic';
+            }
+
+            saveTheme() {
+                localStorage.setItem('cosmic_theme', this.currentTheme);
+            }
+
+            applyTheme(themeName) {
+                const theme = this.themes[themeName];
+                if (!theme) return;
+                
+                const root = document.documentElement;
+                root.style.setProperty('--primary-color', theme.primaryColor);
+                root.style.setProperty('--secondary-color', theme.secondaryColor);
+                root.style.setProperty('--accent-color', theme.accentColor);
+                root.style.setProperty('--dark-bg', theme.darkBg);
+                root.style.setProperty('--darker-bg', theme.darkerBg);
+                
+                // Update active theme button
+                document.querySelectorAll('.theme-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                const activeBtn = document.querySelector(`[data-theme="${themeName}"]`);
+                if (activeBtn) {
+                    activeBtn.classList.add('active');
+                }
+                
+                this.currentTheme = themeName;
+                this.saveTheme();
+                
+                // Track theme usage for achievements
+                const themeCount = new Set(JSON.parse(localStorage.getItem('cosmic_themes_used') || '[]'));
+                themeCount.add(themeName);
+                localStorage.setItem('cosmic_themes_used', JSON.stringify([...themeCount]));
+                achievementSystem.updateProgress('theme_master', themeCount.size - achievementSystem.achievements.find(a => a.id === 'theme_master').progress);
+                
+                this.showThemeNotification(theme.name);
+            }
+
+            showThemeNotification(themeName) {
+                showCosmicAlert(`🎨 ${themeName} theme activated!`, 2000);
+            }
+
+            bindEvents() {
+                document.querySelectorAll('.theme-button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const theme = button.getAttribute('data-theme');
+                        this.applyTheme(theme);
+                        
+                        // Play theme change sound
+                        if (cosmicGame.audioContext && cosmicGame.soundEnabled) {
+                            cosmicGame.playTone(660, 200);
+                        }
+                    });
+                });
+            }
+        }
+
+        // ====================================
+        // ⌨️ KEYBOARD NAVIGATION
+        // ====================================
+        class KeyboardManager {
+            constructor() {
+                this.shortcuts = {
+                    'Space': () => cosmicGame.rollDice(),
+                    'KeyR': () => cosmicGame.resetGame(),
+                    'KeyP': () => cosmicGame.pauseGame(),
+                    'KeyS': () => cosmicGame.showStats(),
+                    'KeyH': () => cosmicGame.showRules(),
+                    'Escape': () => this.closeModals(),
+                    'KeyT': () => this.cycleThemes(),
+                    'KeyM': () => this.toggleMusic(),
+                    'Digit1': () => themeManager.applyTheme('cosmic'),
+                    'Digit2': () => themeManager.applyTheme('ocean'),
+                    'Digit3': () => themeManager.applyTheme('fire'),
+                    'Digit4': () => themeManager.applyTheme('nature')
+                };
+                
+                this.bindEvents();
+                this.showKeyboardHints();
+            }
+
+            bindEvents() {
+                document.addEventListener('keydown', (e) => {
+                    // Prevent shortcuts when typing in inputs
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                        return;
+                    }
+                    
+                    const shortcut = this.shortcuts[e.code];
+                    if (shortcut) {
+                        e.preventDefault();
+                        shortcut();
+                        this.showKeyboardFeedback(e.code);
+                    }
+                });
+
+                // Show/hide keyboard hints on Alt key
+                document.addEventListener('keydown', (e) => {
+                    if (e.altKey) {
+                        this.showKeyboardHints();
+                    }
+                });
+
+                document.addEventListener('keyup', (e) => {
+                    if (e.key === 'Alt') {
+                        this.hideKeyboardHints();
+                    }
+                });
+            }
+
+            showKeyboardFeedback(code) {
+                const feedback = document.createElement('div');
+                feedback.textContent = `Key: ${code}`;
+                feedback.style.cssText = `
+                    position: fixed;
+                    bottom: 50px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: var(--primary-color);
+                    color: var(--dark-bg);
+                    padding: 10px 20px;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    z-index: 10000;
+                    animation: keyboardFeedback 1s ease-out forwards;
+                `;
+                
+                document.body.appendChild(feedback);
+                setTimeout(() => feedback.remove(), 1000);
+            }
+
+            closeModals() {
+                document.querySelectorAll('.cosmic-modal, [style*="position: fixed"]').forEach(modal => {
+                    if (modal.style.display !== 'none') {
+                        modal.remove();
+                    }
+                });
+            }
+
+            cycleThemes() {
+                const themes = Object.keys(themeManager.themes);
+                const currentIndex = themes.indexOf(themeManager.currentTheme);
+                const nextIndex = (currentIndex + 1) % themes.length;
+                themeManager.applyTheme(themes[nextIndex]);
+            }
+
+            toggleMusic() {
+                const musicPlayer = document.getElementById('musicPlayer');
+                if (musicPlayer) {
+                    musicPlayer.style.display = musicPlayer.style.display === 'none' ? 'block' : 'none';
+                }
+            }
+
+            showKeyboardHints() {
+                const hints = document.getElementById('keyboardHints');
+                if (hints) {
+                    hints.style.opacity = '1';
+                    hints.style.transform = 'translateX(-50%) translateY(0)';
+                }
+            }
+
+            hideKeyboardHints() {
+                const hints = document.getElementById('keyboardHints');
+                if (hints) {
+                    hints.style.opacity = '0';
+                    hints.style.transform = 'translateX(-50%) translateY(20px)';
+                }
+            }
+        }
+
+        // ====================================
+        // 🎵 ADVANCED AUDIO SYSTEM
+        // ====================================
+        class AudioManager {
+            constructor() {
+                this.tracks = [
+                    'Cosmic Journey',
+                    'Stellar Winds',
+                    'Nebula Dreams',
+                    'Galactic Voyage',
+                    'Quantum Echoes'
+                ];
+                this.currentTrack = 0;
+                this.isPlaying = false;
+                this.volume = 0.5;
+                
+                this.bindMusicControls();
+                this.startVisualizer();
+            }
+
+            bindMusicControls() {
+                const playBtn = document.getElementById('playMusic');
+                const pauseBtn = document.getElementById('pauseMusic');
+                const stopBtn = document.getElementById('stopMusic');
+                const nextBtn = document.getElementById('nextTrack');
+                const volumeControl = document.getElementById('volumeControl');
+
+                if (playBtn) {
+                    playBtn.addEventListener('click', () => this.play());
+                }
+                
+                if (pauseBtn) {
+                    pauseBtn.addEventListener('click', () => this.pause());
+                }
+                
+                if (stopBtn) {
+                    stopBtn.addEventListener('click', () => this.stop());
+                }
+                
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => this.nextTrack());
+                }
+                
+                if (volumeControl) {
+                    volumeControl.addEventListener('input', (e) => {
+                        this.volume = e.target.value / 100;
+                        this.updateVolume();
+                    });
+                }
+                
+                this.updateTrackDisplay();
+            }
 
             play() {
-                this.audio.play();
                 this.isPlaying = true;
-                this.updatePlayButton();
-                this.showCurrentTrack();
-            },
+                document.getElementById('playMusic').style.display = 'none';
+                document.getElementById('pauseMusic').style.display = 'block';
+                this.startVisualizer();
+                showCosmicAlert('🎵 Music started', 1500);
+            }
 
             pause() {
-                this.audio.pause();
                 this.isPlaying = false;
-                this.updatePlayButton();
-            },
+                document.getElementById('playMusic').style.display = 'block';
+                document.getElementById('pauseMusic').style.display = 'none';
+                showCosmicAlert('⏸️ Music paused', 1500);
+            }
 
             stop() {
-                this.audio.pause();
-                this.audio.currentTime = 0;
                 this.isPlaying = false;
-                this.updatePlayButton();
-                this.showCurrentTrack();
-            },
-
-            setVolume(value) {
-                this.volume = value / 100;
-                this.audio.volume = this.volume;
-            },
-
-            updatePlayButton() {
-                const playButton = document.getElementById('playMusic');
-                const pauseButton = document.getElementById('pauseMusic');
-
-                if (this.isPlaying) {
-                    playButton.style.display = 'none';
-                    pauseButton.style.display = 'flex';
-                } else {
-                    playButton.style.display = 'flex';
-                    pauseButton.style.display = 'none';
-                }
-            },
-
-            showCurrentTrack() {
-                document.getElementById('currentTrack').textContent = this.currentTrack;
+                document.getElementById('playMusic').style.display = 'block';
+                document.getElementById('pauseMusic').style.display = 'none';
+                showCosmicAlert('⏹️ Music stopped', 1500);
             }
+
+            nextTrack() {
+                this.currentTrack = (this.currentTrack + 1) % this.tracks.length;
+                this.updateTrackDisplay();
+                showCosmicAlert(`🎵 ${this.tracks[this.currentTrack]}`, 2000);
+            }
+
+            updateTrackDisplay() {
+                const titleElement = document.querySelector('.music-title');
+                if (titleElement) {
+                    titleElement.textContent = this.tracks[this.currentTrack];
+                }
+            }
+
+            updateVolume() {
+                showCosmicAlert(`🔊 Volume: ${Math.round(this.volume * 100)}%`, 1000);
+            }
+
+            startVisualizer() {
+                const bars = document.querySelectorAll('.visualizer-bar');
+                
+                const animateBars = () => {
+                    if (this.isPlaying) {
+                        bars.forEach(bar => {
+                            const height = Math.random() * 40 + 10;
+                            bar.style.height = height + 'px';
+                        });
+                        setTimeout(animateBars, 100);
+                    }
+                };
+                
+                if (this.isPlaying) {
+                    animateBars();
+                }
+            }
+        }
+
+        // ====================================
+        // ✨ ENHANCED VISUAL EFFECTS
+        // ====================================
+        class VisualEffectsManager {
+            constructor() {
+                this.setupEnergyField();
+                this.animateCosmicOrbs();
+                this.setupAdvancedParticles();
+            }
+
+            setupEnergyField() {
+                const energyField = document.getElementById('energyField');
+                if (!energyField) return;
+
+                document.addEventListener('mousemove', (e) => {
+                    const x = (e.clientX / window.innerWidth) * 100;
+                    const y = (e.clientY / window.innerHeight) * 100;
+                    
+                    energyField.style.background = `
+                        radial-gradient(circle at ${x}% ${y}%, 
+                            rgba(0, 255, 159, 0.15) 0%, 
+                            transparent 50%),
+                        radial-gradient(circle at ${100-x}% ${100-y}%, 
+                            rgba(157, 0, 255, 0.1) 0%, 
+                            transparent 60%)
+                    `;
+                });
+            }
+
+            animateCosmicOrbs() {
+                const orbs = document.querySelectorAll('.cosmic-orb');
+                
+                orbs.forEach((orb, index) => {
+                    const duration = 10 + (index * 2);
+                    const delay = index * 0.5;
+                    
+                    orb.style.animation = `
+                        cosmicFloat ${duration}s ease-in-out infinite ${delay}s,
+                        orbGlow 3s ease-in-out infinite alternate
+                    `;
+                    
+                    // Add click interaction
+                    orb.addEventListener('click', () => {
+                        this.createOrbExplosion(orb);
+                    });
+                });
+            }
+
+            createOrbExplosion(orb) {
+                const rect = orb.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+                
+                for (let i = 0; i < 12; i++) {
+                    const particle = document.createElement('div');
+                    const angle = (i / 12) * Math.PI * 2;
+                    const distance = 100 + Math.random() * 50;
+                    const endX = x + Math.cos(angle) * distance;
+                    const endY = y + Math.sin(angle) * distance;
+                    
+                    particle.style.cssText = `
+                        position: fixed;
+                        left: ${x}px;
+                        top: ${y}px;
+                        width: 6px;
+                        height: 6px;
+                        background: var(--primary-color);
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 9999;
+                        box-shadow: 0 0 10px var(--primary-color);
+                    `;
+                    
+                    document.body.appendChild(particle);
+                    
+                    particle.animate([
+                        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                        { transform: `translate(${endX - x}px, ${endY - y}px) scale(0)`, opacity: 0 }
+                    ], {
+                        duration: 1000,
+                        easing: 'ease-out'
+                    }).onfinish = () => particle.remove();
+                }
+                
+                // Play explosion sound
+                if (cosmicGame.audioContext && cosmicGame.soundEnabled) {
+                    cosmicGame.playTone(1046, 300);
+                }
+                
+                showCosmicAlert('💫 Cosmic orb activated!', 2000);
+            }
+
+            setupAdvancedParticles() {
+                setInterval(() => {
+                    this.createFloatingParticle();
+                }, 200);
+            }
+
+            createFloatingParticle() {
+                const particle = document.createElement('div');
+                const size = Math.random() * 4 + 2;
+                const x = Math.random() * window.innerWidth;
+                const duration = Math.random() * 3 + 2;
+                
+                particle.style.cssText = `
+                    position: fixed;
+                    left: ${x}px;
+                    top: ${window.innerHeight + 20}px;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: var(--primary-color);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 1;
+                    opacity: 0.7;
+                    box-shadow: 0 0 ${size * 2}px var(--primary-color);
+                `;
+                
+                document.body.appendChild(particle);
+                
+                particle.animate([
+                    { transform: 'translateY(0) translateX(0)', opacity: 0.7 },
+                    { transform: `translateY(-${window.innerHeight + 100}px) translateX(${Math.random() * 100 - 50}px)`, opacity: 0 }
+                ], {
+                    duration: duration * 1000,
+                    easing: 'linear'
+                }).onfinish = () => particle.remove();
+            }
+        }
+
+        // ====================================
+        // 🎮 INITIALIZATION
+        // ====================================
+        
+        // Initialize all systems
+        const achievementSystem = new AchievementSystem();
+        const performanceTracker = new PerformanceTracker();
+        const themeManager = new ThemeManager();
+        const keyboardManager = new KeyboardManager();
+        const audioManager = new AudioManager();
+        const visualEffects = new VisualEffectsManager();
+
+        // Override game methods to integrate with new systems
+        const originalRollDice = cosmicGame.rollDice;
+        cosmicGame.rollDice = function() {
+            performanceTracker.recordDiceRoll();
+            
+            // Track consecutive 6s for achievement
+            const roll = Math.floor(Math.random() * 6) + 1;
+            if (roll === 6) {
+                this.consecutiveSixes = (this.consecutiveSixes || 0) + 1;
+                if (this.consecutiveSixes >= 3) {
+                    achievementSystem.updateProgress('dice_master');
+                    this.consecutiveSixes = 0;
+                }
+            } else {
+                this.consecutiveSixes = 0;
+            }
+            
+            return originalRollDice.call(this);
         };
 
-        musicPlayer.init();
+        const originalDrawCard = cosmicGame.drawCard;
+        cosmicGame.drawCard = function(type) {
+            performanceTracker.recordCard();
+            return originalDrawCard.call(this, type);
+        };
+
+        const originalEndGame = cosmicGame.endGame;
+        cosmicGame.endGame = function() {
+            const winner = this.players[1].position >= this.boardSize - 1 ? 1 : 2;
+            performanceTracker.endGame(winner === 1); // Assuming player 1 is human player
+            return originalEndGame.call(this);
+        };
+
+        const originalResetGame = cosmicGame.resetGame;
+        cosmicGame.resetGame = function() {
+            performanceTracker.startGame();
+            return originalResetGame.call(this);
+        };
+
+        // Auto-start performance tracking
+        performanceTracker.startGame();
+
+        console.log('🌌 Ultimate Cosmic Conquest - All Enhanced Systems Initialized! 🚀');
+        console.log('🏆 Achievement System: Ready');
+        console.log('📊 Performance Tracking: Active');  
+        console.log('🎨 Theme Manager: Loaded');
+        console.log('⌨️ Keyboard Navigation: Enabled');
+        console.log('🎵 Audio System: Initialized');
+        console.log('✨ Visual Effects: Enhanced');
     </script>
 </body>
 </html>

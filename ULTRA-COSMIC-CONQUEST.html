@@ -934,6 +934,83 @@
             text-overflow: ellipsis;
             max-width: 200px;
         }
+
+        /* Mission Info Styles */
+        .mission-info {
+            position: relative;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--accent-color);
+            text-align: center;
+            backdrop-filter: blur(5px);
+            animation: missionInfoAppear 1s forwards;
+        }
+        
+        @keyframes missionInfoAppear {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .mission-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            box-shadow: 0 0 15px currentColor;
+        }
+        
+        .mission-badge.standard {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+        
+        .mission-badge.hardcore {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .mission-badge.exploration {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .mission-info p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        /* Mission-specific Theme Styles */
+        body[data-mission="standard"] {
+            --primary-color: #00E676;
+            --secondary-color: #2979FF;
+        }
+        
+        body[data-mission="hardcore"] {
+            --primary-color: #FF3D00;
+            --secondary-color: #FF9100;
+        }
+        
+        body[data-mission="exploration"] {
+            --primary-color: #AA00FF;
+            --secondary-color: #D500F9;
+        }
+        
+        body[data-mission="hardcore"] .game-title {
+            color: var(--danger-color);
+            text-shadow: 0 0 20px var(--danger-color);
+        }
+        
+        body[data-mission="exploration"] .game-title {
+            color: var(--accent-color);
+            text-shadow: 0 0 20px var(--accent-color);
+        }
     </style>
 </head>
 <body>
@@ -1285,10 +1362,66 @@
                 this.soundEnabled = true;
                 this.particlesEnabled = true;
                 this.turnCount = 1;
+                this.missionType = this.getMissionType();
                 
                 this.init();
             }
-
+            
+            getMissionType() {
+                // Parse URL parameters to get mission type
+                const urlParams = new URLSearchParams(window.location.search);
+                const mission = urlParams.get('mission');
+                
+                // Default to 'standard' if no mission specified
+                if (!mission || !['standard', 'hardcore', 'exploration'].includes(mission)) {
+                    return 'standard';
+                }
+                
+                return mission;
+            }
+            
+            applyMissionSettings() {
+                // Apply different game settings based on mission type
+                const missionInfo = document.createElement('div');
+                missionInfo.className = 'mission-info';
+                
+                switch(this.missionType) {
+                    case 'hardcore':
+                        // Hardcore mode: More difficult, higher rewards
+                        this.players.forEach(player => {
+                            player.energy = 30; // Less starting energy
+                        });
+                        
+                        missionInfo.innerHTML = `
+                            <div class="mission-badge hardcore">HARDCORE MISSION</div>
+                            <p>Higher difficulty, greater rewards. Starting energy reduced, danger increased!</p>
+                        `;
+                        break;
+                        
+                    case 'exploration':
+                        // Exploration mode: Focus on discovery
+                        this.boardSize = 18; // Larger board
+                        
+                        missionInfo.innerHTML = `
+                            <div class="mission-badge exploration">EXPLORATION MISSION</div>
+                            <p>Discover the unknown! Larger board with more cosmic phenomena to explore.</p>
+                        `;
+                        break;
+                        
+                    default: // standard
+                        missionInfo.innerHTML = `
+                            <div class="mission-badge standard">STANDARD MISSION</div>
+                            <p>Classic cosmic adventure! Balance your resources carefully.</p>
+                        `;
+                }
+                
+                // Add mission info to the game container
+                document.querySelector('.game-container').prepend(missionInfo);
+                
+                // Apply visual theme based on mission type
+                document.body.setAttribute('data-mission', this.missionType);
+            }
+            
             init() {
                 this.createStarfield();
                 this.generateBoard();
@@ -1296,6 +1429,7 @@
                 this.startParticleSystem();
                 this.createShootingStars();
                 this.updateDisplay();
+                this.applyMissionSettings();
             }
 
             createStarfield() {
@@ -1929,6 +2063,8 @@
                     gainNode.gain.value = 0;
                     gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
                     gainNode.gain.linearRampToValueAtTime(gain, this.audioContext.currentTime + 2);
+                    
+                   
                     
                     oscillator.connect(gainNode);
                     gainNode.connect(this.masterGain);

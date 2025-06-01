@@ -22,6 +22,13 @@
             --mission-exploration: #a400ff;
             --button-glow: 0 0 15px rgba(164, 0, 255, 0.8);
             --border-glow: 0 0 10px rgba(164, 0, 255, 0.6);
+            
+            /* Hologram mode colors */
+            --hologram-primary: #00eaff;
+            --hologram-secondary: #00ff9f;
+            --hologram-accent: #00ccff;
+            --hologram-card-bg: rgba(0, 50, 100, 0.3);
+            --hologram-glass-bg: rgba(0, 234, 255, 0.1);
         }
 
         * {
@@ -270,7 +277,40 @@
         .mission-card:hover::before {
             border-color: currentColor;
             box-shadow: 0 0 20px currentColor;
-            transform: translateY(-10px);
+            transform: translateY(-5px);
+        }
+        
+        /* Selected Mission Animation */
+        .mission-card.selected {
+            animation: cardPulse 2s infinite alternate;
+        }
+        
+        .mission-card.selected::before {
+            border-color: currentColor;
+            box-shadow: 0 0 25px currentColor;
+            transform: translateY(-5px);
+        }
+        
+        .mission-card.selected::after {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border: 2px solid currentColor;
+            border-radius: 15px;
+            opacity: 0;
+            animation: selectedBorder 3s infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes selectedBorder {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.05); }
+        }
+        
+        @keyframes cardPulse {
+            0% { box-shadow: 0 0 10px currentColor; }
+            50% { box-shadow: 0 0 20px currentColor, 0 0 40px currentColor; }
+            100% { box-shadow: 0 0 30px currentColor; }
         }
 
         .mission-card::after {
@@ -316,6 +356,42 @@
             font-family: 'Rajdhani', sans-serif;
             text-align: center;
             opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .mission-details {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            font-family: 'Rajdhani', sans-serif;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        
+        /* Badge Notification */
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 18px;
+            height: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--accent-color);
+            animation: badgePulse 2s infinite alternate;
+        }
+        
+        @keyframes badgePulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
         }
 
         /* Mission Progress Indicator */
@@ -775,10 +851,12 @@
                     "missions"
                     "sidebar";
                 grid-template-columns: 1fr;
+                gap: 1rem;
+                max-height: none;
             }
-
-            .mission-grid {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            
+            .sidebar-container {
+                max-height: none;
             }
         }
 
@@ -788,46 +866,127 @@
             }
             
             .mission-card {
-                height: 150px;
+                height: 160px;
             }
             
             .mission-icon {
                 font-size: 2rem;
             }
             
-            .mission-name {
-                font-size: 1rem;
+            .music-player {
+                bottom: 10px;
+                right: 10px;
+                width: 180px;
+                padding: 8px;
             }
             
-            .game-title {
-                font-size: clamp(1.8rem, 5vw, 2.8rem);
+            .music-controls {
+                gap: 5px;
+            }
+            
+            .music-button {
+                width: 30px;
+                height: 30px;
             }
         }
-
+        
         @media (max-width: 480px) {
             .main-container {
                 width: 98%;
                 margin: 0.5rem auto;
+                gap: 0.8rem;
             }
             
             .mission-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 0.8rem;
             }
             
-            .options-grid {
-                grid-template-columns: 1fr;
+            .mission-card {
+                height: 150px;
+                padding: 0.8rem;
             }
             
-            .game-header {
-                padding: 1rem 0;
+            .mission-details {
+                font-size: 0.65rem;
+            }
+            
+            .mission-difficulty {
+                font-size: 0.65rem;
             }
             
             .game-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+            }
+            
+            .section-title::before,
+            .section-title::after {
+                margin: 0 0.5rem;
+            }
+            
+            .music-player {
+                width: 150px;
+                padding: 6px;
+            }
+            
+            .music-title {
+                font-size: 0.8rem;
+            }
+            
+            .error-modal-content {
+                width: 95%;
+                max-width: 300px;
+            }
+            
+            .error-modal-header h3 {
+                font-size: 1.2rem;
+            }
+            
+            .error-modal-body {
                 font-size: 1rem;
+                padding: 15px;
+            }
+            
+            .error-modal-footer button {
+                font-size: 0.9rem;
+                padding: 8px 15px;
             }
         }
 
-        /* Enhanced Loading Animation */
+        /* Touch Interaction Enhancements */
+        @media (hover: none) {
+            body {
+                cursor: auto;
+            }
+            
+            .cosmic-cursor {
+                display: none;
+            }
+            
+            [data-interactive]:hover::after {
+                border-color: transparent;
+                box-shadow: none;
+            }
+            
+            .mission-card:active {
+                transform: scale(0.98);
+            }
+            
+            .mission-card:active::before {
+                border-color: currentColor;
+                box-shadow: 0 0 15px currentColor;
+            }
+            
+            .action-button:active {
+                transform: scale(0.95);
+            }
+        }
+        
+        /* Enhanced loading animation */
         @keyframes glitch {
             0% { transform: translate(0); }
             20% { transform: translate(-5px, 5px); }
@@ -846,11 +1005,254 @@
             animation: glitch 0.2s ease infinite alternate;
             pointer-events: none;
         }
+        
+        /* Error Modal Styling */
+        .error-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .error-modal.active {
+            opacity: 1;
+            visibility: visible;
+            animation: modalGlitch 0.5s ease;
+        }
+        
+        @keyframes modalGlitch {
+            0% { transform: scale(0.9); }
+            20% { transform: scale(1.02) translate(-5px, 5px); }
+            40% { transform: scale(1.01) translate(5px, -5px); }
+            60% { transform: scale(1.03) translate(-3px, -3px); }
+            80% { transform: scale(0.99) translate(3px, 3px); }
+            100% { transform: scale(1); }
+        }
+        
+        .error-modal-content {
+            width: 90%;
+            max-width: 500px;
+            background: var(--dark-bg);
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-color);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .error-modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0px,
+                    transparent 2px,
+                    rgba(255, 0, 187, 0.1) 3px,
+                    transparent 4px
+                );
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .error-modal-header {
+            padding: 15px;
+            background: linear-gradient(90deg, rgba(255, 0, 0, 0.3) 0%, rgba(255, 0, 187, 0.3) 100%);
+            border-bottom: 1px solid var(--accent-color);
+            text-align: center;
+        }
+        
+        .error-modal-header h3 {
+            color: #ff3a3a;
+            text-shadow: 0 0 10px #ff3a3a;
+            margin: 0;
+            font-size: 1.5rem;
+            animation: errorBlink 2s infinite alternate;
+        }
+        
+        @keyframes errorBlink {
+            0%, 80% { opacity: 1; }
+            90% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .error-modal-body {
+            padding: 20px;
+            text-align: center;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+        }
+        
+        .error-modal-footer {
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid rgba(255, 0, 187, 0.3);
+        }
+        
+        .error-modal-footer button {
+            background: linear-gradient(45deg, #ff3a3a, var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 187, 0.5);
+        }
+        
+        .error-modal-footer button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 0, 187, 0.7);
+        }
+        
+        body.hologram-mode .error-modal-content {
+            border-color: var(--hologram-accent);
+            box-shadow: 0 0 20px var(--hologram-accent);
+        }
+        
+        body.hologram-mode .error-modal-header {
+            background: linear-gradient(90deg, rgba(0, 204, 255, 0.3) 0%, rgba(0, 255, 159, 0.3) 100%);
+        }
+        
+        body.hologram-mode .error-modal-header h3 {
+            color: var(--hologram-accent);
+            text-shadow: 0 0 10px var(--hologram-accent);
+        }
+        
+        body.hologram-mode .error-modal-footer button {
+            background: linear-gradient(45deg, var(--hologram-accent), var(--hologram-secondary));
+            box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
+        }
+        
+        body.hologram-mode .error-modal-footer button:hover {
+            box-shadow: 0 0 25px rgba(0, 204, 255, 0.7);
+        }
+        
+        /* Shake Animation for Error Feedback */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        
+        /* Error State */
+        .error-state .cosmic-bg::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 0, 0, 0.1);
+            z-index: 9999;
+            animation: glitch 0.2s ease infinite alternate;
+            pointer-events: none;
+        }
+
+        /* Error State Animation */
+        @keyframes errorGlitch {
+            0% { transform: translate(0); }
+            10% { transform: translate(-5px, 5px); }
+            20% { transform: translate(5px, -5px); }
+            30% { transform: translate(-5px, -5px); }
+            40% { transform: translate(5px, 5px); }
+            50% { transform: translate(-5px, 0); }
+            60% { transform: translate(5px, 0); }
+            70% { transform: translate(0, 5px); }
+            80% { transform: translate(0, -5px); }
+            90% { transform: translate(-2px, 2px); }
+            100% { transform: translate(0); }
+        }
+        
+        .error-state .game-title,
+        .error-state .game-subtitle {
+            animation: errorGlitch 0.5s infinite;
+            color: var(--accent-color);
+        }
+        
+        .error-state .cosmic-bg::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 0, 0, 0.1);
+            z-index: 9999;
+            animation: glitch 0.2s ease infinite alternate;
+            pointer-events: none;
+        }
+
+        /* Touch interaction styling */
+        .touch-device [data-interactive] {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .touch-active {
+            transform: scale(0.98) !important;
+            transition: transform 0.2s ease !important;
+        }
+        
+        .touch-device .mission-card.selected::before {
+            border-width: 3px;
+        }
+
+        /* Screen Transition Animation */
+        .transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 10000;
+            transform: scale(0);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        
+        .launching .transition-overlay {
+            transform: scale(3);
+        }
     </style>
 </head>
 <body>
     <!-- Custom Cursor -->
     <div class="cosmic-cursor"></div>
+    
+    <!-- Error Modal -->
+    <div class="error-modal" id="errorModal">
+        <div class="error-modal-content">
+            <div class="error-modal-header">
+                <h3>⚠️ MISSION ERROR</h3>
+            </div>
+            <div class="error-modal-body">
+                <p>Please select a mission type before launching.</p>
+            </div>
+            <div class="error-modal-footer">
+                <button id="errorClose" data-interactive>UNDERSTAND</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Transition Overlay -->
+    <div class="transition-overlay"></div>
     
     <!-- Background -->
     <div class="cosmic-bg"></div>
@@ -873,6 +1275,10 @@
                     <div class="mission-icon">🚀</div>
                     <div class="mission-name">STANDARD</div>
                     <div class="mission-desc">Classic cosmic adventure</div>
+                    <div class="mission-details">
+                        <span>Reward: 500 XP</span>
+                        <span>Time: ~20 min</span>
+                    </div>
                     <div class="mission-progress">
                         <div class="progress-bar" style="width: 75%"></div>
                     </div>
@@ -880,9 +1286,15 @@
                 </div>
                 
                 <div class="mission-card hardcore" onclick="selectMission('hardcore')" data-interactive>
+                    <div class="mission-last-played">Last played: 5d ago</div>
+                    <div class="badge">!</div>
                     <div class="mission-icon">☠️</div>
                     <div class="mission-name">HARDCORE</div>
                     <div class="mission-desc">Intense challenge with higher risks</div>
+                    <div class="mission-details">
+                        <span>Reward: 1200 XP</span>
+                        <span>Time: ~40 min</span>
+                    </div>
                     <div class="mission-progress">
                         <div class="progress-bar" style="width: 35%"></div>
                     </div>
@@ -890,11 +1302,17 @@
                 </div>
                 
                 <div class="mission-card exploration" onclick="selectMission('exploration')" data-interactive>
+                    <div class="mission-last-played">New!</div>
+                    <div class="badge">3</div>
                     <div class="mission-icon">🔭</div>
                     <div class="mission-name">EXPLORATION</div>
                     <div class="mission-desc">Discover unique cosmic phenomena</div>
+                    <div class="mission-details">
+                        <span>Reward: 800 XP</span>
+                        <span>Time: ~25 min</span>
+                    </div>
                     <div class="mission-progress">
-                        <div class="progress-bar" style="width: 60%"></div>
+                        <div class="progress-bar" style="width: 10%"></div>
                     </div>
                     <div class="mission-difficulty">Difficulty: ★☆☆</div>
                 </div>
@@ -1124,6 +1542,15 @@
             const cursor = document.querySelector('.cosmic-cursor');
             cursor.style.left = `${e.clientX}px`;
             cursor.style.top = `${e.clientY}px`;
+            
+            // Create cursor trail if particles are enabled
+            if (document.getElementById('particleToggle') && document.getElementById('particleToggle').checked) {
+                if (Math.random() < 0.2) { // Only create trails occasionally for performance
+                    if (typeof particleSystem !== 'undefined') {
+                        particleSystem.createCursorTrail();
+                    }
+                }
+            }
         });
         
         document.addEventListener('mousedown', () => {
@@ -1140,21 +1567,207 @@
         function selectMission(type) {
             // Reset all cards
             document.querySelectorAll('.mission-card').forEach(card => {
-                card.style.transform = 'none';
-                card.style.boxShadow = 'none';
+                card.classList.remove('selected');
             });
             
             // Highlight selected card
             const card = document.querySelector(`.mission-card.${type}`);
-            card.style.transform = 'translateY(-10px) scale(1.05)';
-            
-            // Add pulsing effect to the selected card
-            card.style.boxShadow = `0 0 20px ${getComputedStyle(card).color}`;
-            
+            card.classList.add('selected');
             selectedMission = type;
             
             // Play selection sound
             playUISound('select');
+            
+            // Add visual feedback
+            const missionName = card.querySelector('.mission-name').textContent;
+            const missionReward = card.querySelector('.mission-details span:first-child').textContent;
+            const missionTime = card.querySelector('.mission-details span:last-child').textContent;
+            
+            // Show selection details in a floating notification
+            showSelectionDetails(type, missionName, missionReward, missionTime);
+            
+            // Create particle burst effect
+            if (document.getElementById('particleToggle') && document.getElementById('particleToggle').checked) {
+                createSelectionBurst(card);
+            }
+        }
+        
+        function showSelectionDetails(type, name, reward, time) {
+            // Remove any existing selection details
+            const existingDetails = document.querySelector('.selection-details');
+            if (existingDetails) {
+                existingDetails.remove();
+            }
+            
+            // Create floating details
+            const details = document.createElement('div');
+            details.className = 'selection-details';
+            details.innerHTML = `
+                <div class="selection-header ${type}">MISSION SELECTED</div>
+                <div class="selection-content">
+                    <div class="selection-name">${name}</div>
+                    <div class="selection-info">${reward} | ${time}</div>
+                </div>
+            `;
+            
+            // Style the element
+            details.style.position = 'fixed';
+            details.style.bottom = '80px';
+            details.style.right = '20px';
+            details.style.width = '250px';
+            details.style.background = 'var(--glass-bg)';
+            details.style.backdropFilter = 'blur(10px)';
+            details.style.borderRadius = '10px';
+            details.style.overflow = 'hidden';
+            details.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.5)';
+            details.style.zIndex = '1000';
+            details.style.animation = 'slideIn 0.5s forwards';
+            details.style.opacity = '0';
+            details.style.transform = 'translateX(50px)';
+            
+            // Style inner elements
+            const header = details.querySelector('.selection-header');
+            header.style.padding = '10px';
+            header.style.textAlign = 'center';
+            header.style.fontWeight = 'bold';
+            header.style.letterSpacing = '1px';
+            
+            // Set color based on mission type
+            if (type === 'standard') {
+                header.style.backgroundColor = 'var(--mission-standard)';
+                header.style.color = '#111';
+                details.style.borderLeft = '3px solid var(--mission-standard)';
+            } else if (type === 'hardcore') {
+                header.style.backgroundColor = 'var(--mission-hardcore)';
+                header.style.color = '#fff';
+                details.style.borderLeft = '3px solid var(--mission-hardcore)';
+            } else if (type === 'exploration') {
+                header.style.backgroundColor = 'var(--mission-exploration)';
+                header.style.color = '#fff';
+                details.style.borderLeft = '3px solid var(--mission-exploration)';
+            }
+            
+            const content = details.querySelector('.selection-content');
+            content.style.padding = '15px';
+            
+            const selName = details.querySelector('.selection-name');
+            selName.style.fontSize = '1.2rem';
+            selName.style.marginBottom = '5px';
+            
+            const selInfo = details.querySelector('.selection-info');
+            selInfo.style.fontSize = '0.9rem';
+            selInfo.style.opacity = '0.8';
+            selInfo.style.fontFamily = 'Rajdhani, sans-serif';
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+                
+                @keyframes slideOut {
+                    to {
+                        opacity: 0;
+                        transform: translateX(50px);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Add to document
+            document.body.appendChild(details);
+            
+            // Remove after delay
+            setTimeout(() => {
+                details.style.animation = 'slideOut 0.5s forwards';
+                setTimeout(() => details.remove(), 500);
+            }, 5000);
+        }
+        
+        function createSelectionBurst(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Get element color
+            let color;
+            if (element.classList.contains('standard')) {
+                color = getComputedStyle(document.documentElement).getPropertyValue('--mission-standard');
+            } else if (element.classList.contains('hardcore')) {
+                color = getComputedStyle(document.documentElement).getPropertyValue('--mission-hardcore');
+            } else if (element.classList.contains('exploration')) {
+                color = getComputedStyle(document.documentElement).getPropertyValue('--mission-exploration');
+            } else if (document.body.classList.contains('hologram-mode')) {
+                color = getComputedStyle(document.documentElement).getPropertyValue('--hologram-primary');
+            } else {
+                color = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+            }
+            
+            // Create burst container
+            const burstContainer = document.createElement('div');
+            burstContainer.style.position = 'fixed';
+            burstContainer.style.left = centerX + 'px';
+            burstContainer.style.top = centerY + 'px';
+            burstContainer.style.width = '0';
+            burstContainer.style.height = '0';
+            burstContainer.style.pointerEvents = 'none';
+            burstContainer.style.zIndex = '9999';
+            
+            // Create burst rays
+            for (let i = 0; i < 12; i++) {
+                const ray = document.createElement('div');
+                const angle = (i / 12) * Math.PI * 2;
+                
+                ray.style.position = 'absolute';
+                ray.style.width = '2px';
+                ray.style.height = '50px';
+                ray.style.backgroundColor = color;
+                ray.style.boxShadow = `0 0 10px ${color}`;
+                ray.style.transform = `rotate(${angle}rad) translateY(-25px)`;
+                ray.style.transformOrigin = 'bottom center';
+                ray.style.opacity = '0';
+                ray.style.animation = `rayBurst 0.8s ease-out forwards ${i * 0.05}s`;
+                
+                burstContainer.appendChild(ray);
+            }
+            
+            // Create ring
+            const ring = document.createElement('div');
+            ring.style.position = 'absolute';
+            ring.style.width = '10px';
+            ring.style.height = '10px';
+            ring.style.borderRadius = '50%';
+            ring.style.border = `2px solid ${color}`;
+            ring.style.boxShadow = `0 0 10px ${color}`;
+            ring.style.transform = 'translate(-50%, -50%)';
+            ring.style.opacity = '0';
+            ring.style.animation = 'ringExpand 1s ease-out forwards';
+            
+            burstContainer.appendChild(ring);
+            
+            // Add animation keyframes
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes rayBurst {
+                    0% { opacity: 0.8; height: 0; }
+                    50% { opacity: 1; height: 100px; }
+                    100% { opacity: 0; height: 150px; }
+                }
+                
+                @keyframes ringExpand {
+                    0% { opacity: 0.8; width: 10px; height: 10px; }
+                    100% { opacity: 0; width: 300px; height: 300px; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Add to document and remove after animation
+            document.body.appendChild(burstContainer);
+            setTimeout(() => burstContainer.remove(), 2000);
         }
         
         // Start mission button
@@ -1162,13 +1775,67 @@
             if (selectedMission) {
                 playUISound('launch');
                 
-                // Add launch animation
+                // Create particle burst at cursor position
+                if (document.getElementById('particleToggle') && document.getElementById('particleToggle').checked) {
+                    const cursorPos = document.querySelector('.cosmic-cursor').getBoundingClientRect();
+                    createSelectionBurst({
+                        getBoundingClientRect: () => ({
+                            left: cursorPos.left,
+                            top: cursorPos.top,
+                            width: 0,
+                            height: 0
+                        })
+                    });
+                }
+                
+                // Add launch animation with enhanced transition
                 document.body.classList.add('launching');
+                
+                // Show mission-specific message
+                let message = '';
+                switch(selectedMission) {
+                    case 'standard':
+                        message = 'Launching Standard Mission... Prepare for cosmic adventure!';
+                        break;
+                    case 'hardcore':
+                        message = 'Launching Hardcore Mission... Extra challenges await!';
+                        break;
+                    case 'exploration':
+                        message = 'Launching Exploration Mission... Uncharted territories ahead!';
+                        break;
+                }
+                
+                const notification = document.createElement('div');
+                notification.textContent = message;
+                notification.style.position = 'fixed';
+                notification.style.top = '50%';
+                notification.style.left = '50%';
+                notification.style.transform = 'translate(-50%, -50%)';
+                notification.style.background = 'transparent';
+                notification.style.color = 'white';
+                notification.style.zIndex = '10001';
+                notification.style.fontSize = '1.5rem';
+                notification.style.fontWeight = 'bold';
+                notification.style.textShadow = '0 0 10px currentColor';
+                notification.style.textAlign = 'center';
+                notification.style.padding = '20px';
+                notification.style.animation = 'fadeIn 0.5s forwards';
+                
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                document.body.appendChild(notification);
                 
                 // Redirect to the game page with selected mission
                 setTimeout(() => {
                     window.location.href = `ULTRA-COSMIC-CONQUEST.html?mission=${selectedMission}`;
-                }, 1000);
+                }, 2000);
             } else {
                 // Visual feedback if no mission selected
                 const button = document.getElementById('startMission');
@@ -1177,27 +1844,32 @@
                 
                 playUISound('error');
                 
-                // Create notification
-                const notification = document.createElement('div');
-                notification.textContent = 'Please select a mission type first!';
-                notification.style.position = 'fixed';
-                notification.style.top = '20px';
-                notification.style.left = '50%';
-                notification.style.transform = 'translateX(-50%)';
-                notification.style.background = 'rgba(255, 0, 0, 0.2)';
-                notification.style.border = '1px solid red';
-                notification.style.borderRadius = '5px';
-                notification.style.padding = '10px 20px';
-                notification.style.color = 'white';
-                notification.style.zIndex = '10000';
-                
-                document.body.appendChild(notification);
-                
-                // Remove notification after 3 seconds
-                setTimeout(() => {
-                    notification.remove();
-                }, 3000);
+                // Show error modal instead of notification
+                showErrorModal('Please select a mission type before launching.');
             }
+        });
+        
+        // Error Modal Functionality
+        function showErrorModal(message) {
+            const modal = document.getElementById('errorModal');
+            const messageEl = modal.querySelector('.error-modal-body p');
+            
+            // Set the error message
+            messageEl.textContent = message;
+            
+            // Show the modal with animation
+            modal.classList.add('active');
+            
+            // Add glitch effect to background
+            document.body.classList.add('error-state');
+            setTimeout(() => document.body.classList.remove('error-state'), 1000);
+        }
+        
+        // Close error modal
+        document.getElementById('errorClose').addEventListener('click', () => {
+            const modal = document.getElementById('errorModal');
+            modal.classList.remove('active');
+            playUISound('toggle');
         });
         
         // Enhanced UI Sounds
@@ -1484,15 +2156,9 @@
         // Hologram mode toggle
         document.getElementById('hologramToggle').addEventListener('change', function() {
             if (this.checked) {
-                document.documentElement.style.setProperty('--glass-bg', 'rgba(0, 234, 255, 0.1)');
-                document.documentElement.style.setProperty('--card-bg', 'rgba(0, 50, 100, 0.3)');
-                document.documentElement.style.setProperty('--primary-color', '#00eaff');
-                document.documentElement.style.setProperty('--secondary-color', '#a400ff');
+                document.body.classList.add('hologram-mode');
             } else {
-                document.documentElement.style.setProperty('--glass-bg', 'rgba(255, 255, 255, 0.05)');
-                document.documentElement.style.setProperty('--card-bg', 'rgba(20, 20, 60, 0.6)');
-                document.documentElement.style.setProperty('--primary-color', '#a400ff');
-                document.documentElement.style.setProperty('--secondary-color', '#00eaff');
+                document.body.classList.remove('hologram-mode');
             }
             
             playUISound('toggle');
@@ -1501,6 +2167,330 @@
         // Initialize the music player
         document.addEventListener('DOMContentLoaded', () => {
             musicPlayer.init();
+        });
+        
+        // Particle system for interactive elements
+        class ParticleSystem {
+            constructor() {
+                this.particles = [];
+                this.container = document.createElement('div');
+                this.container.className = 'particle-container';
+                this.container.style.position = 'fixed';
+                this.container.style.inset = '0';
+                this.container.style.pointerEvents = 'none';
+                this.container.style.zIndex = '9998';
+                this.container.style.overflow = 'hidden';
+                document.body.appendChild(this.container);
+                
+                // Bind event listeners
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                // Hover effect
+                document.querySelectorAll('[data-interactive]').forEach(el => {
+                    el.addEventListener('mouseenter', (e) => {
+                        if (document.getElementById('particleToggle') && !document.getElementById('particleToggle').checked) return;
+                        this.createParticleExplosion(e.currentTarget, 'hover');
+                    });
+                    
+                    el.addEventListener('click', (e) => {
+                        if (document.getElementById('particleToggle') && !document.getElementById('particleToggle').checked) return;
+                        this.createParticleExplosion(e.currentTarget, 'click');
+                    });
+                });
+                
+                // Special effect for mission cards
+                document.querySelectorAll('.mission-card').forEach(card => {
+                    card.addEventListener('mouseenter', (e) => {
+                        if (document.getElementById('particleToggle') && !document.getElementById('particleToggle').checked) return;
+                        this.createParticleFlow(e.currentTarget);
+                    });
+                });
+            }
+            
+            createParticle(x, y, color, size, speedX, speedY, life) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = color;
+                particle.style.borderRadius = '50%';
+                particle.style.top = `${y}px`;
+                particle.style.left = `${x}px`;
+                particle.style.pointerEvents = 'none';
+                particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+                particle.style.opacity = Math.random() * 0.5 + 0.5;
+                
+                this.container.appendChild(particle);
+                
+                const createdAt = Date.now();
+                
+                this.particles.push({
+                    element: particle,
+                    x, y,
+                    speedX, speedY,
+                    size,
+                    color,
+                    life,
+                    createdAt
+                });
+            }
+            
+            createParticleExplosion(element, type = 'hover') {
+                const rect = element.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                // Get color based on element or default to theme color
+                let color = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+                
+                if (element.classList.contains('standard')) {
+                    color = getComputedStyle(document.documentElement).getPropertyValue('--mission-standard');
+                } else if (element.classList.contains('hardcore')) {
+                    color = getComputedStyle(document.documentElement).getPropertyValue('--mission-hardcore');
+                } else if (element.classList.contains('exploration')) {
+                    color = getComputedStyle(document.documentElement).getPropertyValue('--mission-exploration');
+                } else if (document.body.classList.contains('hologram-mode')) {
+                    color = getComputedStyle(document.documentElement).getPropertyValue('--hologram-primary');
+                }
+                
+                // Create particles
+                const particleCount = type === 'click' ? 30 : 10;
+                const particleSize = type === 'click' ? 4 : 2;
+                const particleLife = type === 'click' ? 1500 : 800;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 5 + 2;
+                    const speedX = Math.cos(angle) * speed;
+                    const speedY = Math.sin(angle) * speed;
+                    
+                    this.createParticle(
+                        centerX,
+                        centerY,
+                        color,
+                        Math.random() * particleSize + 1,
+                        speedX,
+                        speedY,
+                        Math.random() * particleLife + 500
+                    );
+                }
+            }
+            
+            createParticleFlow(element) {
+                if (!element.dataset.particleFlowActive) {
+                    element.dataset.particleFlowActive = 'true';
+                    
+                    // Get color based on element
+                    let color = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+                    
+                    if (element.classList.contains('standard')) {
+                        color = getComputedStyle(document.documentElement).getPropertyValue('--mission-standard');
+                    } else if (element.classList.contains('hardcore')) {
+                        color = getComputedStyle(document.documentElement).getPropertyValue('--mission-hardcore');
+                    } else if (element.classList.contains('exploration')) {
+                        color = getComputedStyle(document.documentElement).getPropertyValue('--mission-exploration');
+                    } else if (document.body.classList.contains('hologram-mode')) {
+                        color = getComputedStyle(document.documentElement).getPropertyValue('--hologram-primary');
+                    }
+                    
+                    const rect = element.getBoundingClientRect();
+                    const intervalId = setInterval(() => {
+                        if (!element.matches(':hover') || 
+                            (document.getElementById('particleToggle') && !document.getElementById('particleToggle').checked)) {
+                            clearInterval(intervalId);
+                            delete element.dataset.particleFlowActive;
+                            return;
+                        }
+                        
+                        // Create particle at random position on the element's border
+                        const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+                        let x, y, speedX, speedY;
+                        
+                        switch (side) {
+                            case 0: // top
+                                x = rect.left + Math.random() * rect.width;
+                                y = rect.top;
+                                speedX = (Math.random() - 0.5) * 2;
+                                speedY = Math.random() * 2 + 1;
+                                break;
+                            case 1: // right
+                                x = rect.right;
+                                y = rect.top + Math.random() * rect.height;
+                                speedX = -(Math.random() * 2 + 1);
+                                speedY = (Math.random() - 0.5) * 2;
+                                break;
+                            case 2: // bottom
+                                x = rect.left + Math.random() * rect.width;
+                                y = rect.bottom;
+                                speedX = (Math.random() - 0.5) * 2;
+                                speedY = -(Math.random() * 2 + 1);
+                                break;
+                            case 3: // left
+                                x = rect.left;
+                                y = rect.top + Math.random() * rect.height;
+                                speedX = Math.random() * 2 + 1;
+                                speedY = (Math.random() - 0.5) * 2;
+                                break;
+                        }
+                        
+                        this.createParticle(
+                            x, y, color,
+                            Math.random() * 3 + 1,
+                            speedX, speedY,
+                            Math.random() * 1000 + 500
+                        );
+                    }, 100);
+                }
+            }
+            
+            // Add glowing trail effect for cursor
+            createCursorTrail() {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.position = 'absolute';
+                trail.style.width = '10px';
+                trail.style.height = '10px';
+                trail.style.borderRadius = '50%';
+                trail.style.pointerEvents = 'none';
+                trail.style.zIndex = '9997';
+                
+                // Set color based on hologram mode
+                if (document.body.classList.contains('hologram-mode')) {
+                    trail.style.backgroundColor = 'var(--hologram-primary)';
+                    trail.style.boxShadow = '0 0 15px var(--hologram-primary)';
+                } else {
+                    trail.style.backgroundColor = 'var(--primary-color)';
+                    trail.style.boxShadow = '0 0 15px var(--primary-color)';
+                }
+                
+                const cursor = document.querySelector('.cosmic-cursor');
+                const rect = cursor.getBoundingClientRect();
+                
+                trail.style.left = `${rect.left + rect.width / 2}px`;
+                trail.style.top = `${rect.top + rect.height / 2}px`;
+                trail.style.opacity = '0.8';
+                
+                document.body.appendChild(trail);
+                
+                // Animate and remove
+                setTimeout(() => {
+                    trail.style.transition = 'all 0.8s ease';
+                    trail.style.opacity = '0';
+                    trail.style.width = '5px';
+                    trail.style.height = '5px';
+                    
+                    setTimeout(() => {
+                        trail.remove();
+                    }, 800);
+                }, 10);
+            }
+        }
+        
+        // Initialize particle system
+        let particleSystem;
+        document.addEventListener('DOMContentLoaded', () => {
+            particleSystem = new ParticleSystem();
+            particleSystem.update();
+        });
+        
+        // Touch event support for mobile devices
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add touch events to mission cards
+            document.querySelectorAll('.mission-card').forEach(card => {
+                card.addEventListener('touchstart', function(e) {
+                    // Prevent default behavior to avoid scrolling
+                    e.preventDefault();
+                    
+                    // Get mission type from class
+                    const type = this.classList.contains('standard') ? 'standard' : 
+                                this.classList.contains('hardcore') ? 'hardcore' : 'exploration';
+                    
+                    // Select mission
+                    selectMission(type);
+                });
+            });
+            
+            // Add touch events to all interactive elements
+            document.querySelectorAll('[data-interactive]').forEach(el => {
+                el.addEventListener('touchstart', function() {
+                    playUISound('hover');
+                    this.classList.add('touch-active');
+                });
+                
+                el.addEventListener('touchend', function() {
+                    this.classList.remove('touch-active');
+                });
+            });
+            
+            // Add touch event to start mission button
+            document.getElementById('startMission').addEventListener('touchend', function() {
+                if (selectedMission) {
+                    playUISound('launch');
+                    
+                    // Add launch animation with enhanced transition
+                    document.body.classList.add('launching');
+                    
+                    // Show mission-specific message
+                    let message = '';
+                    switch(selectedMission) {
+                        case 'standard':
+                            message = 'Launching Standard Mission... Prepare for cosmic adventure!';
+                            break;
+                        case 'hardcore':
+                            message = 'Launching Hardcore Mission... Extra challenges await!';
+                            break;
+                        case 'exploration':
+                            message = 'Launching Exploration Mission... Uncharted territories ahead!';
+                            break;
+                    }
+                    
+                    const notification = document.createElement('div');
+                    notification.textContent = message;
+                    notification.style.position = 'fixed';
+                    notification.style.top = '50%';
+                    notification.style.left = '50%';
+                    notification.style.transform = 'translate(-50%, -50%)';
+                    notification.style.background = 'transparent';
+                    notification.style.color = 'white';
+                    notification.style.zIndex = '10001';
+                    notification.style.fontSize = '1.5rem';
+                    notification.style.fontWeight = 'bold';
+                    notification.style.textShadow = '0 0 10px currentColor';
+                    notification.style.textAlign = 'center';
+                    notification.style.padding = '20px';
+                    
+                    document.body.appendChild(notification);
+                    
+                    // Redirect to the game page with selected mission
+                    setTimeout(() => {
+                        window.location.href = `ULTRA-COSMIC-CONQUEST.html?mission=${selectedMission}`;
+                    }, 2000);
+                } else {
+                    // Visual feedback if no mission selected
+                    this.classList.add('shake');
+                    setTimeout(() => this.classList.remove('shake'), 500);
+                    
+                    playUISound('error');
+                    
+                    // Show error modal
+                    showErrorModal('Please select a mission type before launching.');
+                }
+            });
+            
+            // Add touch event to error modal close button
+            document.getElementById('errorClose').addEventListener('touchend', function() {
+                const modal = document.getElementById('errorModal');
+                modal.classList.remove('active');
+                playUISound('toggle');
+            });
+            
+            // Detect if device supports touch
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (isTouchDevice) {
+                document.body.classList.add('touch-device');
+            }
         });
     </script>
 </body>
