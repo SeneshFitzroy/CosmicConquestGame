@@ -7,18 +7,15 @@ console.log('Button handlers script is loading!');
 document.addEventListener('click', function(event) {
     // Check if clicked element is a button or inside a button
     let targetElement = event.target;
-    
-    // Navigate up to find button if clicked on a child element (like text or image inside button)
-    while (targetElement && targetElement.nodeName !== 'BUTTON' && !targetElement.classList.contains('game-button')) {
-        if (targetElement.parentElement) {
-            targetElement = targetElement.parentElement;
-        } else {
+      // Navigate up to find button if clicked on a child element (like text or icon inside button)
+    while (targetElement && targetElement !== document.body) {
+        if (targetElement.nodeName === 'BUTTON' || targetElement.classList.contains('game-button')) {
             break;
         }
+        targetElement = targetElement.parentElement;
     }
-    
-    // Now check if we found a button and which one it is
-    if (targetElement) {
+      // Now check if we found a button and which one it is
+    if (targetElement && (targetElement.nodeName === 'BUTTON' || targetElement.classList.contains('game-button'))) {
         // Check if this is the Cosmic Codex button
         if (targetElement.textContent.includes('Cosmic Codex') || 
             (targetElement.getAttribute('data-button') === 'cosmic-codex')) {
