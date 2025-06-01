@@ -74,29 +74,65 @@ class CosmicAudioManager {
     playAmbientSequence() {
         if (!this.audioContext || !this.isPlaying) return;
         
-        // Create a complex ambient sequence
+        // Create a more sophisticated ambient sequence with chord progressions
         const sequences = [
-            { freq: 110, type: 'sine', duration: 8, delay: 0 },
-            { freq: 165, type: 'triangle', duration: 6, delay: 2 },
-            { freq: 220, type: 'sine', duration: 4, delay: 4 },
-            { freq: 330, type: 'sawtooth', duration: 3, delay: 6 },
-            { freq: 82.5, type: 'sine', duration: 10, delay: 1 }
+            // Base drone
+            { freq: 55, type: 'sine', duration: 16, delay: 0, gain: 0.05 },
+            { freq: 82.5, type: 'sine', duration: 12, delay: 2, gain: 0.04 },
+            
+            // Harmonic layers
+            { freq: 110, type: 'triangle', duration: 8, delay: 0, gain: 0.03 },
+            { freq: 165, type: 'sine', duration: 6, delay: 3, gain: 0.025 },
+            { freq: 220, type: 'triangle', duration: 4, delay: 6, gain: 0.02 },
+            
+            // Melodic elements
+            { freq: 330, type: 'sawtooth', duration: 3, delay: 8, gain: 0.015 },
+            { freq: 440, type: 'sine', duration: 2, delay: 10, gain: 0.01 },
+            { freq: 293.7, type: 'triangle', duration: 4, delay: 12, gain: 0.02 }, // D note
+            
+            // Atmospheric pads
+            { freq: 146.8, type: 'sine', duration: 10, delay: 1, gain: 0.03 }, // D an octave down
+            { freq: 196, type: 'triangle', duration: 8, delay: 4, gain: 0.025 }, // G
         ];
         
         sequences.forEach(seq => {
             setTimeout(() => {
                 if (this.isPlaying) {
-                    const { oscillator, gainNode } = this.createOscillator(seq.freq, seq.type, seq.duration);
+                    const oscillator = this.audioContext.createOscillator();
+                    const gainNode = this.audioContext.createGain();
+                    const filter = this.audioContext.createBiquadFilter();
+                    const reverb = this.audioContext.createConvolver();
                     
-                    // Add subtle frequency modulation for more interesting sound
+                    // Configure oscillator
+                    oscillator.type = seq.type;
+                    oscillator.frequency.setValueAtTime(seq.freq, this.audioContext.currentTime);
+                    
+                    // Configure filter for space-like sound
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(800 + Math.random() * 400, this.audioContext.currentTime);
+                    filter.Q.setValueAtTime(0.5, this.audioContext.currentTime);
+                    
+                    // Configure gain envelope
+                    const maxGain = seq.gain * this.musicVolume;
+                    gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(maxGain, this.audioContext.currentTime + 1);
+                    gainNode.gain.linearRampToValueAtTime(maxGain * 0.8, this.audioContext.currentTime + seq.duration - 1);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + seq.duration);
+                    
+                    // Add subtle frequency modulation for organic feel
                     const lfo = this.audioContext.createOscillator();
                     const lfoGain = this.audioContext.createGain();
                     
-                    lfo.frequency.setValueAtTime(0.5, this.audioContext.currentTime);
-                    lfoGain.gain.setValueAtTime(10, this.audioContext.currentTime);
+                    lfo.frequency.setValueAtTime(0.2 + Math.random() * 0.3, this.audioContext.currentTime);
+                    lfoGain.gain.setValueAtTime(seq.freq * 0.01, this.audioContext.currentTime);
                     
+                    // Connect audio graph
                     lfo.connect(lfoGain);
                     lfoGain.connect(oscillator.frequency);
+                    
+                    oscillator.connect(filter);
+                    filter.connect(gainNode);
+                    gainNode.connect(this.musicGainNode);
                     
                     oscillator.start();
                     lfo.start();
@@ -119,12 +155,13 @@ class CosmicAudioManager {
             }, seq.delay * 1000);
         });
         
-        // Schedule next sequence
+        // Schedule next sequence with slight variation
+        const nextSequenceDelay = 16000 + (Math.random() * 4000); // 16-20 seconds
         setTimeout(() => {
             if (this.isPlaying) {
                 this.playAmbientSequence();
             }
-        }, 12000); // 12 second loop
+        }, nextSequenceDelay);
     }
     
     stopMusic() {
