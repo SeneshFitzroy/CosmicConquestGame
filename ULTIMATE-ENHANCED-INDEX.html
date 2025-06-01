@@ -2055,6 +2055,124 @@
                 document.body.appendChild(ripple);
                 setTimeout(() => ripple.remove(), 1000);
             }
+
+            resetGameData() {
+                // Reset all game data to initial state
+                this.currentPlayer = 1;
+                this.gameState = 'playing';
+                this.players = {
+                    1: { position: 0, score: 0, moves: 0, cards: 0 },
+                    2: { position: 0, score: 0, moves: 0, cards: 0 }
+                };
+                
+                // Clear localStorage data
+                localStorage.removeItem('cosmicConquestSave');
+                localStorage.removeItem('cosmicConquestStats');
+                localStorage.removeItem('cosmicConquestAchievements');
+                localStorage.removeItem('cosmicConquestSettings');
+                
+                // Reset achievements
+                this.achievements = this.getInitialAchievements();
+                
+                // Reset board and display
+                this.createBoard();
+                this.updateDisplay();
+                
+                // Hide any open modals
+                document.getElementById('victoryOverlay').style.display = 'none';
+                const settingsModal = document.getElementById('settingsModal');
+                if (settingsModal) {
+                    settingsModal.style.display = 'none';
+                }
+                
+                document.getElementById('gameStatus').textContent = "🚀 Player 1's turn. Roll the dice!";
+                
+                // Play reset sound
+                this.playTone(440, 200, 'square');
+            }
+
+            getInitialAchievements() {
+                return {
+                    firstWin: { name: "First Victory", description: "Win your first game", unlocked: false },
+                    speedRunner: { name: "Speed Runner", description: "Win in under 20 moves", unlocked: false },
+                    luckyRoller: { name: "Lucky Roller", description: "Roll three 6s in a row", unlocked: false },
+                    cardCollector: { name: "Card Collector", description: "Collect 10 cards in one game", unlocked: false },
+                    comebackKid: { name: "Comeback Kid", description: "Win after being 20+ points behind", unlocked: false },
+                    perfectGame: { name: "Perfect Game", description: "Win without landing on any trap tiles", unlocked: false },
+                    marathon: { name: "Marathon Runner", description: "Play 10 games", unlocked: false },
+                    highScorer: { name: "High Scorer", description: "Score 100+ points in one game", unlocked: false },
+                    explorer: { name: "Cosmic Explorer", description: "Land on every type of special tile", unlocked: false },
+                    champion: { name: "Cosmic Champion", description: "Win 5 games", unlocked: false }
+                };
+            }
+
+            applyTheme(themeName) {
+                const themes = {
+                    cosmic: {
+                        '--primary-color': '#8A2BE2',
+                        '--secondary-color': '#FF6B6B',
+                        '--accent-color': '#4ECDC4',
+                        '--bg-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        '--card-bg': 'rgba(255, 255, 255, 0.1)',
+                        '--text-color': '#ffffff',
+                        '--border-color': 'rgba(255, 255, 255, 0.2)'
+                    },
+                    ocean: {
+                        '--primary-color': '#006994',
+                        '--secondary-color': '#00a8cc',
+                        '--accent-color': '#52d3d8',
+                        '--bg-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        '--card-bg': 'rgba(0, 105, 148, 0.1)',
+                        '--text-color': '#ffffff',
+                        '--border-color': 'rgba(82, 211, 216, 0.3)'
+                    },
+                    forest: {
+                        '--primary-color': '#2d5016',
+                        '--secondary-color': '#3d6b1a',
+                        '--accent-color': '#8bc34a',
+                        '--bg-gradient': 'linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%)',
+                        '--card-bg': 'rgba(45, 80, 22, 0.1)',
+                        '--text-color': '#ffffff',
+                        '--border-color': 'rgba(139, 195, 74, 0.3)'
+                    },
+                    sunset: {
+                        '--primary-color': '#ff6b35',
+                        '--secondary-color': '#f7931e',
+                        '--accent-color': '#ffcd3c',
+                        '--bg-gradient': 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)',
+                        '--card-bg': 'rgba(255, 107, 53, 0.1)',
+                        '--text-color': '#ffffff',
+                        '--border-color': 'rgba(255, 205, 60, 0.3)'
+                    },
+                    neon: {
+                        '--primary-color': '#ff073a',
+                        '--secondary-color': '#39ff14',
+                        '--accent-color': '#00ffff',
+                        '--bg-gradient': 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+                        '--card-bg': 'rgba(255, 7, 58, 0.1)',
+                        '--text-color': '#ffffff',
+                        '--border-color': 'rgba(0, 255, 255, 0.3)'
+                    }
+                };
+
+                const theme = themes[themeName] || themes.cosmic;
+                const root = document.documentElement;
+
+                // Apply theme colors
+                Object.keys(theme).forEach(property => {
+                    root.style.setProperty(property, theme[property]);
+                });
+
+                // Save theme preference
+                localStorage.setItem('cosmicConquestTheme', themeName);
+
+                // Add theme-specific animations
+                document.body.className = `theme-${themeName}`;
+
+                // Play theme change sound
+                this.playTone(523, 150, 'sine');
+                setTimeout(() => this.playTone(659, 150, 'sine'), 200);
+            }
         }
 
         // ====================================
@@ -2552,45 +2670,6 @@
                 this.updateThemeSpecificElements(themeName);
             }
 
-            updateThemeSpecificElements = (themeName) => { // Changed to arrow function
-                // Example: Change particle colors or other theme-dependent visuals
-                console.log(`Updating elements for theme: ${themeName}`);
-                // This is a placeholder for more complex theme updates
-                // For instance, if you have dynamic particle effects:
-                // if (this.particleSystem) {
-                //    this.particleSystem.updateColorsForTheme(themeName);
-                // }
-            }
-            
-            resetGameData = () => { // Changed to arrow function
-                // Reset player scores, positions, achievements, stats, etc.
-                this.players = {
-                    1: { position: 0, score: 0, moves: 0, cards: 0, achievements: [] },
-                    2: { position: 0, score: 0, moves: 0, cards: 0, achievements: [] }
-                };
-                this.achievements = this.getInitialAchievements(); // Reset achievements
-                this.performanceStats = { gamesPlayed: 0, averageScore: 0, totalTimePlayed: 0 };
-                
-                // Clear from localStorage
-                localStorage.removeItem('cosmicConquestGameState');
-                localStorage.removeItem('cosmicAchievements');
-                localStorage.removeItem('cosmicPerformanceStats');
-                
-                // Potentially reset UI elements directly if needed
-                this.updateDisplay(); // Refresh game display
-                
-                console.log("Game data has been reset.");
-            }
-
-            getInitialAchievements = () => { // Changed to arrow function
-                return [
-                    { id: 'first_move', name: 'First Step', description: 'Made your first move.', unlocked: false },
-                    { id: 'won_game', name: 'Cosmic Conqueror', description: 'Won a game.', unlocked: false },
-                    { id: 'high_score_100', name: 'Centurion', description: 'Scored 100 points.', unlocked: false },
-                    { id: 'power_tile_master', name: 'Power Surge', description: 'Landed on 3 power tiles in one game.', unlocked: false },
-                    { id: 'explorer', name: 'Galactic Explorer', description: 'Visited 10 unique tiles.', unlocked: false }
-                ];
-            }
         }
 
         // ====================================
@@ -3119,64 +3198,6 @@
                 settingsModal.style.display = 'none';
             }
         });
-
-        // Ensure applyTheme method exists in UltimateCosmicConquest or add it
-        // Ensure resetGameData method exists in UltimateCosmicConquest or add it
-        // Inside UltimateCosmicConquest class
-        // ...existing code...
-            applyTheme = (themeName) => { // Changed to arrow function
-                document.body.className = ''; // Clear existing theme classes
-                if (themeName !== 'default') {
-                    document.body.classList.add(themeName + '-theme');
-                }
-                localStorage.setItem('cosmicTheme', themeName);
-                this.activeTheme = themeName;
-                if (this.soundEnabled) this.playTone(600, 100, 'sine');
-                showCosmicAlert(`Theme changed to ${themeName.replace(/^\w/, c => c.toUpperCase())}`, 2000);
-                // Add theme-specific logic if any (e.g., particle colors)
-                this.updateThemeSpecificElements(themeName);
-            }
-
-            updateThemeSpecificElements = (themeName) => { // Changed to arrow function
-                // Example: Change particle colors or other theme-dependent visuals
-                console.log(`Updating elements for theme: ${themeName}`);
-                // This is a placeholder for more complex theme updates
-                // For instance, if you have dynamic particle effects:
-                // if (this.particleSystem) {
-                //    this.particleSystem.updateColorsForTheme(themeName);
-                // }
-            }
-            
-            resetGameData = () => { // Changed to arrow function
-                // Reset player scores, positions, achievements, stats, etc.
-                this.players = {
-                    1: { position: 0, score: 0, moves: 0, cards: 0, achievements: [] },
-                    2: { position: 0, score: 0, moves: 0, cards: 0, achievements: [] }
-                };
-                this.achievements = this.getInitialAchievements(); // Reset achievements
-                this.performanceStats = { gamesPlayed: 0, averageScore: 0, totalTimePlayed: 0 };
-                
-                // Clear from localStorage
-                localStorage.removeItem('cosmicConquestGameState');
-                localStorage.removeItem('cosmicAchievements');
-                localStorage.removeItem('cosmicPerformanceStats');
-                
-                // Potentially reset UI elements directly if needed
-                this.updateDisplay(); // Refresh game display
-                
-                console.log("Game data has been reset.");
-            }
-
-            getInitialAchievements = () => { // Changed to arrow function
-                return [
-                    { id: 'first_move', name: 'First Step', description: 'Made your first move.', unlocked: false },
-                    { id: 'won_game', name: 'Cosmic Conqueror', description: 'Won a game.', unlocked: false },
-                    { id: 'high_score_100', name: 'Centurion', description: 'Scored 100 points.', unlocked: false },
-                    { id: 'power_tile_master', name: 'Power Surge', description: 'Landed on 3 power tiles in one game.', unlocked: false },
-                    { id: 'explorer', name: 'Galactic Explorer', description: 'Visited 10 unique tiles.', unlocked: false }
-                ];
-            }
-        }
 
         // ====================================
         // 🎮 INITIALIZE GAME

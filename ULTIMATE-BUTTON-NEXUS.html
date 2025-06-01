@@ -1130,11 +1130,6 @@
                 `;
                 document.head.appendChild(style);
             }
-                    beam.style.animationDelay = Math.random() * 4 + 's';
-                    beam.style.animationDuration = (Math.random() * 2 + 3) + 's';
-                    container.appendChild(beam);
-                }
-            }
 
             playTone(frequency = 440, duration = 200, type = 'sine') {
                 if (!this.audioContext) return;

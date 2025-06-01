@@ -27,11 +27,11 @@ document.addEventListener('click', function(event) {
             event.preventDefault();
             event.stopPropagation();
         }
-        
-        // Check if this is the Settings button
+          // Check if this is the Settings button
         if (targetElement.textContent.includes('Settings') || 
+            targetElement.textContent.includes('Mission Control') ||
             (targetElement.getAttribute('data-button') === 'settings')) {
-            console.log('Settings button clicked through event delegation');
+            console.log('Settings/Mission Control button clicked through event delegation');
             showSettingsModal();
             event.preventDefault();
             event.stopPropagation();
