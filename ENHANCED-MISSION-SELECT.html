@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 ULTRA Cosmic Conquest: Advanced Mission Selection</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #a400ff;
+            --secondary-color: #00eaff;
+            --accent-color: #ff00bb;
+            --dark-bg: #080426;
+            --darker-bg: #040215;
+            --card-bg: rgba(20, 20, 60, 0.6);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glow: 0 0 20px currentColor;
+            --mission-standard: #00e676;
+            --mission-hardcore: #ff3d00;
+            --mission-exploration: #a400ff;
+            --button-glow: 0 0 15px rgba(164, 0, 255, 0.8);
+            --border-glow: 0 0 10px rgba(164, 0, 255, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: none;
+            display: grid;
+            grid-template-rows: auto 1fr;
+        }
+
+        /* Advanced Background Effects */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(164, 0, 255, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 234, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 187, 0.2) 0%, transparent 50%),
+                linear-gradient(to bottom, var(--darker-bg) 0%, var(--dark-bg) 100%);
+        }
+
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        .star.large {
+            width: 3px;
+            height: 3px;
+            box-shadow: 0 0 6px white;
+        }
+
+        .star.medium {
+            width: 2px;
+            height: 2px;
+            box-shadow: 0 0 4px white;
+        }
+
+        .star.small {
+            width: 1px;
+            height: 1px;
+            box-shadow: 0 0 2px white;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Shooting Star Animation */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            box-shadow: 0 0 5px 1px white;
+            border-radius: 50%;
+            transform: rotate(-45deg);
+            animation: shooting 4s linear infinite;
+            opacity: 0;
+        }
+
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, white, transparent);
+            transform: translateX(-100%);
+        }
+
+        @keyframes shooting {
+            0% { 
+                transform: translateX(0) translateY(0) rotate(-45deg);
+                opacity: 1;
+            }
+            20% { opacity: 1; }
+            100% { 
+                transform: translateX(calc(100vw * 1.4)) translateY(calc(100vh * 1.4)) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Compact Main Container */
+        .main-container {
+            width: min(1400px, 95%);
+            margin: 1.5rem auto;
+            display: grid;
+            grid-template-areas:
+                "header header"
+                "missions sidebar";
+            grid-template-columns: 3fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 1rem;
+            max-height: 95vh;
+        }
+
+        /* Header Section */
+        .game-header {
+            grid-area: header;
+            text-align: center;
+            padding: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 1px solid var(--primary-color);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            margin-bottom: 0.5rem;
+        }
+
+        .game-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: var(--primary-color);
+            text-shadow: 0 0 20px var(--primary-color);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            position: relative;
+            animation: titleGlow 3s infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 10px var(--primary-color); }
+            100% { text-shadow: 0 0 30px var(--primary-color), 0 0 50px var(--primary-color); }
+        }
+
+        .game-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            text-shadow: 0 0 10px var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .header-scan-line {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-color);
+            animation: scanLine 4s infinite linear;
+        }
+
+        @keyframes scanLine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Mission Selection Section */
+        .mission-selection {
+            grid-area: missions;
+            padding: 1.2rem;
+            border-radius: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--primary-color);
+            box-shadow: var(--border-glow);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 10px var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: "";
+            height: 1px;
+            background: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        /* Enhanced Mission Cards Grid */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .mission-card {
+            height: 180px;
+            border-radius: 12px;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            z-index: -1;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .mission-card:hover::before {
+            border-color: currentColor;
+            box-shadow: 0 0 20px currentColor;
+            transform: translateY(-10px);
+        }
+
+        .mission-card::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: currentColor;
+            opacity: 0.8;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .mission-card.standard {
+            color: var(--mission-standard);
+        }
+
+        .mission-card.hardcore {
+            color: var(--mission-hardcore);
+        }
+
+        .mission-card.exploration {
+            color: var(--mission-exploration);
+        }
+
+        .mission-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .mission-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .mission-desc {
+            font-size: 0.8rem;
+            font-family: 'Rajdhani', sans-serif;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        /* Mission Progress Indicator */
+        .mission-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 2px;
+            background: currentColor;
+            position: absolute;
+            left: 0;
+            top: 0;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .mission-difficulty {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .mission-last-played {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 0.7rem;
+            font-family: 'Rajdhani', sans-serif;
+            opacity: 0.7;
+        }
+
+        /* Sidebar Container */
+        .sidebar-container {
+            grid-area: sidebar;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: calc(95vh - 5.5rem);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) var(--dark-bg);
+        }
+
+        .sidebar-container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar-container::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .sidebar-container::-webkit-scrollbar-track {
+            background-color: var(--darker-bg);
+        }
+
+        /* Collapsible Stats Panel */
+        .stats-panel {
+            padding: 1rem;
+            border-radius: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--primary-color);
+            box-shadow: var(--border-glow);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .panel-toggle {
+            width: 20px;
+            height: 20px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .collapsed .panel-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .panel-content {
+            max-height: 300px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapsed .panel-content {
+            max-height: 0;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .leaderboard-table th {
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            padding: 10px 5px;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .leaderboard-table td {
+            padding: 10px 5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+
+        .leaderboard-table tr:hover td {
+            background: rgba(164, 0, 255, 0.1);
+        }
+
+        /* Enhanced Game Options */
+        .game-options {
+            padding: 1rem;
+            border-radius: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--primary-color);
+            box-shadow: var(--border-glow);
+            backdrop-filter: blur(10px);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem;
+            border-radius: 8px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .option-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .option-label {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Enhanced Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 34px;
+            transition: 0.3s;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .toggle-slider::before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.3s;
+            z-index: 2;
+        }
+
+        .toggle-slider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: 0.3s;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        input:checked + .toggle-slider::after {
+            left: 0;
+            opacity: 1;
+        }
+
+        input:checked + .toggle-slider::before {
+            transform: translateX(24px);
+            background-color: white;
+        }
+
+        input:checked + .toggle-slider {
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* Improved Button Styles */
+        .action-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            box-shadow: var(--button-glow);
+            display: block;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+            transform: scale(0);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(164, 0, 255, 0.5);
+        }
+
+        .action-button:hover::before {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 12px;
+            border: 1px solid var(--primary-color);
+            box-shadow: var(--border-glow);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .music-player:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .music-controls {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .music-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .music-button:hover {
+            transform: scale(1.1);
+            background: var(--primary-color);
+            color: var(--darker-bg);
+        }
+
+        .volume-slider {
+            width: 100%;
+            margin-top: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .music-title {
+            font-size: 0.9rem;
+            color: white;
+            margin-bottom: 5px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* Enhanced Custom Cursor */
+        .cosmic-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            mix-blend-mode: screen;
+            transition: transform 0.08s ease;
+        }
+
+        .cosmic-cursor::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: cursorPulse 2s infinite;
+        }
+
+        .cosmic-cursor::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: cursorOrbit 3s linear infinite;
+        }
+
+        @keyframes cursorPulse {
+            0%, 100% { transform: scale(0.8); opacity: 0.4; }
+            50% { transform: scale(1.3); opacity: 0.1; }
+        }
+
+        @keyframes cursorOrbit {
+            0% { transform: rotate(0deg) scale(1); opacity: 0.6; }
+            50% { transform: rotate(180deg) scale(1.1); opacity: 0.3; }
+            100% { transform: rotate(360deg) scale(1); opacity: 0.6; }
+        }
+
+        .cosmic-cursor.active {
+            transform: scale(0.8);
+        }
+
+        /* Interactive Elements Highlight */
+        [data-interactive] {
+            position: relative;
+        }
+
+        [data-interactive]::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: inherit;
+            border: 1px solid transparent;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        [data-interactive]:hover::after {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 10px var(--secondary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-areas:
+                    "header"
+                    "missions"
+                    "sidebar";
+                grid-template-columns: 1fr;
+            }
+
+            .mission-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mission-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+            
+            .mission-card {
+                height: 150px;
+            }
+            
+            .mission-icon {
+                font-size: 2rem;
+            }
+            
+            .mission-name {
+                font-size: 1rem;
+            }
+            
+            .game-title {
+                font-size: clamp(1.8rem, 5vw, 2.8rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                width: 98%;
+                margin: 0.5rem auto;
+            }
+            
+            .mission-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-header {
+                padding: 1rem 0;
+            }
+            
+            .game-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        /* Enhanced Loading Animation */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-5px, 5px); }
+            40% { transform: translate(-5px, -5px); }
+            60% { transform: translate(5px, 5px); }
+            80% { transform: translate(5px, -5px); }
+            100% { transform: translate(0); }
+        }
+
+        .launching .cosmic-bg::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(164, 0, 255, 0.2);
+            z-index: 9999;
+            animation: glitch 0.2s ease infinite alternate;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cosmic-cursor"></div>
+    
+    <!-- Background -->
+    <div class="cosmic-bg"></div>
+    <div class="starfield" id="starfield"></div>
+    
+    <div class="main-container">
+        <!-- Header -->
+        <header class="game-header">
+            <div class="header-scan-line"></div>
+            <h1 class="game-title">ULTRA Cosmic Conquest</h1>
+            <p class="game-subtitle">Beyond The Void</p>
+        </header>
+        
+        <!-- Mission Selection -->
+        <section class="mission-selection">
+            <h2 class="section-title">SELECT MISSION TYPE</h2>
+            <div class="mission-grid">
+                <div class="mission-card standard" onclick="selectMission('standard')" data-interactive>
+                    <div class="mission-last-played">Last played: 2d ago</div>
+                    <div class="mission-icon">🚀</div>
+                    <div class="mission-name">STANDARD</div>
+                    <div class="mission-desc">Classic cosmic adventure</div>
+                    <div class="mission-progress">
+                        <div class="progress-bar" style="width: 75%"></div>
+                    </div>
+                    <div class="mission-difficulty">Difficulty: ★★☆</div>
+                </div>
+                
+                <div class="mission-card hardcore" onclick="selectMission('hardcore')" data-interactive>
+                    <div class="mission-icon">☠️</div>
+                    <div class="mission-name">HARDCORE</div>
+                    <div class="mission-desc">Intense challenge with higher risks</div>
+                    <div class="mission-progress">
+                        <div class="progress-bar" style="width: 35%"></div>
+                    </div>
+                    <div class="mission-difficulty">Difficulty: ★★★</div>
+                </div>
+                
+                <div class="mission-card exploration" onclick="selectMission('exploration')" data-interactive>
+                    <div class="mission-icon">🔭</div>
+                    <div class="mission-name">EXPLORATION</div>
+                    <div class="mission-desc">Discover unique cosmic phenomena</div>
+                    <div class="mission-progress">
+                        <div class="progress-bar" style="width: 60%"></div>
+                    </div>
+                    <div class="mission-difficulty">Difficulty: ★☆☆</div>
+                </div>
+            </div>
+            
+            <button class="action-button" id="startMission" data-interactive>LAUNCH MISSION</button>
+        </section>
+        
+        <!-- Sidebar Container -->
+        <div class="sidebar-container">
+            <!-- Stats Panel -->
+            <section class="stats-panel" id="leaderboardPanel">
+                <div class="panel-header">
+                    <h2 class="section-title">GALACTIC DOMINANCE</h2>
+                    <div class="panel-toggle">▼</div>
+                </div>
+                <div class="panel-content">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>RANK</th>
+                                <th>SPECIES</th>
+                                <th>V/L</th>
+                                <th>RATIO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Zorgons</td>
+                                <td>12/3</td>
+                                <td>0.80</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Neburites</td>
+                                <td>10/5</td>
+                                <td>0.67</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Pyruxians</td>
+                                <td>8/7</td>
+                                <td>0.53</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Quasarians</td>
+                                <td>6/9</td>
+                                <td>0.40</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Voidwalkers</td>
+                                <td>5/12</td>
+                                <td>0.29</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- Player Stats Panel -->
+            <section class="stats-panel" id="playerStatsPanel">
+                <div class="panel-header">
+                    <h2 class="section-title">YOUR STATS</h2>
+                    <div class="panel-toggle">▼</div>
+                </div>
+                <div class="panel-content">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>MISSIONS</th>
+                                <th>SUCCESS</th>
+                                <th>ARTIFACTS</th>
+                                <th>RANK</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>24</td>
+                                <td>78%</td>
+                                <td>16</td>
+                                <td>Elite</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- Game Options -->
+            <section class="game-options">
+                <h2 class="section-title">GAME SETTINGS</h2>
+                <div class="options-grid">
+                    <div class="option-item" data-interactive>
+                        <span class="option-label">Enhanced UI</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="option-item" data-interactive>
+                        <span class="option-label">Interactive Background</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="option-item" data-interactive>
+                        <span class="option-label">Sound Effects</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="soundToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="option-item" data-interactive>
+                        <span class="option-label">Background Music</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="musicToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="option-item" data-interactive>
+                        <span class="option-label">Particle Effects</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="particleToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="option-item" data-interactive>
+                        <span class="option-label">Hologram Mode</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="hologramToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Music Player -->
+    <div class="music-player" data-interactive>
+        <div class="music-title" id="currentTrack">🎵 Cosmic Ambient</div>
+        <div class="music-controls">
+            <div class="music-button" id="playMusic" data-interactive>
+                ▶️
+            </div>
+            <div class="music-button" id="pauseMusic" style="display: none;" data-interactive>
+                ⏸️
+            </div>
+            <div class="music-button" id="stopMusic" data-interactive>
+                ⏹️
+            </div>
+        </div>
+        <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeControl">
+    </div>
+
+    <script>
+        // Create enhanced starfield
+        document.addEventListener('DOMContentLoaded', function() {
+            const starfield = document.getElementById('starfield');
+            
+            // Create stars with varied animations
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                const size = Math.random();
+                
+                if (size > 0.85) {
+                    star.className = 'star large';
+                } else if (size > 0.5) {
+                    star.className = 'star medium';
+                } else {
+                    star.className = 'star small';
+                }
+                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                star.style.animationDuration = `${2 + Math.random() * 3}s`;
+                
+                starfield.appendChild(star);
+            }
+            
+            // Create shooting stars
+            function createShootingStar() {
+                if (!document.getElementById('particleToggle') || document.getElementById('particleToggle').checked) {
+                    const shootingStar = document.createElement('div');
+                    shootingStar.className = 'shooting-star';
+                    
+                    // Random position and timing
+                    shootingStar.style.top = `${Math.random() * 50}%`;
+                    shootingStar.style.left = `${Math.random() * 25}%`;
+                    shootingStar.style.animationDelay = `${Math.random() * 2}s`;
+                    
+                    starfield.appendChild(shootingStar);
+                    
+                    // Remove after animation completes
+                    setTimeout(() => {
+                        shootingStar.remove();
+                    }, 4000);
+                }
+                
+                // Create a new shooting star at random intervals
+                setTimeout(createShootingStar, 3000 + Math.random() * 7000);
+            }
+            
+            createShootingStar();
+            
+            // Initialize collapsible panels
+            document.querySelectorAll('.panel-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const panel = this.closest('.stats-panel');
+                    panel.classList.toggle('collapsed');
+                    playUISound('toggle');
+                });
+            });
+        });
+        
+        // Enhanced custom cursor
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.querySelector('.cosmic-cursor');
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        });
+        
+        document.addEventListener('mousedown', () => {
+            document.querySelector('.cosmic-cursor').classList.add('active');
+        });
+        
+        document.addEventListener('mouseup', () => {
+            document.querySelector('.cosmic-cursor').classList.remove('active');
+        });
+        
+        // Mission selection with enhanced feedback
+        let selectedMission = null;
+        
+        function selectMission(type) {
+            // Reset all cards
+            document.querySelectorAll('.mission-card').forEach(card => {
+                card.style.transform = 'none';
+                card.style.boxShadow = 'none';
+            });
+            
+            // Highlight selected card
+            const card = document.querySelector(`.mission-card.${type}`);
+            card.style.transform = 'translateY(-10px) scale(1.05)';
+            
+            // Add pulsing effect to the selected card
+            card.style.boxShadow = `0 0 20px ${getComputedStyle(card).color}`;
+            
+            selectedMission = type;
+            
+            // Play selection sound
+            playUISound('select');
+        }
+        
+        // Start mission button
+        document.getElementById('startMission').addEventListener('click', () => {
+            if (selectedMission) {
+                playUISound('launch');
+                
+                // Add launch animation
+                document.body.classList.add('launching');
+                
+                // Redirect to the game page with selected mission
+                setTimeout(() => {
+                    window.location.href = `ULTRA-COSMIC-CONQUEST.html?mission=${selectedMission}`;
+                }, 1000);
+            } else {
+                // Visual feedback if no mission selected
+                const button = document.getElementById('startMission');
+                button.classList.add('shake');
+                setTimeout(() => button.classList.remove('shake'), 500);
+                
+                playUISound('error');
+                
+                // Create notification
+                const notification = document.createElement('div');
+                notification.textContent = 'Please select a mission type first!';
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.left = '50%';
+                notification.style.transform = 'translateX(-50%)';
+                notification.style.background = 'rgba(255, 0, 0, 0.2)';
+                notification.style.border = '1px solid red';
+                notification.style.borderRadius = '5px';
+                notification.style.padding = '10px 20px';
+                notification.style.color = 'white';
+                notification.style.zIndex = '10000';
+                
+                document.body.appendChild(notification);
+                
+                // Remove notification after 3 seconds
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+        });
+        
+        // Enhanced UI Sounds
+        function playUISound(type) {
+            // Check if sound effects are enabled
+            if (document.getElementById('soundToggle') && !document.getElementById('soundToggle').checked) {
+                return;
+            }
+            
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            switch (type) {
+                case 'select':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(660, audioContext.currentTime + 0.1);
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    break;
+                case 'hover':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(660, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    break;
+                case 'launch':
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(0.5, audioContext.currentTime + 0.5);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                    oscillator.frequency.linearRampToValueAtTime(880, audioContext.currentTime + 0.5);
+                    break;
+                case 'toggle':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(330, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(440, audioContext.currentTime + 0.1);
+                    gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    break;
+                case 'error':
+                    oscillator.type = 'square';
+                    oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+                    oscillator.frequency.setValueAtTime(180, audioContext.currentTime + 0.2);
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    break;
+            }
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 1);
+        }
+        
+        // Add hover sounds to interactive elements
+        document.querySelectorAll('[data-interactive]').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                playUISound('hover');
+            });
+        });
+
+        // Toggle switch sound effects
+        document.querySelectorAll('.toggle-switch input').forEach(toggle => {
+            toggle.addEventListener('change', () => {
+                playUISound('toggle');
+            });
+        });
+
+        // Advanced Music Player Functionality
+        const musicPlayer = {
+            isPlaying: false,
+            audioContext: null,
+            oscillators: [],
+            gainNodes: [],
+            masterGain: null,
+            currentTrack: '🎵 Cosmic Ambient',
+            volume: 0.5,
+
+            init() {
+                // Create audio context
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                this.masterGain = this.audioContext.createGain();
+                this.masterGain.gain.value = this.volume;
+                this.masterGain.connect(this.audioContext.destination);
+
+                // Set up controls
+                document.getElementById('playMusic').addEventListener('click', () => this.play());
+                document.getElementById('pauseMusic').addEventListener('click', () => this.pause());
+                document.getElementById('stopMusic').addEventListener('click', () => this.stop());
+                document.getElementById('volumeControl').addEventListener('input', (e) => this.setVolume(e.target.value));
+                document.getElementById('musicToggle').addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        this.play();
+                    } else {
+                        this.stop();
+                    }
+                });
+
+                // Auto-play ambient music
+                this.play();
+            },
+
+            play() {
+                if (!document.getElementById('musicToggle') || !document.getElementById('musicToggle').checked) {
+                    return;
+                }
+                
+                if (this.isPlaying) return;
+
+                // Stop any existing oscillators
+                this.stop();
+
+                // Generate ambient music
+                this.generateAmbientMusic();
+                
+                this.isPlaying = true;
+                this.updatePlayButton();
+                this.showCurrentTrack();
+            },
+
+            pause() {
+                if (!this.isPlaying) return;
+
+                // Fade out all oscillators
+                this.oscillators.forEach((osc, index) => {
+                    const gain = this.gainNodes[index];
+                    gain.gain.exponentialRampToValueAtTime(0.0001, this.audioContext.currentTime + 0.5);
+                    setTimeout(() => {
+                        try {
+                            osc.stop();
+                        } catch (e) {
+                            // Oscillator might already be stopped
+                        }
+                    }, 500);
+                });
+
+                this.oscillators = [];
+                this.gainNodes = [];
+                this.isPlaying = false;
+                this.updatePlayButton();
+            },
+
+            stop() {
+                this.oscillators.forEach(osc => {
+                    try {
+                        osc.stop();
+                    } catch (e) {
+                        // Oscillator might already be stopped
+                    }
+                });
+
+                this.oscillators = [];
+                this.gainNodes = [];
+                this.isPlaying = false;
+                this.updatePlayButton();
+            },
+
+            setVolume(value) {
+                this.volume = value / 100;
+                if (this.masterGain) {
+                    this.masterGain.gain.value = this.volume;
+                }
+            },
+
+            updatePlayButton() {
+                const playButton = document.getElementById('playMusic');
+                const pauseButton = document.getElementById('pauseMusic');
+
+                if (this.isPlaying) {
+                    playButton.style.display = 'none';
+                    pauseButton.style.display = 'flex';
+                } else {
+                    playButton.style.display = 'flex';
+                    pauseButton.style.display = 'none';
+                }
+            },
+
+            showCurrentTrack() {
+                document.getElementById('currentTrack').textContent = this.currentTrack;
+            },
+
+            generateAmbientMusic() {
+                // Create drone layer
+                this.createDrone(55, 0.1, 'sine');  // Low A drone
+                this.createDrone(110, 0.08, 'sine'); // A octave up
+                this.createDrone(165, 0.05, 'sine'); // E perfect fifth
+                
+                // Add harmonic layer that changes slowly
+                this.createHarmonicLayer();
+                
+                // Add random sparkles
+                this.startRandomSparkles();
+            },
+
+            createDrone(frequency, gain, type) {
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.type = type;
+                oscillator.frequency.value = frequency;
+                
+                gainNode.gain.value = 0;
+                gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(gain, this.audioContext.currentTime + 2);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.masterGain);
+                
+                oscillator.start();
+                
+                this.oscillators.push(oscillator);
+                this.gainNodes.push(gainNode);
+                
+                return { oscillator, gainNode };
+            },
+
+            createHarmonicLayer() {
+                const harmonics = [
+                    { freq: 220, gain: 0.03 },
+                    { freq: 277.2, gain: 0.02 },
+                    { freq: 329.6, gain: 0.02 },
+                    { freq: 440, gain: 0.01 }
+                ];
+                
+                harmonics.forEach(h => {
+                    const { oscillator, gainNode } = this.createDrone(h.freq, h.gain, 'sine');
+                    
+                    // Slowly modulate frequency for cosmic effect
+                    this.modulateFrequency(oscillator, h.freq, h.freq * 1.01, 10);
+                });
+            },
+
+            modulateFrequency(oscillator, minFreq, maxFreq, duration) {
+                const lfo = this.audioContext.createOscillator();
+                const lfoGain = this.audioContext.createGain();
+                
+                lfo.frequency.value = 1 / duration;
+                lfoGain.gain.value = (maxFreq - minFreq) / 2;
+                
+                lfo.connect(lfoGain);
+                lfoGain.connect(oscillator.frequency);
+                
+                oscillator.frequency.value = minFreq + (maxFreq - minFreq) / 2;
+                
+                lfo.start();
+                this.oscillators.push(lfo);
+            },
+
+            startRandomSparkles() {
+                const createSparkle = () => {
+                    if (!this.isPlaying) return;
+                    
+                    if (Math.random() < 0.3) {
+                        const freq = 500 + Math.random() * 2000;
+                        const sparkle = this.audioContext.createOscillator();
+                        const sparkleGain = this.audioContext.createGain();
+                        
+                        sparkle.type = 'sine';
+                        sparkle.frequency.value = freq;
+                        
+                        sparkleGain.gain.value = 0;
+                        sparkleGain.gain.setValueAtTime(0, this.audioContext.currentTime);
+                        sparkleGain.gain.linearRampToValueAtTime(0.05 * Math.random(), this.audioContext.currentTime + 0.1);
+                        sparkleGain.gain.exponentialRampToValueAtTime(0.0001, this.audioContext.currentTime + 1 + Math.random());
+                        
+                        sparkle.connect(sparkleGain);
+                        sparkleGain.connect(this.masterGain);
+                        
+                        sparkle.start();
+                        sparkle.stop(this.audioContext.currentTime + 2);
+                    }
+                    
+                    setTimeout(createSparkle, 500 + Math.random() * 3000);
+                };
+                
+                createSparkle();
+            }
+        };
+
+        // Hologram mode toggle
+        document.getElementById('hologramToggle').addEventListener('change', function() {
+            if (this.checked) {
+                document.documentElement.style.setProperty('--glass-bg', 'rgba(0, 234, 255, 0.1)');
+                document.documentElement.style.setProperty('--card-bg', 'rgba(0, 50, 100, 0.3)');
+                document.documentElement.style.setProperty('--primary-color', '#00eaff');
+                document.documentElement.style.setProperty('--secondary-color', '#a400ff');
+            } else {
+                document.documentElement.style.setProperty('--glass-bg', 'rgba(255, 255, 255, 0.05)');
+                document.documentElement.style.setProperty('--card-bg', 'rgba(20, 20, 60, 0.6)');
+                document.documentElement.style.setProperty('--primary-color', '#a400ff');
+                document.documentElement.style.setProperty('--secondary-color', '#00eaff');
+            }
+            
+            playUISound('toggle');
+        });
+
+        // Initialize the music player
+        document.addEventListener('DOMContentLoaded', () => {
+            musicPlayer.init();
+        });
+    </script>
+</body>
+</html>

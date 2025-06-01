@@ -290,32 +290,27 @@
 
         .player-stats {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
         }
 
         .stat-item {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .stat-value {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--accent-color);
             font-weight: bold;
-            color: var(--primary-color);
         }
 
         .stat-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         /* Dice Section */
@@ -685,15 +680,174 @@
 
         /* Enhanced Hover Effects */
         .game-button:hover, .ultra-button:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0, 255, 159, 0.4), 0 0 30px var(--primary-color);
-            animation: buttonGlow 0.3s ease-in-out;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 255, 159, 0.3), 0 0 15px var(--primary-color);
         }
 
-        @keyframes buttonGlow {
-            0% { filter: brightness(1); }
-            50% { filter: brightness(1.3) saturate(1.5); }
-            100% { filter: brightness(1.1); }
+        .player:hover, .info-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .custom-checkbox {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkmark {
+            height: 20px;
+            width: 20px;
+            background-color: var(--darker-bg);
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .custom-checkbox:hover .checkmark {
+            background-color: rgba(0, 255, 159, 0.1);
+        }
+
+        .custom-checkbox input:checked ~ .checkmark:after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid var(--primary-color);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        /* Music Player Controls */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 255, 159, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .music-player:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 159, 0.4);
+        }
+
+        .music-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .music-button {
+            background: var(--dark-bg);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .music-button:hover {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            transform: scale(1.1);
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 80px;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--dark-bg);
+            outline: none;
+            margin-top: 8px;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .music-title {
+            font-size: 11px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 120px;
+            text-align: center;
+        }
+
+        /* Game Structure Improvements */
+        .game-container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .game-sidebar {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(0, 255, 159, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: min-content;
+        }
+
+        .game-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '►';
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -715,10 +869,65 @@
         <p class="subtitle">Interdimensional Gaming Experience</p>
     </div>
 
-    <div class="game-arena">
-        <!-- Game Status -->
-        <div class="game-status">
-            <div class="status-text" id="gameStatus">🚀 Welcome to Cosmic Conquest! Player 1's turn to roll the dice.</div>
+    <!-- Improved Game Structure -->
+    <div class="game-container">
+        <!-- Game Sidebar -->
+        <div class="game-sidebar">
+            <div class="sidebar-section">
+                <h3 class="section-title">Player Status</h3>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Energy</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">Position</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Artifacts</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">120</div>
+                        <div class="stat-label">Points</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">Game Settings</h3>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="soundToggle" checked>
+                    <span class="checkmark"></span>
+                    Sound Effects
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="musicToggle" checked>
+                    <span class="checkmark"></span>
+                    Background Music
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="particleToggle" checked>
+                    <span class="checkmark"></span>
+                    Particle Effects
+                </label>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">Quick Actions</h3>
+                <button class="game-button" id="resetGame">🔄 Reset Game</button>
+                <button class="game-button" id="showLeaderboard">🏆 Leaderboard</button>
+                <button class="game-button" id="showTutorial">📖 How to Play</button>
+            </div>
+        </div>
+
+        <!-- Game Main Content -->
+        <div class="game-main">
+            <!-- Game Status -->
+            <div class="game-status">
+                <div class="status-text" id="gameStatus">🚀 Welcome to Cosmic Conquest! Player 1's turn to roll the dice.</div>
+            </div>
         </div>
 
         <!-- Game Board -->
@@ -867,6 +1076,23 @@
         <button class="nav-button" onclick="window.location.href='ULTIMATE-TEST.html'">
             🧪 Test Lab
         </button>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <div class="music-title" id="currentTrack">🎵 Awaiting your command...</div>
+        <div class="music-controls">
+            <div class="music-button" id="playMusic">
+                ▶️
+            </div>
+            <div class="music-button" id="pauseMusic" style="display: none;">
+                ⏸️
+            </div>
+            <div class="music-button" id="stopMusic">
+                ⏹️
+            </div>
+        </div>
+        <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeControl">
     </div>
 
     <script>
@@ -1506,6 +1732,69 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Music Player Functionality
+        const musicPlayer = {
+            isPlaying: false,
+            audio: new Audio('path/to/your/music/file.mp3'),
+            currentTrack: '🎵 Awaiting your command...',
+            volume: 0.5,
+
+            init() {
+                this.audio.volume = this.volume;
+                document.getElementById('volumeControl').value = this.volume * 100;
+
+                document.getElementById('playMusic').addEventListener('click', () => this.play());
+                document.getElementById('pauseMusic').addEventListener('click', () => this.pause());
+                document.getElementById('stopMusic').addEventListener('click', () => this.stop());
+                document.getElementById('volumeControl').addEventListener('input', (e) => this.setVolume(e.target.value));
+            },
+
+            play() {
+                this.audio.play();
+                this.isPlaying = true;
+                this.updatePlayButton();
+                this.showCurrentTrack();
+            },
+
+            pause() {
+                this.audio.pause();
+                this.isPlaying = false;
+                this.updatePlayButton();
+            },
+
+            stop() {
+                this.audio.pause();
+                this.audio.currentTime = 0;
+                this.isPlaying = false;
+                this.updatePlayButton();
+                this.showCurrentTrack();
+            },
+
+            setVolume(value) {
+                this.volume = value / 100;
+                this.audio.volume = this.volume;
+            },
+
+            updatePlayButton() {
+                const playButton = document.getElementById('playMusic');
+                const pauseButton = document.getElementById('pauseMusic');
+
+                if (this.isPlaying) {
+                    playButton.style.display = 'none';
+                    pauseButton.style.display = 'flex';
+                } else {
+                    playButton.style.display = 'flex';
+                    pauseButton.style.display = 'none';
+                }
+            },
+
+            showCurrentTrack() {
+                document.getElementById('currentTrack').textContent = this.currentTrack;
+            }
+        };
+
+        musicPlayer.init();
     </script>
 </body>
 </html>
