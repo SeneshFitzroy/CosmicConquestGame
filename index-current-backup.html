@@ -1,0 +1,2164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 ULTRA Cosmic Conquest: Beyond The Void 🌌</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        :root {
+            --primary-color: #00E676;
+            --secondary-color: #2979FF;
+            --accent-color: #AA00FF;
+            --danger-color: #FF3D00;
+            --bg-dark: #000B27;
+            --bg-space: #001440;
+            --text-color: #E0F7FA;
+            --glow-primary: 0 0 20px var(--primary-color);
+            --glow-secondary: 0 0 15px var(--secondary-color);
+            --glow-accent: 0 0 25px var(--accent-color);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: var(--bg-dark);
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            cursor: none;
+        }
+
+        /* Advanced Cosmic Background */
+        .cosmic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 80%, #120458 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, #1a0033 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, #051937 0%, transparent 50%),
+                        linear-gradient(180deg, #000000 0%, #001440 50%, #000B27 100%);
+        }
+
+        .starfield {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        .star.large {
+            width: 3px;
+            height: 3px;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+        }
+
+        .star.medium {
+            width: 2px;
+            height: 2px;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+        }
+
+        .star.small {
+            width: 1px;
+            height: 1px;
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(20px);
+            opacity: 0.3;
+            animation: drift 20s infinite linear;
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(0) rotate(0deg); }
+            100% { transform: translateX(-20px) rotate(360deg); }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(45deg, #fff, transparent);
+            border-radius: 50%;
+            animation: shoot 1s linear forwards;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(300px) translateY(300px);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .game-container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .game-sidebar {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: min-content;
+            box-shadow: var(--glow-primary);
+        }
+
+        .game-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Ultra Advanced Header */
+        .game-header {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        .game-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(0, 230, 118, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        @keyframes titleGlow {
+            0% { 
+                filter: brightness(1) saturate(1);
+                transform: scale(1);
+            }
+            100% { 
+                filter: brightness(1.2) saturate(1.5);
+                transform: scale(1.02);
+            }
+        }
+
+        .game-subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            opacity: 0.8;
+            animation: subtitleFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes subtitleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Advanced Game Board */
+        .game-board-container {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+            perspective: 1000px;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            box-shadow: var(--glow-primary), inset 0 0 50px rgba(0, 230, 118, 0.1);
+            backdrop-filter: blur(10px);
+            transform: rotateX(5deg);
+            transition: all 0.3s ease;
+        }
+
+        .game-board:hover {
+            transform: rotateX(0deg) scale(1.02);
+            box-shadow: var(--glow-primary), 0 20px 40px rgba(0, 230, 118, 0.3);
+        }
+
+        .tile {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            overflow: hidden;
+        }
+
+        .tile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .tile:hover::before {
+            transform: translateX(100%);
+        }
+
+        .tile:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), var(--glow-primary);
+        }
+
+        .tile.start {
+            background: linear-gradient(135deg, var(--primary-color), #00b8ff);
+            color: var(--bg-dark);
+            animation: pulseGreen 2s infinite;
+        }
+
+        .tile.end {
+            background: linear-gradient(135deg, var(--accent-color), #ff6ec7);
+            color: white;
+            animation: pulseAccent 2s infinite;
+        }
+
+        .tile.obstacle {
+            background: linear-gradient(135deg, var(--danger-color), #ff6b35);
+            color: white;
+            animation: pulseRed 2s infinite;
+        }
+
+        .tile.chance {
+            background: linear-gradient(135deg, var(--secondary-color), #00d4ff);
+            color: white;
+            animation: pulseBlue 2s infinite;
+        }
+
+        .tile.normal {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes pulseGreen {
+            0%, 100% { box-shadow: 0 0 20px var(--primary-color); }
+            50% { box-shadow: 0 0 30px var(--primary-color), 0 0 40px var(--primary-color); }
+        }
+
+        @keyframes pulseAccent {
+            0%, 100% { box-shadow: 0 0 20px var(--accent-color); }
+            50% { box-shadow: 0 0 30px var(--accent-color), 0 0 40px var(--accent-color); }
+        }
+
+        @keyframes pulseRed {
+            0%, 100% { box-shadow: 0 0 20px var(--danger-color); }
+            50% { box-shadow: 0 0 30px var(--danger-color), 0 0 40px var(--danger-color); }
+        }
+
+        @keyframes pulseBlue {
+            0%, 100% { box-shadow: 0 0 20px var(--secondary-color); }
+            50% { box-shadow: 0 0 30px var(--secondary-color), 0 0 40px var(--secondary-color); }
+        }
+
+        /* Quantum Effect Animations */
+        @keyframes blackHoleSpin {
+            0% { transform: translate(-50%, -50%) rotate(0deg) scale(0.5); }
+            50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.5); }
+            100% { transform: translate(-50%, -50%) rotate(360deg) scale(0.5); }
+        }
+
+        @keyframes supernovaBlast {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+
+        @keyframes wormholeSpiral {
+            0% { transform: rotate(0deg) scale(0); opacity: 0; }
+            50% { transform: rotate(180deg) scale(1); opacity: 1; }
+            100% { transform: rotate(360deg) scale(0); opacity: 0; }
+        }
+
+        @keyframes quantumFlicker {
+            0%, 100% { opacity: 1; filter: hue-rotate(0deg); }
+            25% { opacity: 0.5; filter: hue-rotate(90deg); }
+            50% { opacity: 0.8; filter: hue-rotate(180deg); }
+            75% { opacity: 0.3; filter: hue-rotate(270deg); }
+        }
+
+        @keyframes nebulaFlow {
+            0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+            50% { opacity: 0.7; transform: scale(1.2) rotate(180deg); }
+            100% { opacity: 0; transform: scale(2) rotate(360deg); }
+        }
+
+        /* Player Tokens */
+        .player-token {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            animation: float 2s ease-in-out infinite;
+            z-index: 10;
+            border: 2px solid white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-3px) rotate(180deg); }
+        }
+
+        /* Ultra 3D Dice */
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            perspective: 1000px;
+        }
+
+        .dice-3d {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            margin: 0 2rem;
+            transition: transform 0.5s;
+        }
+
+        .dice-3d:hover {
+            transform: scale(1.1);
+        }
+
+        .dice-face {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #333, #666);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            display: grid;
+            grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+            place-items: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+            box-shadow: var(--glow-primary);
+        }
+
+        .dice-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* Controls Panel */
+        .controls-panel {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .ultra-button {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 25px;
+            color: var(--bg-dark);
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 230, 118, 0.3);
+        }
+
+        .ultra-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .ultra-button:hover::before {
+            left: 100%;
+        }
+
+        .ultra-button:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 230, 118, 0.5), 0 0 40px var(--primary-color);
+            animation: ultraButtonGlow 0.4s ease-in-out;
+        }
+
+        @keyframes ultraButtonGlow {
+            0% { filter: brightness(1) saturate(1); }
+            50% { filter: brightness(1.4) saturate(1.8); }
+            100% { filter: brightness(1.2) saturate(1.3); }
+        }
+
+        /* Game Info Panel */
+        .game-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: var(--glow-primary);
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Status Display */
+        .status-display {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin: 1rem 0;
+            animation: statusGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes statusGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(0, 230, 118, 0.4); }
+        }
+
+        /* Advanced Particle System */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            animation: particle-float 3s infinite linear;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Advanced Custom Cursor System */
+        body {
+            cursor: none;
+        }
+
+        .ultra-cosmic-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            mix-blend-mode: screen;
+            transition: transform 0.1s ease;
+        }
+
+        .ultra-cosmic-cursor::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: cosmicPulse 2s infinite;
+        }
+
+        .ultra-cosmic-cursor::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: cosmicOrbit 3s linear infinite;
+        }
+
+        @keyframes cosmicPulse {
+            0%, 100% { transform: scale(0.8); opacity: 0.4; }
+            50% { transform: scale(1.3); opacity: 0.1; }
+        }
+
+        @keyframes cosmicOrbit {
+            0% { transform: rotate(0deg) scale(1); opacity: 0.6; }
+            50% { transform: rotate(180deg) scale(1.1); opacity: 0.3; }
+            100% { transform: rotate(360deg) scale(1); opacity: 0.6; }
+        }
+
+        /* Enhanced Ultra Particle System */
+        .ultra-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .ultra-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            animation: ultraFloat 10s ease-in-out infinite;
+            box-shadow: 0 0 12px currentColor;
+        }
+
+        @keyframes ultraFloat {
+            0%, 100% { 
+                transform: translateY(100vh) rotate(0deg) scale(0.5); 
+                opacity: 0; 
+                background: var(--primary-color);
+            }
+            10% { 
+                opacity: 1; 
+                background: var(--primary-color);
+            }
+            25% { 
+                background: var(--secondary-color);
+            }
+            50% { 
+                background: var(--accent-color);
+                transform: translateY(50vh) rotate(180deg) scale(1.2);
+            }
+            75% { 
+                background: var(--danger-color);
+            }
+            90% { 
+                opacity: 1; 
+                background: var(--primary-color);
+            }
+        }
+
+        /* Enhanced Background Overlay */
+        .cosmic-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent 40%, 
+                rgba(0, 230, 118, 0.1) 60%, 
+                transparent 80%
+            );
+            animation: overlayShift 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes overlayShift {
+            0%, 100% { transform: translateX(0) rotate(0deg); opacity: 0.4; }
+            33% { transform: translateX(30px) rotate(1deg); opacity: 0.7; }
+            66% { transform: translateX(-20px) rotate(-0.5deg); opacity: 0.5; }
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-space);
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--glow-primary);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            background: var(--danger-color);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            margin-top: 1rem;
+        }
+
+        /* Advanced Quantum Effect Animations */
+        
+        /* Game Structure Improvements */
+        .game-container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .game-sidebar {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: min-content;
+            box-shadow: var(--glow-primary);
+        }
+
+        .game-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '►';
+            font-size: 0.8rem;
+        }
+
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+
+        .player-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Custom Checkboxes */
+        .custom-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            user-select: none;
+            color: var(--text-color);
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: relative;
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            margin-right: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .custom-checkbox:hover input ~ .checkmark {
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 5px var(--primary-color);
+        }
+
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: var(--primary-color);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .custom-checkbox .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        /* Music Player Controls */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            border: 1px solid var(--primary-color);
+            box-shadow: var(--glow-primary);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 220px;
+            transition: all 0.3s ease;
+        }
+
+        .music-player:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .music-controls {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .music-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .music-button:hover {
+            transform: scale(1.1);
+            background: var(--primary-color);
+            color: var(--bg-dark);
+        }
+
+        .volume-slider {
+            width: 100%;
+            margin-top: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .music-title {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        /* Mission Info Styles */
+        .mission-info {
+            position: relative;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--accent-color);
+            text-align: center;
+            backdrop-filter: blur(5px);
+            animation: missionInfoAppear 1s forwards;
+        }
+        
+        @keyframes missionInfoAppear {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .mission-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            box-shadow: 0 0 15px currentColor;
+        }
+        
+        .mission-badge.standard {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+        
+        .mission-badge.hardcore {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .mission-badge.exploration {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .mission-info p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        /* Mission-specific Theme Styles */
+        body[data-mission="standard"] {
+            --primary-color: #00E676;
+            --secondary-color: #2979FF;
+        }
+        
+        body[data-mission="hardcore"] {
+            --primary-color: #FF3D00;
+            --secondary-color: #FF9100;
+        }
+        
+        body[data-mission="exploration"] {
+            --primary-color: #AA00FF;
+            --secondary-color: #D500F9;
+        }
+        
+        body[data-mission="hardcore"] .game-title {
+            color: var(--danger-color);
+            text-shadow: 0 0 20px var(--danger-color);
+        }
+        
+        body[data-mission="exploration"] .game-title {
+            color: var(--accent-color);
+            text-shadow: 0 0 20px var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Advanced Custom Cursor -->
+    <div class="ultra-cosmic-cursor"></div>
+    
+    <!-- Enhanced Particle System -->
+    <div class="ultra-particles"></div>
+    
+    <!-- Background Layers -->
+    <div class="cosmic-background">
+        <div class="starfield" id="starfield"></div>
+    </div>
+    <div class="cosmic-overlay"></div>
+
+    <div class="game-header">
+        <h1 class="game-title">🚀 ULTRA Cosmic Conquest: Beyond The Void 🌌</h1>
+        <p class="game-subtitle">Embark on an epic journey across the quantum universe!</p>
+    </div>
+
+    <!-- Improved Game Structure with Sidebar -->
+    <div class="game-container">
+        <!-- Game Sidebar -->
+        <div class="game-sidebar">
+            <div class="sidebar-section">
+                <h3 class="section-title">Player Status</h3>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="energy-value">42</div>
+                        <div class="stat-label">Energy</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="position-value">0</div>
+                        <div class="stat-label">Position</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="score-value">0</div>
+                        <div class="stat-label">Score</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="turn-value">1</div>
+                        <div class="stat-label">Turn</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">Game Settings</h3>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="soundToggle" checked>
+                    <span class="checkmark"></span>
+                    Sound Effects
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="musicToggle" checked>
+                    <span class="checkmark"></span>
+                    Background Music
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="particleToggle" checked>
+                    <span class="checkmark"></span>
+                    Particle Effects
+                </label>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">Current Player</h3>
+                <div class="player-card">
+                    <div class="player-name" id="current-player">🚀 Player 1</div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">Quick Actions</h3>
+                <button class="ultra-button" id="roll-dice">🎲 Roll Dice</button>
+                <button class="ultra-button" id="reset-game">🔄 Reset Game</button>
+                <button class="ultra-button" id="toggle-hologram">🌌 Hologram Mode</button>
+                <button class="ultra-button" id="cosmic-codex">📖 Cosmic Codex</button>
+            </div>
+        </div>
+
+        <!-- Game Main Content -->
+        <div class="game-main">
+            <div class="status-display">
+                <p id="game-message">🚀 Welcome to ULTRA Cosmic Conquest! Roll the dice to begin your journey!</p>
+            </div>
+
+            <div class="game-board-container">
+                <div class="game-board" id="game-board">
+                    <!-- Tiles will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="dice-container">
+                <div class="dice-3d" id="dice-3d">
+                    <div class="dice-face" style="transform: rotateY(0deg) translateZ(40px);">
+                        <div class="dice-dot" style="grid-area: 2/2"></div>
+                    </div>
+                    <div class="dice-face" style="transform: rotateY(90deg) translateZ(40px);">
+                        <div class="dice-dot" style="grid-area: 1/1"></div>
+                        <div class="dice-dot" style="grid-area: 3/3"></div>
+                    </div>
+                    <div class="dice-face" style="transform: rotateY(180deg) translateZ(40px);">
+                        <div class="dice-dot" style="grid-area: 1/1"></div>
+                        <div class="dice-dot" style="grid-area: 2/2"></div>
+                        <div class="dice-dot" style="grid-area: 3/3"></div>
+                    </div>
+                    <div class="dice-face" style="transform: rotateY(-90deg) translateZ(40px);">
+                        <div class="dice-dot" style="grid-area: 1/1"></div>
+                        <div class="dice-dot" style="grid-area: 1/3"></div>
+                        <div class="dice-dot" style="grid-area: 3/1"></div>
+                        <div class="dice-dot" style="grid-area: 3/3"></div>
+                    </div>
+                    <div class="dice-face" style="transform: rotateX(90deg) translateZ(40px);">
+                        <div class="dice-dot" style="grid-area: 1/1"></div>
+                        <div class="dice-dot" style="grid-area: 1/3"></div>
+                        <div class="dice-dot" style="grid-area: 2/2"></div>
+                        <div class="dice-dot" style="grid-area: 3/1"></div>
+                        <div class="dice-dot" style="grid-area: 3/3"></div>
+                    </div>
+                    <div class="dice-face" style="transform: rotateX(-90deg) translateZ(40px);">
+                        <div class="dice-dot" style="grid-area: 1/1"></div>
+                        <div class="dice-dot" style="grid-area: 1/2"></div>
+                        <div class="dice-dot" style="grid-area: 1/3"></div>
+                        <div class="dice-dot" style="grid-area: 3/1"></div>
+                        <div class="dice-dot" style="grid-area: 3/2"></div>
+                        <div class="dice-dot" style="grid-area: 3/3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-info">
+                <div class="info-card">
+                    <h3>🛸 Mission Status</h3>
+                    <div id="game-status">Ready for Interstellar Journey</div>
+                </div>
+                <div class="info-card">
+                    <h3>🎯 Game Mode</h3>
+                    <div id="game-mode">Ultra Advanced</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="codex-modal">
+        <div class="modal-content">
+            <h2 style="color: var(--primary-color); text-align: center;">📜 Cosmic Codex</h2>
+            <div id="codex-content">
+                <h3>🚀 Game Objective</h3>
+                <p>Navigate through the cosmic void and be the first to reach the final destination!</p>
+                
+                <h3>🎮 Controls</h3>
+                <ul>
+                    <li><strong>🎲 Roll Dice:</strong> Click the cosmic dice to move</li>
+                    <li><strong>🔄 Reset:</strong> Start a new mission</li>
+                    <li><strong>✨ Hologram:</strong> Toggle visual effects</li>
+                </ul>
+                
+                <h3>🌌 Tile Types</h3>
+                <ul>
+                    <li><strong>🟢 Start:</strong> Your launch pad</li>
+                    <li><strong>🟣 Finish:</strong> Your destination</li>
+                    <li><strong>🔴 Obstacle:</strong> Cosmic hazards</li>
+                    <li><strong>🔵 Chance:</strong> Mysterious opportunities</li>
+                </ul>
+            </div>
+            <button class="close-btn" id="close-modal">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Ultra Cosmic Cursor System
+        const ultraCursor = document.querySelector('.ultra-cosmic-cursor');
+        let mouseX = 0, mouseY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            ultraCursor.style.left = mouseX - 10 + 'px';
+            ultraCursor.style.top = mouseY - 10 + 'px';
+            
+            // Create ultra cosmic trail particles
+            if (Math.random() < 0.12) {
+                createUltraCosmicTrail(mouseX, mouseY);
+            }
+        });
+
+        // Ultra Cosmic Trail Effects
+        function createUltraCosmicTrail(x, y) {
+            const trail = document.createElement('div');
+            trail.style.cssText = `
+                position: fixed;
+                left: ${x - 4}px;
+                top: ${y - 4}px;
+                width: 8px;
+                height: 8px;
+                background: var(--primary-color);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                animation: ultraTrailFade 1.2s ease-out forwards;
+                box-shadow: 0 0 10px var(--primary-color);
+            `;
+            
+            const keyframes = `
+                @keyframes ultraTrailFade {
+                    0% { opacity: 0.9; transform: scale(1) rotate(0deg); }
+                    100% { opacity: 0; transform: scale(0.2) rotate(180deg); }
+                }
+            `;
+            
+            if (!document.querySelector('#ultra-trail-styles')) {
+                const style = document.createElement('style');
+                style.id = 'ultra-trail-styles';
+                style.textContent = keyframes;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 1200);
+        }
+
+        // Enhanced Ultra Click Effects
+        document.addEventListener('click', (e) => {
+            createUltraCosmicRipple(e.clientX, e.clientY);
+        });
+
+        function createUltraCosmicRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: fixed;
+                left: ${x - 30}px;
+                top: ${y - 30}px;
+                width: 60px;
+                height: 60px;
+                border: 3px solid var(--primary-color);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                animation: ultraCosmicRipple 1s ease-out forwards;
+                box-shadow: 0 0 20px var(--primary-color);
+            `;
+            
+            const rippleKeyframes = `
+                @keyframes ultraCosmicRipple {
+                    0% { transform: scale(0.3); opacity: 1; }
+                    100% { transform: scale(4); opacity: 0; }
+                }
+            `;
+            
+            if (!document.querySelector('#ultra-ripple-styles')) {
+                const style = document.createElement('style');
+                style.id = 'ultra-ripple-styles';
+                style.textContent = rippleKeyframes;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 1000);
+        }
+
+        // Enhanced Ultra Particle System
+        function createUltraCosmicParticles() {
+            const container = document.querySelector('.ultra-particles');
+            
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'ultra-particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 3 + 's';
+                    particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+                    
+                    container.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (particle.parentNode) particle.remove();
+                    }, 10000);
+                }, i * 300);
+            }
+        }
+
+        // Ultra Hover Particle Effects
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.matches('.ultra-button, .tile, .dice-3d')) {
+                createUltraHoverParticles(e.target);
+            }
+        });
+
+        function createUltraHoverParticles(element) {
+            const rect = element.getBoundingClientRect();
+            
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `
+                        position: fixed;
+                        left: ${rect.left + Math.random() * rect.width}px;
+                        top: ${rect.top + Math.random() * rect.height}px;
+                        width: 5px;
+                        height: 5px;
+                        background: var(--secondary-color);
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 9997;
+                        animation: ultraHoverSparkle 2s ease-out forwards;
+                        box-shadow: 0 0 8px var(--secondary-color);
+                    `;
+                    
+                    const sparkleKeyframes = `
+                        @keyframes ultraHoverSparkle {
+                            0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+                            100% { opacity: 0; transform: translateY(-40px) scale(0.2) rotate(360deg); }
+                        }
+                    `;
+                    
+                    if (!document.querySelector('#ultra-sparkle-styles')) {
+                        const style = document.createElement('style');
+                        style.id = 'ultra-sparkle-styles';
+                        style.textContent = sparkleKeyframes;
+                        document.head.appendChild(style);
+                    }
+                    
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 2000);
+                }, i * 150);
+            }
+        }
+
+        // Initialize Enhanced Ultra Systems
+        document.addEventListener('DOMContentLoaded', () => {
+            createUltraCosmicParticles();
+            
+            // Regenerate particles periodically
+            setInterval(createUltraCosmicParticles, 15000);
+        });
+
+        class UltraCosmicConquest {
+            constructor() {
+                this.boardSize = 15;
+                this.players = [
+                    { id: 1, name: 'Zorgon Explorer', position: 0, color: '#00E676', icon: '👽', energy: 42, score: 0 },
+                    { id: 2, name: 'Neburite Captain', position: 0, color: '#2979FF', icon: '👾', energy: 42, score: 0 }
+                ];
+                this.currentPlayer = 0;
+                this.gameActive = true;
+                this.hologramMode = false;
+                this.soundEnabled = true;
+                this.particlesEnabled = true;
+                this.turnCount = 1;
+                this.missionType = this.getMissionType();
+                
+                this.init();
+            }
+            
+            getMissionType() {
+                // Parse URL parameters to get mission type
+                const urlParams = new URLSearchParams(window.location.search);
+                const mission = urlParams.get('mission');
+                
+                // Default to 'standard' if no mission specified
+                if (!mission || !['standard', 'hardcore', 'exploration'].includes(mission)) {
+                    return 'standard';
+                }
+                
+                return mission;
+            }
+            
+            applyMissionSettings() {
+                // Apply different game settings based on mission type
+                const missionInfo = document.createElement('div');
+                missionInfo.className = 'mission-info';
+                
+                switch(this.missionType) {
+                    case 'hardcore':
+                        // Hardcore mode: More difficult, higher rewards
+                        this.players.forEach(player => {
+                            player.energy = 30; // Less starting energy
+                        });
+                        
+                        missionInfo.innerHTML = `
+                            <div class="mission-badge hardcore">HARDCORE MISSION</div>
+                            <p>Higher difficulty, greater rewards. Starting energy reduced, danger increased!</p>
+                        `;
+                        break;
+                        
+                    case 'exploration':
+                        // Exploration mode: Focus on discovery
+                        this.boardSize = 18; // Larger board
+                        
+                        missionInfo.innerHTML = `
+                            <div class="mission-badge exploration">EXPLORATION MISSION</div>
+                            <p>Discover the unknown! Larger board with more cosmic phenomena to explore.</p>
+                        `;
+                        break;
+                        
+                    default: // standard
+                        missionInfo.innerHTML = `
+                            <div class="mission-badge standard">STANDARD MISSION</div>
+                            <p>Classic cosmic adventure! Balance your resources carefully.</p>
+                        `;
+                }
+                
+                // Add mission info to the game container
+                document.querySelector('.game-container').prepend(missionInfo);
+                
+                // Apply visual theme based on mission type
+                document.body.setAttribute('data-mission', this.missionType);
+            }
+            
+            init() {
+                this.createStarfield();
+                this.generateBoard();
+                this.bindEvents();
+                this.startParticleSystem();
+                this.createShootingStars();
+                this.updateDisplay();
+                this.applyMissionSettings();
+            }
+
+            createStarfield() {
+                const starfield = document.getElementById('starfield');
+                
+                // Create stars
+                for (let i = 0; i < 200; i++) {
+                    const star = document.createElement('div');
+                    star.className = `star ${['small', 'medium', 'large'][Math.floor(Math.random() * 3)]}`;
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.animationDelay = Math.random() * 2 + 's';
+                    starfield.appendChild(star);
+                }
+
+                // Create nebulae
+                const colors = ['#AA00FF', '#2979FF', '#00E676', '#FF3D00'];
+                for (let i = 0; i < 5; i++) {
+                    const nebula = document.createElement('div');
+                    nebula.className = 'nebula';
+                    nebula.style.left = Math.random() * 100 + '%';
+                    nebula.style.top = Math.random() * 100 + '%';
+                    nebula.style.width = Math.random() * 300 + 100 + 'px';
+                    nebula.style.height = Math.random() * 300 + 100 + 'px';
+                    nebula.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    nebula.style.animationDelay = Math.random() * 20 + 's';
+                    starfield.appendChild(nebula);
+                }
+            }
+
+            generateBoard() {
+                const gameBoard = document.getElementById('game-board');
+                gameBoard.innerHTML = '';
+
+                for (let i = 0; i < this.boardSize; i++) {
+                    const tile = document.createElement('div');
+                    tile.className = 'tile';
+                    tile.dataset.position = i;
+
+                    if (i === 0) {
+                        tile.classList.add('start');
+                        tile.textContent = '🚀';
+                    } else if (i === this.boardSize - 1) {
+                        tile.classList.add('end');
+                        tile.textContent = '🏁';
+                    } else {
+                        const random = Math.random();
+                        if (random < 0.2) {
+                            tile.classList.add('obstacle');
+                            tile.textContent = '⚠️';
+                        } else if (random < 0.4) {
+                            tile.classList.add('chance');
+                            tile.textContent = '✨';
+                        } else {
+                            tile.classList.add('normal');
+                            tile.textContent = i + 1;
+                        }
+                    }
+
+                    gameBoard.appendChild(tile);
+                }
+
+                this.updatePlayerPositions();
+            }
+
+            updatePlayerPositions() {
+                // Clear existing tokens
+                document.querySelectorAll('.player-token').forEach(token => token.remove());
+
+                this.players.forEach((player, index) => {
+                    const tile = document.querySelector(`[data-position="${player.position}"]`);
+                    if (tile) {
+                        const token = document.createElement('div');
+                        token.className = 'player-token';
+                        token.style.backgroundColor = player.color;
+                        token.style.left = index * 30 + 'px';
+                        token.textContent = player.icon;
+                        tile.appendChild(token);
+                    }
+                });
+            }
+
+            rollDice() {
+                if (!this.gameActive) return;
+
+                const dice = document.getElementById('dice-3d');
+                const value = Math.floor(Math.random() * 6) + 1;
+
+                // Animate dice
+                dice.style.transform = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg)`;
+                
+                setTimeout(() => {
+                    this.movePlayer(value);
+                    this.playSound('dice');
+                }, 1000);
+
+                this.updateMessage('🎲 Rolling cosmic dice...');
+            }
+
+            movePlayer(spaces) {
+                const player = this.players[this.currentPlayer];
+                const oldPosition = player.position;
+                player.position += spaces;
+
+                if (player.position >= this.boardSize - 1) {
+                    player.position = this.boardSize - 1;
+                    this.endGame(player);
+                    return;
+                }
+
+                if (player.position < 0) {
+                    player.position = 0;
+                }
+                
+                // Update score based on movement
+                player.score += Math.max(0, player.position - oldPosition);
+                
+                // Update energy
+                player.energy = Math.max(0, player.energy - 1);
+
+                this.updatePlayerPositions();
+                this.checkTileEffect(player);
+                this.switchPlayer();
+            }
+
+            checkTileEffect(player) {
+                const tile = document.querySelector(`[data-position="${player.position}"]`);
+                const tileType = tile.className.split(' ').find(cls => 
+                    ['start', 'end', 'obstacle', 'chance', 'normal'].includes(cls)
+                );
+
+                // Quantum enhancement: Random cosmic phenomena
+                const phenomena = ['black_hole', 'supernova', 'wormhole', 'quantum_storm', 'nebula'];
+                const randomPhenomenon = Math.random() < 0.15 ? phenomena[Math.floor(Math.random() * phenomena.length)] : null;
+
+                if (randomPhenomenon) {
+                    this.triggerCosmicPhenomenon(player, randomPhenomenon);
+                    return;
+                }
+
+                switch (tileType) {
+                    case 'obstacle':
+                        this.updateMessage(`💥 ${player.name} hit a cosmic obstacle! Move back 2 spaces.`);
+                        setTimeout(() => this.movePlayer(-2), 1500);
+                        this.playSound('alert');
+                        this.createParticleExplosion(tile);
+                        break;
+                    case 'chance':
+                        this.updateMessage(`✨ ${player.name} found a cosmic opportunity! Move forward 2 spaces.`);
+                        setTimeout(() => this.movePlayer(2), 1500);
+                        this.playSound('discovery');
+                        this.createGlowEffect(tile);
+                        break;
+                    default:
+                        this.updateMessage(`🌟 ${player.name} moved to position ${player.position + 1}.`);
+                        this.playSound('move');
+                }
+            }
+
+            triggerCosmicPhenomenon(player, phenomenon) {
+                const effects = {
+                    black_hole: () => {
+                        this.updateMessage(`🕳️ ${player.name} encountered a BLACK HOLE! Sucked back 3 spaces!`);
+                        setTimeout(() => this.movePlayer(-3), 1500);
+                        this.createBlackHoleEffect();
+                    },
+                    supernova: () => {
+                        this.updateMessage(`💥 ${player.name} witnessed a SUPERNOVA! Blasted forward 4 spaces!`);
+                        setTimeout(() => this.movePlayer(4), 1500);
+                        this.createSupernovaEffect();
+                    },
+                    wormhole: () => {
+                        const newPos = Math.floor(Math.random() * this.boardSize);
+                        this.updateMessage(`🌀 ${player.name} traveled through a WORMHOLE! Teleported to position ${newPos + 1}!`);
+                        setTimeout(() => {
+                            player.position = newPos;
+                            this.updatePlayerPositions();
+                        }, 1500);
+                        this.createWormholeEffect();
+                    },
+                    quantum_storm: () => {
+                        this.updateMessage(`⚡ ${player.name} caught in a QUANTUM STORM! Reality shifts... roll again!`);
+                        this.createQuantumStormEffect();
+                        setTimeout(() => this.rollDice(), 2000);
+                    },
+                    nebula: () => {
+                        this.updateMessage(`🌌 ${player.name} enters a cosmic NEBULA! Skip next turn but gain energy!`);
+                        this.createNebulaEffect();
+                        this.switchPlayer(); // Skip turn
+                    }
+                };
+                
+                effects[phenomenon]();
+                this.playSound('cosmic');
+            }
+
+            createBlackHoleEffect() {
+                const effect = document.createElement('div');
+                effect.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    background: radial-gradient(circle, transparent 30%, #000 70%);
+                    animation: blackHoleSpin 2s linear infinite;
+                    z-index: 1000;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(effect);
+                setTimeout(() => effect.remove(), 3000);
+            }
+
+            createSupernovaEffect() {
+                const effect = document.createElement('div');
+                effect.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: radial-gradient(circle, rgba(255,255,0,0.8) 0%, rgba(255,100,0,0.6) 30%, transparent 70%);
+                    animation: supernovaBlast 1.5s ease-out;
+                    z-index: 1000;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(effect);
+                setTimeout(() => effect.remove(), 2000);
+            }
+
+            createWormholeEffect() {
+                const effect = document.createElement('div');
+                effect.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 50%;
+                    background: conic-gradient(from 0deg, transparent, #8b5cf6, transparent, #06b6d4, transparent);
+                    animation: wormholeSpiral 2s ease-in-out;
+                    z-index: 1000;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(effect);
+                setTimeout(() => effect.remove(), 2500);
+            }
+
+            createQuantumStormEffect() {
+                const gameBoard = document.getElementById('game-board');
+                gameBoard.style.animation = 'quantumFlicker 1s infinite';
+                setTimeout(() => gameBoard.style.animation = '', 3000);
+            }
+
+            createNebulaEffect() {
+                const effect = document.createElement('div');
+                effect.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: radial-gradient(ellipse, rgba(138, 43, 226, 0.4) 0%, rgba(75, 0, 130, 0.3) 40%, transparent 70%);
+                    animation: nebulaFlow 3s ease-out;
+                    z-index: 999;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(effect);
+                setTimeout(() => effect.remove(), 3500);
+            }
+
+            createParticleExplosion(element) {
+                const rect = element.getBoundingClientRect();
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `
+                        position: fixed;
+                        left: ${rect.left + rect.width/2}px;
+                        top: ${rect.top + rect.height/2}px;
+                        width: 4px;
+                        height: 4px;
+                        background: #ff4444;
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 1000;
+                    `;
+                    document.body.appendChild(particle);
+                    
+                    const angle = (i / 20) * Math.PI * 2;
+                    const velocity = 50 + Math.random() * 50;
+                    const dx = Math.cos(angle) * velocity;
+                    const dy = Math.sin(angle) * velocity;
+                    
+                    particle.animate([
+                        { transform: 'translate(0, 0)', opacity: 1 },
+                        { transform: `translate(${dx}px, ${dy}px)`, opacity: 0 }
+                    ], { duration: 1000, easing: 'ease-out' });
+                    
+                    setTimeout(() => particle.remove(), 1000);
+                }
+            }
+
+            createGlowEffect(element) {
+                const originalBoxShadow = element.style.boxShadow;
+                element.style.boxShadow = '0 0 30px #00ff88, 0 0 60px #00ff88';
+                setTimeout(() => element.style.boxShadow = originalBoxShadow, 2000);
+            }
+
+            switchPlayer() {
+                this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
+                if (this.currentPlayer === 0) {
+                    this.turnCount++;
+                }
+                this.updateDisplay();
+            }
+
+            endGame(winner) {
+                this.gameActive = false;
+                this.updateMessage(`🏆 ${winner.name} has conquered the cosmos! Victory achieved! 🏆`);
+                this.playSound('victory');
+                this.createVictoryEffect();
+            }
+
+            createVictoryEffect() {
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        const particle = document.createElement('div');
+                        particle.className = 'particle';
+                        particle.style.left = Math.random() * 100 + '%';
+                        particle.style.animationDelay = Math.random() * 3 + 's';
+                        document.body.appendChild(particle);
+                        
+                        setTimeout(() => particle.remove(), 3000);
+                    }, i * 100);
+                }
+            }
+
+            resetGame() {
+                this.players.forEach(player => player.position = 0);
+                this.currentPlayer = 0;
+                this.gameActive = true;
+                this.generateBoard();
+                this.updateDisplay();
+                this.updateMessage('🌟 New mission started! Roll the dice to begin! 🌟');
+            }
+
+            toggleHologram() {
+                this.hologramMode = !this.hologramMode;
+                const gameContainer = document.querySelector('.game-container');
+                
+                if (this.hologramMode) {
+                    gameContainer.classList.add('hologram');
+                    this.updateMessage('✨ Hologram mode activated! Experience the cosmic void! ✨');
+                } else {
+                    gameContainer.classList.remove('hologram');
+                    this.updateMessage('🌟 Normal mode restored. Continue your journey! 🌟');
+                }
+            }
+
+            showCodex() {
+                const modal = document.getElementById('codex-modal');
+                modal.classList.add('active');
+            }
+
+            hideCodex() {
+                const modal = document.getElementById('codex-modal');
+                modal.classList.remove('active');
+            }
+
+            updateDisplay() {
+                const currentPlayerElement = document.getElementById('current-player');
+                const player = this.players[this.currentPlayer];
+                currentPlayerElement.textContent = `${player.icon} ${player.name}`;
+                currentPlayerElement.style.color = player.color;
+                
+                // Update sidebar stats
+                document.getElementById('energy-value').textContent = player.energy;
+                document.getElementById('position-value').textContent = player.position;
+                document.getElementById('score-value').textContent = player.score;
+                document.getElementById('turn-value').textContent = this.turnCount;
+                
+                // Update game mode info
+                document.getElementById('game-mode').textContent = this.hologramMode ? 'Hologram Mode' : 'Ultra Advanced';
+                document.getElementById('game-status').textContent = this.gameActive ? 'Mission Active' : 'Mission Complete';
+            }
+
+            updateMessage(message) {
+                document.getElementById('game-message').textContent = message;
+            }
+
+            startParticleSystem() {
+                setInterval(() => {
+                    if (Math.random() < 0.1) {
+                        const particle = document.createElement('div');
+                        particle.className = 'particle';
+                        particle.style.left = Math.random() * 100 + '%';
+                        particle.style.animationDelay = '0s';
+                        document.querySelector('.cosmic-background').appendChild(particle);
+                        
+                        setTimeout(() => particle.remove(), 3000);
+                    }
+                }, 500);
+            }
+
+            createShootingStars() {
+                setInterval(() => {
+                    if (Math.random() < 0.3) {
+                        const star = document.createElement('div');
+                        star.className = 'shooting-star';
+                        star.style.left = Math.random() * 100 + '%';
+                        star.style.top = Math.random() * 50 + '%';
+                        document.getElementById('starfield').appendChild(star);
+                        
+                        setTimeout(() => star.remove(), 1000);
+                    }
+                }, 2000);
+            }
+
+            playSound(type) {
+                if (!this.soundEnabled) return;
+                
+                // Create audio context for advanced sound effects
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                switch (type) {
+                    case 'dice':
+                        oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+                        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                        break;
+                    case 'move':
+                        oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+                        gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                        break;
+                    case 'alert':
+                        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                        break;
+                    case 'discovery':
+                        oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+                        gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
+                        break;
+                    case 'victory':
+                        oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+                        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 2);
+                        break;
+                }
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 2);
+            }
+
+            bindEvents() {
+                document.getElementById('roll-dice').addEventListener('click', () => this.rollDice());
+                document.getElementById('reset-game').addEventListener('click', () => this.resetGame());
+                document.getElementById('cosmic-codex').addEventListener('click', () => this.showCodex());
+                document.getElementById('toggle-hologram').addEventListener('click', () => this.toggleHologram());
+                document.getElementById('close-modal').addEventListener('click', () => this.hideCodex());
+                
+                // Checkbox controls
+                document.getElementById('soundToggle').addEventListener('change', (e) => {
+                    this.soundEnabled = e.target.checked;
+                });
+                
+                document.getElementById('particleToggle').addEventListener('change', (e) => {
+                    this.particlesEnabled = e.target.checked;
+                    document.querySelector('.ultra-particles').style.display = this.particlesEnabled ? 'block' : 'none';
+                });
+                
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    switch (e.code) {
+                        case 'Space':
+                            e.preventDefault();
+                            this.rollDice();
+                            break;
+                        case 'KeyR':
+                            this.resetGame();
+                            break;
+                        case 'KeyH':
+                            this.toggleHologram();
+                            break;
+                        case 'Escape':
+                            this.hideCodex();
+                            break;
+                    }
+                });
+            }
+        }
+
+        // Initialize the game when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new UltraCosmicConquest();
+            initMusicPlayer();
+        });
+
+        // Music Player Functionality
+        function initMusicPlayer() {
+            const musicPlayer = {
+                isPlaying: false,
+                audioContext: null,
+                oscillators: [],
+                gainNodes: [],
+                masterGain: null,
+                currentTrack: '🎵 Cosmic Ambient',
+                volume: 0.5,
+
+                init() {
+                    // Create audio context
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    this.masterGain = this.audioContext.createGain();
+                    this.masterGain.gain.value = this.volume;
+                    this.masterGain.connect(this.audioContext.destination);
+
+                    // Set up controls
+                    document.getElementById('playMusic').addEventListener('click', () => this.play());
+                    document.getElementById('pauseMusic').addEventListener('click', () => this.pause());
+                    document.getElementById('stopMusic').addEventListener('click', () => this.stop());
+                    document.getElementById('volumeControl').addEventListener('input', (e) => this.setVolume(e.target.value));
+                    document.getElementById('musicToggle').addEventListener('change', (e) => {
+                        if (e.target.checked) {
+                            this.play();
+                        } else {
+                            this.stop();
+                        }
+                    });
+
+                    // Update track display
+                    this.showCurrentTrack();
+                },
+
+                play() {
+                    if (this.isPlaying) return;
+
+                    // Stop any existing oscillators
+                    this.stop();
+
+                    // Generate ambient music
+                    this.generateAmbientMusic();
+                    
+                    this.isPlaying = true;
+                    this.updatePlayButton();
+                    this.showCurrentTrack();
+                },
+
+                pause() {
+                    if (!this.isPlaying) return;
+
+                    // Fade out all oscillators
+                    this.oscillators.forEach((osc, index) => {
+                        const gain = this.gainNodes[index];
+                        gain.gain.exponentialRampToValueAtTime(0.0001, this.audioContext.currentTime + 0.5);
+                        setTimeout(() => osc.stop(), 500);
+                    });
+
+                    this.oscillators = [];
+                    this.gainNodes = [];
+                    this.isPlaying = false;
+                    this.updatePlayButton();
+                },
+
+                stop() {
+                    this.oscillators.forEach(osc => {
+                        try {
+                            osc.stop();
+                        } catch (e) {
+                            // Oscillator might already be stopped
+                        }
+                    });
+
+                    this.oscillators = [];
+                    this.gainNodes = [];
+                    this.isPlaying = false;
+                    this.updatePlayButton();
+                },
+
+                setVolume(value) {
+                    this.volume = value / 100;
+                    if (this.masterGain) {
+                        this.masterGain.gain.value = this.volume;
+                    }
+                },
+
+                updatePlayButton() {
+                    const playButton = document.getElementById('playMusic');
+                    const pauseButton = document.getElementById('pauseMusic');
+
+                    if (this.isPlaying) {
+                        playButton.style.display = 'none';
+                        pauseButton.style.display = 'flex';
+                    } else {
+                        playButton.style.display = 'flex';
+                        pauseButton.style.display = 'none';
+                    }
+                },
+
+                showCurrentTrack() {
+                    document.getElementById('currentTrack').textContent = this.currentTrack;
+                },
+
+                generateAmbientMusic() {
+                    // Create drone layer
+                    this.createDrone(55, 0.1, 'sine');  // Low A drone
+                    this.createDrone(110, 0.08, 'sine'); // A octave up
+                    this.createDrone(165, 0.05, 'sine'); // E perfect fifth
+                    
+                    // Add harmonic layer that changes slowly
+                    this.createHarmonicLayer();
+                    
+                    // Add random sparkles
+                    this.startRandomSparkles();
+                },
+
+                createDrone(frequency, gain, type) {
+                    const oscillator = this.audioContext.createOscillator();
+                    const gainNode = this.audioContext.createGain();
+                    
+                    oscillator.type = type;
+                    oscillator.frequency.value = frequency;
+                    
+                    gainNode.gain.value = 0;
+                    gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(gain, this.audioContext.currentTime + 2);
+                    
+                   
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(this.masterGain);
+                    
+                    oscillator.start();
+                    
+                    this.oscillators.push(oscillator);
+                    this.gainNodes.push(gainNode);
+                    
+                    return { oscillator, gainNode };
+                },
+
+                createHarmonicLayer() {
+                    const harmonics = [
+                        { freq: 220, gain: 0.03 },
+                        { freq: 277.2, gain: 0.02 },
+                        { freq: 329.6, gain: 0.02 },
+                        { freq: 440, gain: 0.01 }
+                    ];
+                    
+                    harmonics.forEach(h => {
+                        const { oscillator, gainNode } = this.createDrone(h.freq, h.gain, 'sine');
+                        
+                        // Slowly modulate frequency for cosmic effect
+                        this.modulateFrequency(oscillator, h.freq, h.freq * 1.01, 10);
+                    });
+                },
+
+                modulateFrequency(oscillator, minFreq, maxFreq, duration) {
+                    const lfo = this.audioContext.createOscillator();
+                    const lfoGain = this.audioContext.createGain();
+                    
+                    lfo.frequency.value = 1 / duration;
+                    lfoGain.gain.value = (maxFreq - minFreq) / 2;
+                    
+                    lfo.connect(lfoGain);
+                    lfoGain.connect(oscillator.frequency);
+                    
+                    oscillator.frequency.value = minFreq + (maxFreq - minFreq) / 2;
+                    
+                    lfo.start();
+                    this.oscillators.push(lfo);
+                },
+
+                startRandomSparkles() {
+                    const createSparkle = () => {
+                        if (!this.isPlaying) return;
+                        
+                        if (Math.random() < 0.3) {
+                            const freq = 500 + Math.random() * 2000;
+                            const sparkle = this.audioContext.createOscillator();
+                            const sparkleGain = this.audioContext.createGain();
+                            
+                            sparkle.type = 'sine';
+                            sparkle.frequency.value = freq;
+                            
+                            sparkleGain.gain.value = 0;
+                            sparkleGain.gain.setValueAtTime(0, this.audioContext.currentTime);
+                            sparkleGain.gain.linearRampToValueAtTime(0.05 * Math.random(), this.audioContext.currentTime + 0.1);
+                            sparkleGain.gain.exponentialRampToValueAtTime(0.0001, this.audioContext.currentTime + 1 + Math.random());
+                            
+                            sparkle.connect(sparkleGain);
+                            sparkleGain.connect(this.masterGain);
+                            
+                            sparkle.start();
+                            sparkle.stop(this.audioContext.currentTime + 2);
+                        }
+                        
+                        setTimeout(createSparkle, 500 + Math.random() * 3000);
+                    };
+                    
+                    createSparkle();
+                }
+            };
+
+            musicPlayer.init();
+        }
+    </script>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <div class="music-title" id="currentTrack">🎵 Awaiting your command...</div>
+        <div class="music-controls">
+            <div class="music-button" id="playMusic">
+                ▶️
+            </div>
+            <div class="music-button" id="pauseMusic" style="display: none;">
+                ⏸️
+            </div>
+            <div class="music-button" id="stopMusic">
+                ⏹️
+            </div>
+        </div>
+        <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeControl">
+    </div>
+</body>
+</html>
