@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { generateAlienGlyphs, playCosmicSound } from '../utils/cosmicEffects';
+import useCosmicAudio from '../utils/useCosmicAudio';
 
 export default function Home() {
   // Game state
@@ -37,15 +38,26 @@ export default function Home() {
   const [alienRace, setAlienRace] = useState("Zorgons");
   const [galaxyName, setGalaxyName] = useState("Andromeda Nexus");
   const [showIntro, setShowIntro] = useState(true);
-  
-  // Add sound enabled state
+    // Add sound enabled state
   const [soundEnabled, setSoundEnabled] = useState(true);
   
-  // Refs for animations and interactive elements
+  // Add modal states
+  const [showCosmicCodex, setShowCosmicCodex] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+    // Refs for animations and interactive elements
   const mainRef = useRef(null);
   const titleRef = useRef(null);
   const gameboardRef = useRef(null);
   const starsRef = useRef(null);
+
+  // Audio system
+  const { 
+    playCosmicSound: playAudioSound, 
+    startBackgroundMusic, 
+    stopBackgroundMusic, 
+    updateVolume, 
+    isPlaying: isMusicPlaying 
+  } = useCosmicAudio();
 
   // Add a hologram flicker effect function
   const hologramFlicker = (element) => {
@@ -182,10 +194,9 @@ export default function Home() {
         // Could trigger chance effects here
       }
     }
-    
-    // Play sound if enabled
+      // Play sound if enabled
     if (soundEnabled) {
-      playCosmicSound('warp');
+      playAudioSound('warp');
     }
     
     // Switch to next player
@@ -483,32 +494,229 @@ export default function Home() {
       </div>
     );
   };
-  
-  // Action buttons
+    // Action buttons
   const ActionButtons = () => {
     return (
       <div className={styles.actionButtons}>
         <button 
-          className={`${styles.actionButton} ${styles.primaryButton}`}
-          onClick={() => {
+          className={`${styles.actionButton} ${styles.primaryButton}`}          onClick={() => {
             setGameStarted(true);
             setShowIntro(false);
+            if (soundEnabled) playAudioSound('warp');
           }}
         >
           <span className={styles.buttonIcon}>🎮</span>
           <span>Start Mission</span>
         </button>
-        <button className={`${styles.actionButton} ${styles.secondaryButton}`}>
+        <button 
+          className={`${styles.actionButton} ${styles.secondaryButton}`}          onClick={() => {
+            setShowCosmicCodex(true);
+            if (soundEnabled) playAudioSound('teleport');
+          }}
+        >
           <span className={styles.buttonIcon}>📜</span>
           <span>Cosmic Codex</span>
         </button>
         <button 
-          className={`${styles.actionButton} ${styles.secondaryButton}`}
-          onClick={() => setHologramMode(!hologramMode)}
+          className={`${styles.actionButton} ${styles.secondaryButton}`}          onClick={() => {
+            setShowSettingsModal(true);
+            if (soundEnabled) playAudioSound('alert');
+          }}
         >
           <span className={styles.buttonIcon}>⚙️</span>
           <span>Settings</span>
         </button>
+      </div>
+    );
+  };
+
+  // Cosmic Codex Modal Component
+  const CosmicCodexModal = () => {
+    if (!showCosmicCodex) return null;
+    
+    return (
+      <div className={styles.modalOverlay} onClick={() => setShowCosmicCodex(false)}>
+        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <div className={styles.modalHeader}>
+            <h2>📜 Cosmic Codex</h2>
+            <button 
+              className={styles.modalClose}
+              onClick={() => setShowCosmicCodex(false)}
+            >
+              ✕
+            </button>
+          </div>
+          <div className={styles.modalBody}>
+            <div className={styles.codexSection}>
+              <h3>🚀 Game Rules</h3>
+              <ul>
+                <li>Roll the cosmic dice to move through space</li>
+                <li>Land on different tiles for various effects</li>
+                <li>First to reach the end wins the conquest</li>
+                <li>Beware of obstacles and use chance tiles wisely</li>
+              </ul>
+            </div>
+            
+            <div className={styles.codexSection}>
+              <h3>👽 Alien Species</h3>
+              <div className={styles.alienGrid}>
+                <div className={styles.alienCard}>
+                  <span className={styles.alienIcon}>👽</span>
+                  <h4>Zorgons</h4>
+                  <p>Master explorers with advanced warp technology</p>
+                </div>
+                <div className={styles.alienCard}>
+                  <span className={styles.alienIcon}>👾</span>
+                  <h4>Neburites</h4>
+                  <p>Energy beings who manipulate cosmic forces</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className={styles.codexSection}>
+              <h3>🌌 Tile Types</h3>
+              <div className={styles.tileGuide}>
+                <div className={styles.tileType}>
+                  <span className={styles.tileIcon}>🟢</span>
+                  <div>
+                    <strong>Normal Tiles</strong>
+                    <p>Safe passage through space</p>
+                  </div>
+                </div>
+                <div className={styles.tileType}>
+                  <span className={styles.tileIcon}>⚠️</span>
+                  <div>
+                    <strong>Obstacle Tiles</strong>
+                    <p>Cosmic hazards that may slow progress</p>
+                  </div>
+                </div>
+                <div className={styles.tileType}>
+                  <span className={styles.tileIcon}>✨</span>
+                  <div>
+                    <strong>Chance Tiles</strong>
+                    <p>Mysterious events with unknown outcomes</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // Settings Modal Component
+  const SettingsModal = () => {
+    if (!showSettingsModal) return null;
+    
+    return (
+      <div className={styles.modalOverlay} onClick={() => setShowSettingsModal(false)}>
+        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <div className={styles.modalHeader}>
+            <h2>⚙️ Settings</h2>
+            <button 
+              className={styles.modalClose}
+              onClick={() => setShowSettingsModal(false)}
+            >
+              ✕
+            </button>
+          </div>
+          <div className={styles.modalBody}>
+            <div className={styles.settingsGrid}>
+              <div className={styles.settingGroup}>
+                <h3>🎨 Visual Settings</h3>
+                <div className={styles.settingOption}>
+                  <span>Enhanced UI</span>
+                  <label className={styles.toggleSwitch}>
+                    <input 
+                      type="checkbox" 
+                      checked={showEnhancedUI}
+                      onChange={toggleEnhancedUI}
+                    />
+                    <span className={styles.toggleSlider}></span>
+                  </label>
+                </div>
+                <div className={styles.settingOption}>
+                  <span>Interactive Background</span>
+                  <label className={styles.toggleSwitch}>
+                    <input 
+                      type="checkbox" 
+                      checked={interactiveBG}
+                      onChange={toggleInteractiveBG}
+                    />
+                    <span className={styles.toggleSlider}></span>
+                  </label>
+                </div>
+                <div className={styles.settingOption}>
+                  <span>Hologram Mode</span>
+                  <label className={styles.toggleSwitch}>
+                    <input 
+                      type="checkbox" 
+                      checked={hologramMode}
+                      onChange={() => setHologramMode(!hologramMode)}
+                    />
+                    <span className={styles.toggleSlider}></span>
+                  </label>
+                </div>
+              </div>
+                <div className={styles.settingGroup}>
+                <h3>🔊 Audio Settings</h3>
+                <div className={styles.settingOption}>
+                  <span>Sound Effects</span>
+                  <label className={styles.toggleSwitch}>
+                    <input 
+                      type="checkbox" 
+                      checked={soundEnabled}
+                      onChange={() => setSoundEnabled(!soundEnabled)}
+                    />
+                    <span className={styles.toggleSlider}></span>
+                  </label>
+                </div>
+                <div className={styles.settingOption}>
+                  <span>Background Music</span>
+                  <label className={styles.toggleSwitch}>
+                    <input 
+                      type="checkbox" 
+                      checked={isMusicPlaying}
+                      onChange={() => {
+                        if (isMusicPlaying) {
+                          stopBackgroundMusic();
+                        } else {
+                          startBackgroundMusic();
+                        }
+                      }}
+                    />
+                    <span className={styles.toggleSlider}></span>
+                  </label>
+                </div>
+              </div>
+              
+              <div className={styles.settingGroup}>
+                <h3>🎮 Game Mode</h3>
+                <div className={styles.gameModeSettings}>
+                  <button 
+                    className={`${styles.modeButton} ${gameMode === 'standard' ? styles.activeModeButton : ''}`}
+                    onClick={() => selectGameMode('standard')}
+                  >
+                    🚀 Standard
+                  </button>
+                  <button 
+                    className={`${styles.modeButton} ${gameMode === 'hardcore' ? styles.activeModeButton : ''}`}
+                    onClick={() => selectGameMode('hardcore')}
+                  >
+                    ☠️ Hardcore
+                  </button>
+                  <button 
+                    className={`${styles.modeButton} ${gameMode === 'exploration' ? styles.activeModeButton : ''}`}
+                    onClick={() => selectGameMode('exploration')}
+                  >
+                    🔭 Exploration
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   };
@@ -652,10 +860,13 @@ export default function Home() {
             <GameModeSelector />
             <AlienRankings />
             <SettingsPanel />
-            <ActionButtons />
-          </div>
+            <ActionButtons />          </div>
         )}
       </main>
+      
+      {/* Modal Components */}
+      <CosmicCodexModal />
+      <SettingsModal />
     </div>
   );
 }
