@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Launch Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #000; 
+            color: #0f0; 
+        }
+        button { 
+            padding: 15px 30px; 
+            margin: 10px; 
+            background: #003300; 
+            color: #0f0; 
+            border: 2px solid #0f0; 
+            cursor: pointer; 
+            font-size: 16px;
+        }
+        button:hover { 
+            background: #0f0; 
+            color: #000; 
+        }
+        .status {
+            background: #001100;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Simple Launch Test</h1>
+    
+    <div class="status">
+        <h3>Current Mission Status:</h3>
+        <p>URL: <strong id="currentUrl">Loading...</strong></p>
+        <p>Mission Parameter: <strong id="urlMission">Loading...</strong></p>
+        <p>Stored Mission: <strong id="storedMission">Loading...</strong></p>
+    </div>
+    
+    <h3>Test Launches:</h3>
+    <button onclick="launchWithMission('standard')">🌟 Launch Standard</button>
+    <button onclick="launchWithMission('hardcore')">🔥 Launch Hardcore</button>
+    <button onclick="launchWithMission('exploration')">🔍 Launch Exploration</button>
+    
+    <hr>
+    <button onclick="clearAllData()">🗑️ Clear All Data</button>
+    <button onclick="goToMainIndex()">🏠 Back to Main Index</button>
+    <button onclick="refreshStatus()">🔄 Refresh Status</button>
+    
+    <script>
+        function updateStatus() {
+            // Update URL
+            document.getElementById('currentUrl').textContent = window.location.href;
+            
+            // Get mission from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlMission = urlParams.get('mission');
+            document.getElementById('urlMission').textContent = urlMission || 'None';
+            
+            // Get mission from storage
+            const storedMission = localStorage.getItem('cosmicConquestMission') || sessionStorage.getItem('cosmicConquestMission');
+            document.getElementById('storedMission').textContent = storedMission || 'None';
+            
+            console.log('Status updated - URL mission:', urlMission, 'Stored mission:', storedMission);
+        }
+        
+        function launchWithMission(mission) {
+            console.log(`🚀 Launching ${mission} mission...`);
+            
+            try {
+                // Store mission
+                localStorage.setItem('cosmicConquestMission', mission);
+                sessionStorage.setItem('cosmicConquestMission', mission);
+                console.log(`✅ Mission ${mission} stored successfully`);
+                
+                // Update status
+                updateStatus();
+                
+                // Create launch URL
+                const gameUrl = `ULTRA-COSMIC-CONQUEST.html?mission=${mission}&timestamp=${Date.now()}`;
+                console.log(`🔄 Redirecting to: ${gameUrl}`);
+                
+                // Show loading message
+                document.body.innerHTML += `<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#000;color:#0f0;padding:20px;border:2px solid #0f0;z-index:9999;">🚀 Launching ${mission.toUpperCase()} mission...<br>Please wait...</div>`;
+                
+                // Redirect after 2 seconds
+                setTimeout(() => {
+                    window.location.href = gameUrl;
+                }, 2000);
+                
+            } catch (error) {
+                console.error('❌ Launch error:', error);
+                alert(`Error launching mission: ${error.message}`);
+            }
+        }
+        
+        function clearAllData() {
+            try {
+                localStorage.removeItem('cosmicConquestMission');
+                sessionStorage.removeItem('cosmicConquestMission');
+                console.log('🗑️ All mission data cleared');
+                updateStatus();
+            } catch (error) {
+                console.error('❌ Clear error:', error);
+            }
+        }
+        
+        function goToMainIndex() {
+            window.location.href = 'index.html';
+        }
+        
+        function refreshStatus() {
+            updateStatus();
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🔧 Simple test page loaded');
+            updateStatus();
+        });
+        
+        // Log initial state
+        console.log('=== SIMPLE LAUNCH TEST INITIALIZED ===');
+    </script>
+</body>
+</html>

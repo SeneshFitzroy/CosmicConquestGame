@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Mission Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #000; 
+            color: #0f0; 
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section { 
+            background: #001100; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border: 2px solid #0f0; 
+            border-radius: 10px; 
+        }
+        button { 
+            padding: 15px 25px; 
+            margin: 10px 5px; 
+            background: #003300; 
+            color: #0f0; 
+            border: 2px solid #0f0; 
+            cursor: pointer; 
+            font-size: 14px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        button:hover { 
+            background: #0f0; 
+            color: #000; 
+            transform: scale(1.05);
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .status-item {
+            background: #000;
+            padding: 15px;
+            border: 1px solid #0f0;
+            border-radius: 5px;
+        }
+        .log {
+            background: #001100;
+            padding: 15px;
+            margin: 10px 0;
+            min-height: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .success { color: #0f0; }
+        .error { color: #f00; }
+        .warning { color: #ff0; }
+        .info { color: #0ff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 FINAL MISSION LAUNCH TEST</h1>
+        
+        <div class="test-section">
+            <h3>📊 Current System Status</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <strong>Current URL:</strong><br>
+                    <span id="currentUrl">Loading...</span>
+                </div>
+                <div class="status-item">
+                    <strong>Mission Parameter:</strong><br>
+                    <span id="urlMission">Loading...</span>
+                </div>
+                <div class="status-item">
+                    <strong>localStorage Mission:</strong><br>
+                    <span id="localStorage">Loading...</span>
+                </div>
+                <div class="status-item">
+                    <strong>sessionStorage Mission:</strong><br>
+                    <span id="sessionStorage">Loading...</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🧪 Mission Launch Tests</h3>
+            <p>Select a mission type to test the complete launch workflow:</p>
+            
+            <button onclick="launchMissionTest('standard')">🌟 Test Standard Mission</button>
+            <button onclick="launchMissionTest('hardcore')">🔥 Test Hardcore Mission</button>
+            <button onclick="launchMissionTest('exploration')">🔍 Test Exploration Mission</button>
+            
+            <hr style="border-color: #0f0; margin: 20px 0;">
+            
+            <button onclick="testDirectGame()">🎮 Go to Game (Current Mission)</button>
+            <button onclick="testMainIndex()">🏠 Go to Main Index</button>
+            <button onclick="clearAllStorage()">🗑️ Clear Storage</button>
+            <button onclick="runFullTest()">🔬 Run Full Test Suite</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>📝 Test Log</h3>
+            <div id="testLog" class="log"></div>
+            <button onclick="clearLog()">Clear Log</button>
+            <button onclick="exportLog()">Export Log</button>
+        </div>
+    </div>
+    
+    <script>
+        let testLog = [];
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            testLog.push({timestamp, message, type});
+            
+            const logElement = document.getElementById('testLog');
+            const logDiv = document.createElement('div');
+            logDiv.className = type;
+            logDiv.textContent = logEntry;
+            logElement.appendChild(logDiv);
+            
+            // Keep only last 50 entries
+            while (logElement.children.length > 50) {
+                logElement.removeChild(logElement.firstChild);
+            }
+            
+            // Auto-scroll to bottom
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(`[${type.toUpperCase()}] ${logEntry}`);
+        }
+        
+        function updateStatus() {
+            try {
+                // Update URL
+                document.getElementById('currentUrl').textContent = window.location.href;
+                
+                // Get mission from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const urlMission = urlParams.get('mission');
+                document.getElementById('urlMission').textContent = urlMission || 'None';
+                
+                // Get mission from storage
+                const localMission = localStorage.getItem('cosmicConquestMission');
+                const sessionMission = sessionStorage.getItem('cosmicConquestMission');
+                
+                document.getElementById('localStorage').textContent = localMission || 'None';
+                document.getElementById('sessionStorage').textContent = sessionMission || 'None';
+                
+                log('✅ Status updated successfully', 'success');
+                return {urlMission, localMission, sessionMission};
+                
+            } catch (error) {
+                log(`❌ Error updating status: ${error.message}`, 'error');
+                return null;
+            }
+        }
+        
+        function launchMissionTest(mission) {
+            log(`🚀 Starting launch test for ${mission} mission`, 'info');
+            
+            try {
+                // Validate mission type
+                if (!['standard', 'hardcore', 'exploration'].includes(mission)) {
+                    throw new Error(`Invalid mission type: ${mission}`);
+                }
+                
+                // Store mission in both storages
+                localStorage.setItem('cosmicConquestMission', mission);
+                sessionStorage.setItem('cosmicConquestMission', mission);
+                log(`💾 Mission "${mission}" stored successfully`, 'success');
+                
+                // Update status
+                updateStatus();
+                
+                // Show loading message
+                showLoadingMessage(`Launching ${mission.toUpperCase()} mission...`);
+                
+                // Create launch URL
+                const gameUrl = `ULTRA-COSMIC-CONQUEST.html?mission=${mission}&timestamp=${Date.now()}`;
+                log(`🔄 Preparing to redirect to: ${gameUrl}`, 'info');
+                
+                // Simulate the 2-second delay like the real launch button
+                let countdown = 3;
+                const countdownInterval = setInterval(() => {
+                    countdown--;
+                    updateLoadingMessage(`Launching ${mission.toUpperCase()} mission... ${countdown}s`);
+                    
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        log(`🚀 Redirecting now!`, 'success');
+                        window.location.href = gameUrl;
+                    }
+                }, 1000);
+                
+            } catch (error) {
+                log(`❌ Launch test failed: ${error.message}`, 'error');
+            }
+        }
+        
+        function testDirectGame() {
+            const mission = localStorage.getItem('cosmicConquestMission') || 'standard';
+            log(`🎮 Going directly to game with mission: ${mission}`, 'info');
+            
+            const gameUrl = `ULTRA-COSMIC-CONQUEST.html?mission=${mission}&timestamp=${Date.now()}`;
+            window.location.href = gameUrl;
+        }
+        
+        function testMainIndex() {
+            log(`🏠 Going to main index`, 'info');
+            window.location.href = 'index.html';
+        }
+        
+        function clearAllStorage() {
+            try {
+                localStorage.removeItem('cosmicConquestMission');
+                sessionStorage.removeItem('cosmicConquestMission');
+                log('🗑️ All storage cleared', 'success');
+                updateStatus();
+            } catch (error) {
+                log(`❌ Error clearing storage: ${error.message}`, 'error');
+            }
+        }
+        
+        function runFullTest() {
+            log('🔬 Starting full test suite...', 'info');
+            
+            try {
+                // Test 1: Storage functionality
+                log('Test 1: Storage functionality', 'info');
+                localStorage.setItem('cosmicConquestMission', 'test');
+                const retrieved = localStorage.getItem('cosmicConquestMission');
+                if (retrieved === 'test') {
+                    log('✅ localStorage working', 'success');
+                } else {
+                    log('❌ localStorage failed', 'error');
+                }
+                
+                // Test 2: URL parameter parsing
+                log('Test 2: URL parameter parsing', 'info');
+                const currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.set('testParam', 'testValue');
+                const testParam = new URLSearchParams(currentUrl.search).get('testParam');
+                if (testParam === 'testValue') {
+                    log('✅ URL parameter parsing working', 'success');
+                } else {
+                    log('❌ URL parameter parsing failed', 'error');
+                }
+                
+                // Test 3: Mission validation
+                log('Test 3: Mission validation', 'info');
+                const validMissions = ['standard', 'hardcore', 'exploration'];
+                const testMissions = ['standard', 'invalid', 'hardcore'];
+                let validationPassed = true;
+                
+                testMissions.forEach(mission => {
+                    const isValid = validMissions.includes(mission);
+                    if ((mission === 'invalid' && isValid) || (mission !== 'invalid' && !isValid)) {
+                        validationPassed = false;
+                    }
+                });
+                
+                if (validationPassed) {
+                    log('✅ Mission validation working', 'success');
+                } else {
+                    log('❌ Mission validation failed', 'error');
+                }
+                
+                // Clean up
+                localStorage.removeItem('cosmicConquestMission');
+                log('🧪 Full test suite completed', 'success');
+                updateStatus();
+                
+            } catch (error) {
+                log(`❌ Test suite error: ${error.message}`, 'error');
+            }
+        }
+        
+        function showLoadingMessage(message) {
+            const existing = document.getElementById('loadingMessage');
+            if (existing) existing.remove();
+            
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = 'loadingMessage';
+            loadingDiv.style.cssText = `
+                position: fixed; top: 50%; left: 50%; 
+                transform: translate(-50%, -50%);
+                background: #000; color: #0f0; 
+                padding: 30px; border: 3px solid #0f0; 
+                border-radius: 10px; z-index: 9999;
+                text-align: center; font-size: 18px;
+                box-shadow: 0 0 20px #0f0;
+            `;
+            loadingDiv.innerHTML = `
+                <div style="font-size: 24px; margin-bottom: 15px;">🚀</div>
+                <div id="loadingText">${message}</div>
+                <div style="margin-top: 15px; color: #ff0;">Please wait...</div>
+            `;
+            document.body.appendChild(loadingDiv);
+        }
+        
+        function updateLoadingMessage(message) {
+            const loadingText = document.getElementById('loadingText');
+            if (loadingText) {
+                loadingText.textContent = message;
+            }
+        }
+        
+        function clearLog() {
+            document.getElementById('testLog').innerHTML = '';
+            testLog = [];
+            log('📝 Log cleared', 'info');
+        }
+        
+        function exportLog() {
+            const logContent = testLog.map(entry => 
+                `[${entry.timestamp}] [${entry.type.toUpperCase()}] ${entry.message}`
+            ).join('\\n');
+            
+            const blob = new Blob([logContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `cosmic-conquest-test-log-${Date.now()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            log('📄 Log exported', 'success');
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            log('🔧 Final test page initialized', 'success');
+            updateStatus();
+            
+            // Log initial state
+            const status = updateStatus();
+            if (status) {
+                if (status.urlMission) {
+                    log(`🎯 Mission detected in URL: ${status.urlMission}`, 'info');
+                }
+                if (status.localMission) {
+                    log(`💾 Mission found in localStorage: ${status.localMission}`, 'info');
+                }
+                if (status.sessionMission) {
+                    log(`📝 Mission found in sessionStorage: ${status.sessionMission}`, 'info');
+                }
+            }
+            
+            log('=== READY FOR TESTING ===', 'success');
+        });
+        
+        // Global error handler
+        window.addEventListener('error', (e) => {
+            log(`💥 Global error: ${e.message}`, 'error');
+        });
+    </script>
+</body>
+</html>

@@ -1087,6 +1087,7 @@
                 <h3 class="section-title">Quick Actions</h3>
                 <button class="ultra-button" id="roll-dice">🎲 Roll Dice</button>
                 <button class="ultra-button" id="reset-game">🔄 Reset Game</button>
+                <button class="ultra-button" id="back-to-menu">🏠 Back to Menu</button>
                 <button class="ultra-button" id="toggle-hologram">🌌 Hologram Mode</button>
                 <button class="ultra-button" id="cosmic-codex">📖 Cosmic Codex</button>
             </div>
@@ -1861,6 +1862,17 @@
                 this.updateMessage('🌟 New mission started! Roll the dice to begin! 🌟');
             }
 
+            backToMenu() {
+                console.log('🏠 Returning to main menu...');
+                
+                // Clear any stored mission data if desired
+                // localStorage.removeItem('cosmicConquestMission');
+                // sessionStorage.removeItem('cosmicConquestMission');
+                
+                // Navigate back to the main index
+                window.location.href = 'index.html';
+            }
+
             toggleHologram() {
                 this.hologramMode = !this.hologramMode;
                 const gameContainer = document.querySelector('.game-container');
@@ -1979,6 +1991,7 @@
             bindEvents() {
                 document.getElementById('roll-dice').addEventListener('click', () => this.rollDice());
                 document.getElementById('reset-game').addEventListener('click', () => this.resetGame());
+                document.getElementById('back-to-menu').addEventListener('click', () => this.backToMenu());
                 document.getElementById('cosmic-codex').addEventListener('click', () => this.showCodex());
                 document.getElementById('toggle-hologram').addEventListener('click', () => this.toggleHologram());
                 document.getElementById('close-modal').addEventListener('click', () => this.hideCodex());
