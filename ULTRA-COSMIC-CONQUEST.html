@@ -1372,18 +1372,26 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const mission = urlParams.get('mission');
                 
-                // Try to get mission from session storage if URL parameter is missing
+                // Try to get mission from storage if URL parameter is missing
                 let finalMission = mission;
                 
                 if (!finalMission || !['standard', 'hardcore', 'exploration'].includes(finalMission)) {
                     try {
-                        const storedMission = sessionStorage.getItem('cosmicConquestMission');
-                        if (storedMission && ['standard', 'hardcore', 'exploration'].includes(storedMission)) {
-                            console.log('🔄 Mission retrieved from session storage:', storedMission);
-                            finalMission = storedMission;
+                        // First try localStorage (more persistent)
+                        const localStorageMission = localStorage.getItem('cosmicConquestMission');
+                        if (localStorageMission && ['standard', 'hardcore', 'exploration'].includes(localStorageMission)) {
+                            console.log('🔄 Mission retrieved from localStorage:', localStorageMission);
+                            finalMission = localStorageMission;
+                        } else {
+                            // Then try sessionStorage as fallback
+                            const sessionStorageMission = sessionStorage.getItem('cosmicConquestMission');
+                            if (sessionStorageMission && ['standard', 'hardcore', 'exploration'].includes(sessionStorageMission)) {
+                                console.log('🔄 Mission retrieved from sessionStorage:', sessionStorageMission);
+                                finalMission = sessionStorageMission;
+                            }
                         }
                     } catch (e) {
-                        console.error('Error accessing session storage:', e);
+                        console.error('Error accessing storage:', e);
                     }
                 }
                 

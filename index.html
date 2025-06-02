@@ -1564,6 +1564,24 @@
         // Enhanced Mission selection with improved reliability
         let selectedMission = null;
         
+        // Check if there's a stored mission on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                const storedMission = localStorage.getItem('cosmicConquestMission');
+                if (storedMission && ['standard', 'hardcore', 'exploration'].includes(storedMission)) {
+                    console.log('💾 Found stored mission:', storedMission);
+                    selectMission(storedMission);
+                } else {
+                    // Default to standard mission
+                    selectMission('standard');
+                }
+            } catch (e) {
+                console.error('Error accessing localStorage:', e);
+                // Default to standard mission
+                selectMission('standard');
+            }
+        });
+        
         function selectMission(type) {
             console.log(`🎯 Mission selected: ${type}`);
             
@@ -1582,6 +1600,13 @@
             if (card) {
                 card.classList.add('selected');
                 selectedMission = type;
+                
+                // Store the selection in localStorage
+                try {
+                    localStorage.setItem('cosmicConquestMission', type);
+                } catch (e) {
+                    console.error('Unable to save mission to localStorage:', e);
+                }
                 
                 // Play selection sound
                 playUISound('select');
@@ -1874,12 +1899,14 @@
             
             document.body.appendChild(notification);
             
-            // Store the selected mission in session storage as a backup
+            // Store the selected mission in localStorage for reliability
             try {
+                localStorage.setItem('cosmicConquestMission', selectedMission);
+                // Also store in sessionStorage as backup
                 sessionStorage.setItem('cosmicConquestMission', selectedMission);
-                console.log('💾 Mission saved to session storage:', selectedMission);
+                console.log('💾 Mission saved to storage:', selectedMission);
             } catch (e) {
-                console.error('Unable to save mission to session storage:', e);
+                console.error('Unable to save mission to storage:', e);
             }
             
             // Redirect to the game page with selected mission
