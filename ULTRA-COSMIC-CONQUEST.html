@@ -295,7 +295,7 @@
             50% { box-shadow: 0 0 30px var(--accent-color), 0 0 40px var(--accent-color); }
         }
 
-        @keyframes pulseRed {
+        @key
             0%, 100% { box-shadow: 0 0 20px var(--danger-color); }
             50% { box-shadow: 0 0 30px var(--danger-color), 0 0 40px var(--danger-color); }
         }
@@ -1182,6 +1182,17 @@
         </div>
     </div>
 
+    <!-- Debug Panel for Mission Information -->
+    <div style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.8); color: #00ff00; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 12px; z-index: 10000; max-width: 300px;" id="debug-panel">
+        <div><strong>🚀 MISSION DEBUG</strong></div>
+        <div>URL: <span id="debug-url">Loading...</span></div>
+        <div>Mission Param: <span id="debug-mission-param">Loading...</span></div>
+        <div>localStorage: <span id="debug-localstorage">Loading...</span></div>
+        <div>sessionStorage: <span id="debug-sessionstorage">Loading...</span></div>
+        <div>Active Mission: <span id="debug-active-mission">Loading...</span></div>
+        <div style="margin-top: 5px; cursor: pointer; text-decoration: underline;" onclick="this.parentElement.style.display='none'">❌ Close</div>
+    </div>
+
     <script>
         // Enhanced Ultra Cosmic Cursor System
         const ultraCursor = document.querySelector('.ultra-cosmic-cursor');
@@ -1364,7 +1375,25 @@
                 this.turnCount = 1;
                 this.missionType = this.getMissionType();
                 
+                // Update debug panel
+                this.updateDebugPanel();
+                
                 this.init();
+            }
+            
+            updateDebugPanel() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const mission = urlParams.get('mission');
+                
+                try {
+                    document.getElementById('debug-url').textContent = window.location.href;
+                    document.getElementById('debug-mission-param').textContent = mission || 'None';
+                    document.getElementById('debug-localstorage').textContent = localStorage.getItem('cosmicConquestMission') || 'None';
+                    document.getElementById('debug-sessionstorage').textContent = sessionStorage.getItem('cosmicConquestMission') || 'None';
+                    document.getElementById('debug-active-mission').textContent = this.missionType || 'Unknown';
+                } catch (e) {
+                    console.log('Debug panel not ready yet');
+                }
             }
             
             getMissionType() {
@@ -1372,19 +1401,27 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const mission = urlParams.get('mission');
                 
+                console.log('🔍 Analyzing mission parameters...');
+                console.log('URL:', window.location.href);
+                console.log('URL search params:', window.location.search);
+                console.log('Mission from URL:', mission);
+                
                 // Try to get mission from storage if URL parameter is missing
                 let finalMission = mission;
                 
                 if (!finalMission || !['standard', 'hardcore', 'exploration'].includes(finalMission)) {
+                    console.log('⚠️ No valid mission from URL, checking storage...');
                     try {
                         // First try localStorage (more persistent)
                         const localStorageMission = localStorage.getItem('cosmicConquestMission');
+                        console.log('localStorage mission:', localStorageMission);
                         if (localStorageMission && ['standard', 'hardcore', 'exploration'].includes(localStorageMission)) {
                             console.log('🔄 Mission retrieved from localStorage:', localStorageMission);
                             finalMission = localStorageMission;
                         } else {
                             // Then try sessionStorage as fallback
                             const sessionStorageMission = sessionStorage.getItem('cosmicConquestMission');
+                            console.log('sessionStorage mission:', sessionStorageMission);
                             if (sessionStorageMission && ['standard', 'hardcore', 'exploration'].includes(sessionStorageMission)) {
                                 console.log('🔄 Mission retrieved from sessionStorage:', sessionStorageMission);
                                 finalMission = sessionStorageMission;
@@ -1410,6 +1447,9 @@
                 const missionInfo = document.createElement('div');
                 missionInfo.className = 'mission-info';
                 
+                // Update the game mode display
+                const gameModeElement = document.getElementById('game-mode');
+                
                 switch(this.missionType) {
                     case 'hardcore':
                         // Hardcore mode: More difficult, higher rewards
@@ -1421,6 +1461,11 @@
                             <div class="mission-badge hardcore">HARDCORE MISSION</div>
                             <p>Higher difficulty, greater rewards. Starting energy reduced, danger increased!</p>
                         `;
+                        
+                        if (gameModeElement) {
+                            gameModeElement.textContent = '🔥 HARDCORE MODE';
+                            gameModeElement.style.color = 'var(--danger-color)';
+                        }
                         break;
                         
                     case 'exploration':
@@ -1431,6 +1476,11 @@
                             <div class="mission-badge exploration">EXPLORATION MISSION</div>
                             <p>Discover the unknown! Larger board with more cosmic phenomena to explore.</p>
                         `;
+                        
+                        if (gameModeElement) {
+                            gameModeElement.textContent = '🔍 EXPLORATION MODE';
+                            gameModeElement.style.color = 'var(--accent-color)';
+                        }
                         break;
                         
                     default: // standard
@@ -1438,6 +1488,11 @@
                             <div class="mission-badge standard">STANDARD MISSION</div>
                             <p>Classic cosmic adventure! Balance your resources carefully.</p>
                         `;
+                        
+                        if (gameModeElement) {
+                            gameModeElement.textContent = '⭐ STANDARD MODE';
+                            gameModeElement.style.color = 'var(--primary-color)';
+                        }
                 }
                 
                 // Add mission info to the game container
@@ -1445,6 +1500,10 @@
                 
                 // Apply visual theme based on mission type
                 document.body.setAttribute('data-mission', this.missionType);
+                
+                // Debug: Log mission application
+                console.log('✅ Mission settings applied:', this.missionType);
+                console.log('📊 Game mode display updated');
             }
             
             init() {
@@ -1977,7 +2036,7 @@
                     this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
                     this.masterGain = this.audioContext.createGain();
                     this.masterGain.gain.value = this.volume;
-                    this.masterGain.connect(this.audioContext.destination);
+                                       this.masterGain.connect(this.audioContext.destination);
 
                     // Set up controls
                     document.getElementById('playMusic').addEventListener('click', () => this.play());
@@ -2088,8 +2147,6 @@
                     gainNode.gain.value = 0;
                     gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
                     gainNode.gain.linearRampToValueAtTime(gain, this.audioContext.currentTime + 2);
-                    
-                   
                     
                     oscillator.connect(gainNode);
                     gainNode.connect(this.masterGain);

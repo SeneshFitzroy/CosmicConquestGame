@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #000; color: #0f0; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #0f0; border-radius: 5px; }
+        button { padding: 10px 20px; margin: 5px; background: #003300; color: #0f0; border: 1px solid #0f0; cursor: pointer; }
+        button:hover { background: #0f0; color: #000; }
+        #output { background: #001100; padding: 10px; margin: 10px 0; min-height: 100px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Mission Launch Test</h1>
+    
+    <div class="test-section">
+        <h3>📊 Current Status</h3>
+        <p>Selected Mission: <span id="missionDisplay">Loading...</span></p>
+        <p>URL Parameters: <span id="urlParams">Loading...</span></p>
+        <p>localStorage: <span id="localStorage">Loading...</span></p>
+        <p>sessionStorage: <span id="sessionStorage">Loading...</span></p>
+    </div>
+    
+    <div class="test-section">
+        <h3>🧪 Test Launch Functions</h3>
+        <button onclick="testStandardMission()">Launch Standard Mission</button>
+        <button onclick="testHardcoreMission()">Launch Hardcore Mission</button>
+        <button onclick="testExplorationMission()">Launch Exploration Mission</button>
+        <button onclick="clearStorage()">Clear Storage</button>
+        <button onclick="goToGame()">Go to Game (Current Mission)</button>
+    </div>
+    
+    <div class="test-section">
+        <h3>📝 Output Log</h3>
+        <div id="output"></div>
+    </div>
+    
+    <script>
+        let outputLog = [];
+        
+        function log(message) {
+            outputLog.push(`[${new Date().toLocaleTimeString()}] ${message}`);
+            document.getElementById('output').innerHTML = outputLog.slice(-10).join('<br>');
+            console.log(message);
+        }
+        
+        function updateStatus() {
+            // Display URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const mission = urlParams.get('mission');
+            document.getElementById('urlParams').textContent = window.location.search || 'None';
+            document.getElementById('missionDisplay').textContent = mission || 'None';
+            
+            // Display storage values
+            try {
+                const localMission = localStorage.getItem('cosmicConquestMission');
+                document.getElementById('localStorage').textContent = localMission || 'None';
+            } catch (e) {
+                document.getElementById('localStorage').textContent = 'Error: ' + e.message;
+            }
+            
+            try {
+                const sessionMission = sessionStorage.getItem('cosmicConquestMission');
+                document.getElementById('sessionStorage').textContent = sessionMission || 'None';
+            } catch (e) {
+                document.getElementById('sessionStorage').textContent = 'Error: ' + e.message;
+            }
+            
+            log('Status updated');
+        }
+        
+        function testStandardMission() {
+            log('🚀 Testing Standard Mission Launch');
+            setMissionAndLaunch('standard');
+        }
+        
+        function testHardcoreMission() {
+            log('🔥 Testing Hardcore Mission Launch');
+            setMissionAndLaunch('hardcore');
+        }
+        
+        function testExplorationMission() {
+            log('🔍 Testing Exploration Mission Launch');
+            setMissionAndLaunch('exploration');
+        }
+        
+        function setMissionAndLaunch(mission) {
+            try {
+                // Store mission in both storages
+                localStorage.setItem('cosmicConquestMission', mission);
+                sessionStorage.setItem('cosmicConquestMission', mission);
+                log(`✅ Mission "${mission}" saved to storage`);
+                
+                // Update status display
+                updateStatus();
+                
+                // Launch after 2 seconds
+                setTimeout(() => {
+                    const gameUrl = `ULTRA-COSMIC-CONQUEST.html?mission=${mission}&timestamp=${Date.now()}`;
+                    log(`🔄 Redirecting to: ${gameUrl}`);
+                    window.location.href = gameUrl;
+                }, 2000);
+                
+            } catch (e) {
+                log(`❌ Error: ${e.message}`);
+            }
+        }
+        
+        function clearStorage() {
+            try {
+                localStorage.removeItem('cosmicConquestMission');
+                sessionStorage.removeItem('cosmicConquestMission');
+                log('🗑️ Storage cleared');
+                updateStatus();
+            } catch (e) {
+                log(`❌ Error clearing storage: ${e.message}`);
+            }
+        }
+        
+        function goToGame() {
+            const mission = localStorage.getItem('cosmicConquestMission') || 'standard';
+            const gameUrl = `ULTRA-COSMIC-CONQUEST.html?mission=${mission}&timestamp=${Date.now()}`;
+            log(`🎮 Going to game with mission: ${mission}`);
+            window.location.href = gameUrl;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            log('🔧 Test page initialized');
+            updateStatus();
+        });
+        
+        // Log initial state
+        log('URL: ' + window.location.href);
+        log('Mission from URL: ' + (new URLSearchParams(window.location.search).get('mission') || 'None'));
+        log('Mission from localStorage: ' + (localStorage.getItem('cosmicConquestMission') || 'None'));
+        log('Mission from sessionStorage: ' + (sessionStorage.getItem('cosmicConquestMission') || 'None'));
+    </script>
+</body>
+</html>
