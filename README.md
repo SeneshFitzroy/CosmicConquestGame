@@ -19,7 +19,7 @@
 - [Installation](#-installation)
 - [How to Play](#-how-to-play)
 - [Game Rules](#-game-rules)
-- [Development](#-development)
+- [Recent Improvements](#-recent-improvements)
 - [Technologies Used](#-technologies-used)
 - [Contributing](#-contributing)
 - [License](#-license)
@@ -158,3 +158,23 @@ Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for additional contr
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ---
+
+## **🛠️ Recent Improvements**
+
+### **1. Enhanced Launch Button Functionality**
+- **Robust Error Handling**: Improved validation and error feedback for mission selection
+- **Cross-Browser Compatibility**: Implemented both localStorage and sessionStorage for reliable data persistence
+- **Visual Feedback**: Added loading overlay with progress indicator during mission launch
+- **Animation Effects**: Enhanced transitions when launching missions
+
+### **2. UI Enhancements**
+- **Mission Card Design**: Improved visual designs with better hover effects and animations
+- **Loading Indicators**: Added professional loading screens with mission-specific information
+- **Responsive Layouts**: Better adaptation to different screen sizes and devices
+- **Particle Effects**: Added interactive particle systems that respond to user actions
+
+### **3. Code & Structure Improvements**
+- **File Organization**: Moved unused files to backup-files directory for a cleaner project structure
+- **Code Optimization**: Enhanced JavaScript functions for better performance
+- **Error Prevention**: Added multiple fallback mechanisms for mission type retrieval
+- **Documentation**: Improved code comments and documentation
