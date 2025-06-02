@@ -2042,9 +2042,22 @@
             
             setTimeout(() => {
                 try {
-                    window.location.href = `ULTRA-COSMIC-CONQUEST.html?mission=${selectedMission}`;
+                    // Create a URL with the mission parameter
+                    const gameUrl = `ULTRA-COSMIC-CONQUEST.html?mission=${selectedMission}&timestamp=${Date.now()}`;
+                    console.log(`🚀 Launching mission at: ${gameUrl}`);
+                    
+                    // Redirect to the game page
+                    window.location.href = gameUrl;
                 } catch (e) {
                     console.error('❌ Error during redirect:', e);
+                    
+                    // Hide loading overlay in case of error
+                    const loadingOverlay = document.getElementById('loadingOverlay');
+                    if (loadingOverlay) {
+                        loadingOverlay.classList.remove('active');
+                    }
+                    
+                    // Show error notification
                     alert('Error launching mission. Please try again.');
                 }
             }, 2000);
