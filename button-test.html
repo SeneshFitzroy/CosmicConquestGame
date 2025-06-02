@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Test - Cosmic Conquest</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .game-button {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            border: 2px solid #00ff9d;
+            color: white;
+            padding: 15px 30px;
+            margin: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .game-button:hover {
+            background: linear-gradient(45deg, #2a5298, #3d6cb9);
+            box-shadow: 0 0 20px #00ff9d;
+        }
+        
+        .test-result {
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #00ff9d;
+            border-radius: 5px;
+            background: rgba(0, 255, 157, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>🔬 Button Functionality Test</h1>
+    <p>Testing the Cosmic Codex and Settings buttons from the main game</p>
+    
+    <!-- Test buttons identical to the main game -->
+    <div>
+        <button class="game-button" data-button="cosmic-codex">
+            <i class="fas fa-book"></i> Cosmic Codex
+        </button>
+        <button class="game-button" data-button="settings">
+            <i class="fas fa-cog"></i> Mission Control
+        </button>
+    </div>
+    
+    <div id="test-results">
+        <div class="test-result">
+            <strong>Status:</strong> Waiting for button clicks...
+        </div>
+    </div>
+    
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Include the button handlers script -->
+    <script src="js/buttonHandlers.js"></script>
+    
+    <script>
+        // Additional logging to see what's happening
+        console.log('Button test page loaded');
+        
+        // Override console.log to also display on page
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const testResults = document.getElementById('test-results');
+            const logDiv = document.createElement('div');
+            logDiv.className = 'test-result';
+            logDiv.innerHTML = '<strong>Log:</strong> ' + args.join(' ');
+            testResults.appendChild(logDiv);
+        };
+        
+        // Test if buttons respond to direct clicks
+        document.querySelectorAll('.game-button').forEach(button => {
+            button.addEventListener('click', function() {
+                console.log('Direct click handler fired for button:', this.getAttribute('data-button'));
+            });
+        });
+        
+        // Test document ready state
+        console.log('Document ready state:', document.readyState);
+    </script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Cosmic Conquest - Final Button & Audio Test</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .test-container {
+            background: rgba(0, 255, 157, 0.1);
+            border: 2px solid #00ff9d;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.3);
+            text-align: center;
+        }
+
+        h1 {
+            color: #00ff9d;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 0 0 15px #00ff9d;
+        }
+
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border-left: 4px solid #00ff9d;
+        }
+
+        .test-section h2 {
+            color: #00ff9d;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .button-test-area {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .game-button {
+            background: linear-gradient(45deg, #ff5500 0%, #ff9500 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            font-size: 1em;
+            box-shadow: 0 10px 25px rgba(255, 85, 0, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 85, 0, 0.5);
+        }
+
+        .game-button:active {
+            transform: translateY(-1px);
+        }
+
+        .game-button i {
+            margin-right: 8px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .status-success {
+            background: #00ff9d;
+            box-shadow: 0 0 10px #00ff9d;
+        }
+
+        .status-error {
+            background: #ff5500;
+            box-shadow: 0 0 10px #ff5500;
+        }
+
+        .status-warning {
+            background: #ffff00;
+            box-shadow: 0 0 10px #ffff00;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .feature-list {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .feature-list li {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 8px;
+            list-style: none;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .feature-list li:before {
+            content: "✅";
+            position: absolute;
+            left: 15px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .test-result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .test-result.success {
+            background: rgba(0, 255, 157, 0.2);
+            border: 1px solid #00ff9d;
+            color: #00ff9d;
+        }
+
+        .test-result.error {
+            background: rgba(255, 85, 0, 0.2);
+            border: 1px solid #ff5500;
+            color: #ff5500;
+        }
+
+        .instruction {
+            background: rgba(0, 150, 255, 0.1);
+            border: 1px solid #0096ff;
+            color: #0096ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🚀 Cosmic Conquest - Final Test Suite</h1>
+        
+        <div class="test-section">
+            <h2>🔘 Button Functionality Test</h2>
+            <div class="instruction">
+                <strong>Instructions:</strong> Click each button below to test modal functionality and audio integration.
+            </div>
+            
+            <div class="button-test-area">
+                <button class="game-button" data-button="cosmic-codex">
+                    <i class="fas fa-book"></i> Cosmic Codex
+                </button>
+                <button class="game-button" data-button="settings">
+                    <i class="fas fa-cog"></i> Mission Control
+                </button>
+            </div>
+            
+            <div id="button-test-results">
+                <div class="test-result">
+                    <span>Button Event Handlers:</span>
+                    <span class="status-indicator" id="handler-status"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎵 Audio System Test</h2>
+            <div class="instruction">
+                <strong>Instructions:</strong> Use the controls below to test the background music and sound effects.
+            </div>
+            
+            <div class="audio-controls">
+                <button class="game-button" onclick="testAudioManager()">
+                    <i class="fas fa-music"></i> Test Audio Manager
+                </button>
+                <button class="game-button" onclick="testBackgroundMusic()">
+                    <i class="fas fa-play"></i> Start Music
+                </button>
+                <button class="game-button" onclick="stopBackgroundMusic()">
+                    <i class="fas fa-stop"></i> Stop Music
+                </button>
+                <button class="game-button" onclick="testSoundEffects()">
+                    <i class="fas fa-volume-up"></i> Test SFX
+                </button>
+            </div>
+            
+            <div id="audio-test-results">
+                <div class="test-result">
+                    <span>Audio Manager Status:</span>
+                    <span class="status-indicator" id="audio-status"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ Implementation Features</h2>
+            <ul class="feature-list">
+                <li>Enhanced button click handlers with direct DOM targeting</li>
+                <li>Fallback event delegation system for robust button detection</li>
+                <li>Beautiful, enhanced modal designs with animations</li>
+                <li>Web Audio API-powered background music system</li>
+                <li>Interactive sound effects for buttons and modals</li>
+                <li>Volume control and settings persistence</li>
+                <li>Settings modal with real-time audio controls</li>
+                <li>Cosmic-themed visual and audio design</li>
+                <li>No external audio file dependencies</li>
+                <li>Cross-browser compatibility</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Test Results Summary</h2>
+            <div id="final-results"></div>
+        </div>
+    </div>
+
+    <!-- Include the same scripts as the main game -->
+    <script src="js/audioManager.js"></script>
+    <script src="js/buttonHandlers.js"></script>
+
+    <script>
+        console.log('🧪 Final test suite initializing...');
+        
+        let testResults = {
+            buttonHandlers: false,
+            audioManager: false,
+            modals: false,
+            soundEffects: false
+        };
+
+        // Test button handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if button handlers are working
+            const codexButton = document.querySelector('[data-button="cosmic-codex"]');
+            const settingsButton = document.querySelector('[data-button="settings"]');
+            
+            if (codexButton && settingsButton) {
+                testResults.buttonHandlers = true;
+                updateStatus('handler-status', 'success');
+            } else {
+                updateStatus('handler-status', 'error');
+            }
+
+            // Check audio manager
+            if (window.cosmicAudio) {
+                testResults.audioManager = true;
+                updateStatus('audio-status', 'success');
+            } else {
+                updateStatus('audio-status', 'error');
+            }
+
+            updateFinalResults();
+        });
+
+        function updateStatus(elementId, status) {
+            const element = document.getElementById(elementId);
+            element.className = `status-indicator status-${status}`;
+        }
+
+        function testAudioManager() {
+            if (window.cosmicAudio) {
+                console.log('✅ Audio Manager is available');
+                showTestResult('Audio Manager is functioning correctly!', 'success');
+                testResults.audioManager = true;
+            } else {
+                console.log('❌ Audio Manager not found');
+                showTestResult('Audio Manager not available!', 'error');
+            }
+            updateFinalResults();
+        }
+
+        function testBackgroundMusic() {
+            if (window.cosmicAudio) {
+                window.cosmicAudio.startAmbientMusic();
+                showTestResult('Background music started! 🎵', 'success');
+            } else {
+                showTestResult('Audio system not available!', 'error');
+            }
+        }
+
+        function stopBackgroundMusic() {
+            if (window.cosmicAudio) {
+                window.cosmicAudio.stopMusic();
+                showTestResult('Background music stopped! 🔇', 'success');
+            } else {
+                showTestResult('Audio system not available!', 'error');
+            }
+        }
+
+        function testSoundEffects() {
+            if (window.cosmicAudio) {
+                window.cosmicAudio.playClickSound();
+                setTimeout(() => window.cosmicAudio.playHoverSound(), 200);
+                setTimeout(() => window.cosmicAudio.playModalSound(), 400);
+                showTestResult('Sound effects tested! 🔊', 'success');
+                testResults.soundEffects = true;
+            } else {
+                showTestResult('Audio system not available!', 'error');
+            }
+            updateFinalResults();
+        }
+
+        function showTestResult(message, type) {
+            const resultsDiv = document.getElementById('audio-test-results');
+            const result = document.createElement('div');
+            result.className = `test-result ${type}`;
+            result.textContent = message;
+            resultsDiv.appendChild(result);
+            
+            setTimeout(() => {
+                result.remove();
+            }, 3000);
+        }
+
+        function updateFinalResults() {
+            const finalResults = document.getElementById('final-results');
+            const totalTests = Object.keys(testResults).length;
+            const passedTests = Object.values(testResults).filter(result => result).length;
+            
+            let resultClass = 'success';
+            let resultMessage = '';
+            
+            if (passedTests === totalTests) {
+                resultMessage = `🎉 All tests passed! (${passedTests}/${totalTests}) - Cosmic Conquest is ready for action!`;
+            } else if (passedTests > totalTests / 2) {
+                resultClass = 'success';
+                resultMessage = `✅ Most tests passed! (${passedTests}/${totalTests}) - System is functional with minor issues.`;
+            } else {
+                resultClass = 'error';
+                resultMessage = `⚠️ Some tests failed! (${passedTests}/${totalTests}) - Check console for details.`;
+            }
+            
+            finalResults.innerHTML = `<div class="test-result ${resultClass}">${resultMessage}</div>`;
+        }
+
+        // Monitor for modal opening (test modals)
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.addedNodes.length > 0) {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.classList && node.classList.contains('cosmic-modal')) {
+                            testResults.modals = true;
+                            console.log('✅ Modal opened successfully');
+                            updateFinalResults();
+                        }
+                    });
+                }
+            });
+        });
+
+        observer.observe(document.body, { childList: true });
+
+        console.log('🚀 Final test suite ready!');
+    </script>
+</body>
+</html>

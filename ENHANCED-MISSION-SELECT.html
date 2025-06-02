@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 ULTRA Cosmic Conquest: Beyond The Void</title>
+    <title>🚀 ULTRA Cosmic Conquest: Advanced Mission Selection</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
@@ -1263,7 +1263,7 @@
         <header class="game-header">
             <div class="header-scan-line"></div>
             <h1 class="game-title">ULTRA Cosmic Conquest</h1>
-            <h2 class="game-subtitle">Beyond The Void</h2>
+            <p class="game-subtitle">Beyond The Void</p>
         </header>
         
         <!-- Mission Selection -->
@@ -1561,17 +1561,10 @@
             document.querySelector('.cosmic-cursor').classList.remove('active');
         });
         
-        // Enhanced Mission selection with improved reliability
+        // Mission selection with enhanced feedback
         let selectedMission = null;
         
         function selectMission(type) {
-            console.log(`🎯 Mission selected: ${type}`);
-            
-            if (!['standard', 'hardcore', 'exploration'].includes(type)) {
-                console.error(`❌ Invalid mission type: ${type}`);
-                return;
-            }
-            
             // Reset all cards
             document.querySelectorAll('.mission-card').forEach(card => {
                 card.classList.remove('selected');
@@ -1579,29 +1572,23 @@
             
             // Highlight selected card
             const card = document.querySelector(`.mission-card.${type}`);
-            if (card) {
-                card.classList.add('selected');
-                selectedMission = type;
-                
-                // Play selection sound
-                playUISound('select');
-                
-                // Add visual feedback
-                const missionName = card.querySelector('.mission-name')?.textContent || type.toUpperCase();
-                const missionReward = card.querySelector('.mission-details span:first-child')?.textContent || '';
-                const missionTime = card.querySelector('.mission-details span:last-child')?.textContent || '';
-                
-                // Show selection details in a floating notification
-                showSelectionDetails(type, missionName, missionReward, missionTime);
-                
-                // Create particle burst effect
-                if (document.getElementById('particleToggle') && document.getElementById('particleToggle').checked) {
-                    createSelectionBurst(card);
-                }
-                
-                console.log(`✅ Mission ${type} selected successfully`);
-            } else {
-                console.error(`❌ Could not find mission card for type: ${type}`);
+            card.classList.add('selected');
+            selectedMission = type;
+            
+            // Play selection sound
+            playUISound('select');
+            
+            // Add visual feedback
+            const missionName = card.querySelector('.mission-name').textContent;
+            const missionReward = card.querySelector('.mission-details span:first-child').textContent;
+            const missionTime = card.querySelector('.mission-details span:last-child').textContent;
+            
+            // Show selection details in a floating notification
+            showSelectionDetails(type, missionName, missionReward, missionTime);
+            
+            // Create particle burst effect
+            if (document.getElementById('particleToggle') && document.getElementById('particleToggle').checked) {
+                createSelectionBurst(card);
             }
         }
         
@@ -1783,12 +1770,73 @@
             setTimeout(() => burstContainer.remove(), 2000);
         }
         
-        // Enhanced Start mission button with improved reliability
-        function launchMission() {
-            console.log('🚀 Launch Mission button clicked. Selected mission:', selectedMission);
-            
-            if (!selectedMission) {
-                console.log('❌ No mission selected, showing error modal');
+        // Start mission button
+        document.getElementById('startMission').addEventListener('click', () => {
+            if (selectedMission) {
+                playUISound('launch');
+                
+                // Create particle burst at cursor position
+                if (document.getElementById('particleToggle') && document.getElementById('particleToggle').checked) {
+                    const cursorPos = document.querySelector('.cosmic-cursor').getBoundingClientRect();
+                    createSelectionBurst({
+                        getBoundingClientRect: () => ({
+                            left: cursorPos.left,
+                            top: cursorPos.top,
+                            width: 0,
+                            height: 0
+                        })
+                    });
+                }
+                
+                // Add launch animation with enhanced transition
+                document.body.classList.add('launching');
+                
+                // Show mission-specific message
+                let message = '';
+                switch(selectedMission) {
+                    case 'standard':
+                        message = 'Launching Standard Mission... Prepare for cosmic adventure!';
+                        break;
+                    case 'hardcore':
+                        message = 'Launching Hardcore Mission... Extra challenges await!';
+                        break;
+                    case 'exploration':
+                        message = 'Launching Exploration Mission... Uncharted territories ahead!';
+                        break;
+                }
+                
+                const notification = document.createElement('div');
+                notification.textContent = message;
+                notification.style.position = 'fixed';
+                notification.style.top = '50%';
+                notification.style.left = '50%';
+                notification.style.transform = 'translate(-50%, -50%)';
+                notification.style.background = 'transparent';
+                notification.style.color = 'white';
+                notification.style.zIndex = '10001';
+                notification.style.fontSize = '1.5rem';
+                notification.style.fontWeight = 'bold';
+                notification.style.textShadow = '0 0 10px currentColor';
+                notification.style.textAlign = 'center';
+                notification.style.padding = '20px';
+                notification.style.animation = 'fadeIn 0.5s forwards';
+                
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                document.body.appendChild(notification);
+                
+                // Redirect to the game page with selected mission
+                setTimeout(() => {
+                    window.location.href = `ULTRA-COSMIC-CONQUEST.html?mission=${selectedMission}`;
+                }, 2000);
+            } else {
                 // Visual feedback if no mission selected
                 const button = document.getElementById('startMission');
                 button.classList.add('shake');
@@ -1796,113 +1844,8 @@
                 
                 playUISound('error');
                 
-                // Show error modal
+                // Show error modal instead of notification
                 showErrorModal('Please select a mission type before launching.');
-                return;
-            }
-            
-            // Play launch sound
-            playUISound('launch');
-            
-            // Create particle burst at cursor position
-            if (document.getElementById('particleToggle') && document.getElementById('particleToggle').checked) {
-                const cursorPos = document.querySelector('.cosmic-cursor')?.getBoundingClientRect() || {
-                    left: window.innerWidth / 2,
-                    top: window.innerHeight / 2,
-                    width: 0,
-                    height: 0
-                };
-                
-                createSelectionBurst({
-                    getBoundingClientRect: () => ({
-                        left: cursorPos.left,
-                        top: cursorPos.top,
-                        width: 0,
-                        height: 0
-                    })
-                });
-            }
-            
-            // Add launch animation with enhanced transition
-            document.body.classList.add('launching');
-            
-            // Show mission-specific message
-            let message = '';
-            let missionColor = '';
-            
-            switch(selectedMission) {
-                case 'standard':
-                    message = 'Launching Standard Mission... Prepare for cosmic adventure!';
-                    missionColor = 'var(--mission-standard)';
-                    break;
-                case 'hardcore':
-                    message = 'Launching Hardcore Mission... Extra challenges await!';
-                    missionColor = 'var(--mission-hardcore)';
-                    break;
-                case 'exploration':
-                    message = 'Launching Exploration Mission... Uncharted territories ahead!';
-                    missionColor = 'var(--mission-exploration)';
-                    break;
-            }
-            
-            console.log(`🚀 Launching ${selectedMission} mission with message: ${message}`);
-            
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.position = 'fixed';
-            notification.style.top = '50%';
-            notification.style.left = '50%';
-            notification.style.transform = 'translate(-50%, -50%)';
-            notification.style.background = 'transparent';
-            notification.style.color = missionColor || 'white';
-            notification.style.zIndex = '10001';
-            notification.style.fontSize = '1.5rem';
-            notification.style.fontWeight = 'bold';
-            notification.style.textShadow = '0 0 10px currentColor';
-            notification.style.textAlign = 'center';
-            notification.style.padding = '20px';
-            notification.style.animation = 'fadeIn 0.5s forwards';
-            
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes fadeIn {
-                    from { opacity: 0; }
-                    to { opacity: 1; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            document.body.appendChild(notification);
-            
-            // Store the selected mission in session storage as a backup
-            try {
-                sessionStorage.setItem('cosmicConquestMission', selectedMission);
-                console.log('💾 Mission saved to session storage:', selectedMission);
-            } catch (e) {
-                console.error('Unable to save mission to session storage:', e);
-            }
-            
-            // Redirect to the game page with selected mission
-            console.log(`🔄 Redirecting to ULTRA-COSMIC-CONQUEST.html?mission=${selectedMission} in 2 seconds`);
-            
-            setTimeout(() => {
-                try {
-                    window.location.href = `ULTRA-COSMIC-CONQUEST.html?mission=${selectedMission}`;
-                } catch (e) {
-                    console.error('❌ Error during redirect:', e);
-                    alert('Error launching mission. Please try again.');
-                }
-            }, 2000);
-        }
-        
-        // Add event listener to the launch button
-        document.addEventListener('DOMContentLoaded', () => {
-            const startMissionBtn = document.getElementById('startMission');
-            if (startMissionBtn) {
-                startMissionBtn.addEventListener('click', launchMission);
-                console.log('✅ Launch Mission button event listener attached');
-            } else {
-                console.error('❌ Launch Mission button not found');
             }
         });
         
