@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Pages Diagnostic</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #000; 
+            color: #0f0; 
+            line-height: 1.6;
+        }
+        .diagnostic-section { 
+            background: #001100; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border: 2px solid #0f0; 
+            border-radius: 10px; 
+        }
+        .status { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+            border: 1px solid #0f0;
+        }
+        .success { background: #001a00; color: #0f0; }
+        .error { background: #1a0000; color: #f00; }
+        .warning { background: #1a1a00; color: #ff0; }
+        button { 
+            padding: 15px 25px; 
+            margin: 10px 5px; 
+            background: #003300; 
+            color: #0f0; 
+            border: 2px solid #0f0; 
+            cursor: pointer; 
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        button:hover { 
+            background: #0f0; 
+            color: #000; 
+        }
+        .log-output {
+            background: #000;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 GitHub Pages Diagnostic Tool</h1>
+    
+    <div class="diagnostic-section">
+        <h3>📍 Current Environment</h3>
+        <div class="status">
+            <strong>URL:</strong> <span id="currentUrl">Loading...</span>
+        </div>
+        <div class="status">
+            <strong>Protocol:</strong> <span id="protocol">Loading...</span>
+        </div>
+        <div class="status">
+            <strong>Host:</strong> <span id="host">Loading...</span>
+        </div>
+        <div class="status">
+            <strong>Path:</strong> <span id="path">Loading...</span>
+        </div>
+    </div>
+    
+    <div class="diagnostic-section">
+        <h3>🔍 File Accessibility Test</h3>
+        <button onclick="testFileAccess()">Test File Access</button>
+        <button onclick="testMainIndex()">Test Main Index</button>
+        <button onclick="testGameFile()">Test Game File</button>
+        <div id="fileTestResults" class="log-output"></div>
+    </div>
+    
+    <div class="diagnostic-section">
+        <h3>🎯 Mission Launch Test</h3>
+        <button onclick="testMissionLaunch('standard')">Test Standard Launch</button>
+        <button onclick="testMissionLaunch('hardcore')">Test Hardcore Launch</button>
+        <button onclick="testMissionLaunch('exploration')">Test Exploration Launch</button>
+        <button onclick="testDirectGameAccess()">Test Direct Game Access</button>
+        <div id="launchTestResults" class="log-output"></div>
+    </div>
+    
+    <div class="diagnostic-section">
+        <h3>💾 Storage Test</h3>
+        <button onclick="testStorage()">Test Storage</button>
+        <button onclick="clearStorage()">Clear Storage</button>
+        <div id="storageResults" class="log-output"></div>
+    </div>
+    
+    <script>
+        function logToDiv(divId, message, className = '') {
+            const div = document.getElementById(divId);
+            const logEntry = document.createElement('div');
+            logEntry.className = className;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            div.appendChild(logEntry);
+            div.scrollTop = div.scrollHeight;
+            console.log(message);
+        }
+        
+        function updateEnvironmentInfo() {
+            document.getElementById('currentUrl').textContent = window.location.href;
+            document.getElementById('protocol').textContent = window.location.protocol;
+            document.getElementById('host').textContent = window.location.host;
+            document.getElementById('path').textContent = window.location.pathname;
+        }
+        
+        async function testFileAccess() {
+            logToDiv('fileTestResults', '🔍 Starting file accessibility test...', 'success');
+            
+            const filesToTest = [
+                'index.html',
+                'ULTRA-COSMIC-CONQUEST.html',
+                'styles.css',
+                'script.js'
+            ];
+            
+            for (const file of filesToTest) {
+                try {
+                    const response = await fetch(file);
+                    if (response.ok) {
+                        logToDiv('fileTestResults', `✅ ${file} - Accessible (${response.status})`, 'success');
+                    } else {
+                        logToDiv('fileTestResults', `❌ ${file} - Error ${response.status}`, 'error');
+                    }
+                } catch (error) {
+                    logToDiv('fileTestResults', `❌ ${file} - Fetch error: ${error.message}`, 'error');
+                }
+            }
+        }
+        
+        function testMainIndex() {
+            logToDiv('fileTestResults', '🏠 Testing main index navigation...', 'success');
+            try {
+                window.open('index.html', '_blank');
+                logToDiv('fileTestResults', '✅ Main index opened in new tab', 'success');
+            } catch (error) {
+                logToDiv('fileTestResults', `❌ Main index navigation error: ${error.message}`, 'error');
+            }
+        }
+        
+        function testGameFile() {
+            logToDiv('fileTestResults', '🎮 Testing game file navigation...', 'success');
+            try {
+                window.open('ULTRA-COSMIC-CONQUEST.html', '_blank');
+                logToDiv('fileTestResults', '✅ Game file opened in new tab', 'success');
+            } catch (error) {
+                logToDiv('fileTestResults', `❌ Game file navigation error: ${error.message}`, 'error');
+            }
+        }
+        
+        function testMissionLaunch(mission) {
+            logToDiv('launchTestResults', `🚀 Testing ${mission} mission launch...`, 'success');
+            
+            try {
+                // Store mission data
+                localStorage.setItem('cosmicConquestMission', mission);
+                sessionStorage.setItem('cosmicConquestMission', mission);
+                logToDiv('launchTestResults', `💾 Mission ${mission} stored in storage`, 'success');
+                
+                // Create launch URL
+                const gameUrl = `ULTRA-COSMIC-CONQUEST.html?mission=${mission}&timestamp=${Date.now()}`;
+                logToDiv('launchTestResults', `🔄 Launch URL: ${gameUrl}`, 'success');
+                
+                // Test launch (open in new tab)
+                window.open(gameUrl, '_blank');
+                logToDiv('launchTestResults', `✅ ${mission} mission launched in new tab`, 'success');
+                
+            } catch (error) {
+                logToDiv('launchTestResults', `❌ Mission launch error: ${error.message}`, 'error');
+            }
+        }
+        
+        function testDirectGameAccess() {
+            logToDiv('launchTestResults', '🎯 Testing direct game access...', 'success');
+            
+            const gameUrl = 'ULTRA-COSMIC-CONQUEST.html?mission=standard&test=direct';
+            window.open(gameUrl, '_blank');
+            logToDiv('launchTestResults', '✅ Direct game access attempted', 'success');
+        }
+        
+        function testStorage() {
+            logToDiv('storageResults', '💾 Testing storage functionality...', 'success');
+            
+            try {
+                // Test localStorage
+                localStorage.setItem('testKey', 'testValue');
+                const localValue = localStorage.getItem('testKey');
+                if (localValue === 'testValue') {
+                    logToDiv('storageResults', '✅ localStorage working', 'success');
+                    localStorage.removeItem('testKey');
+                } else {
+                    logToDiv('storageResults', '❌ localStorage failed', 'error');
+                }
+                
+                // Test sessionStorage
+                sessionStorage.setItem('testKey', 'testValue');
+                const sessionValue = sessionStorage.getItem('testKey');
+                if (sessionValue === 'testValue') {
+                    logToDiv('storageResults', '✅ sessionStorage working', 'success');
+                    sessionStorage.removeItem('testKey');
+                } else {
+                    logToDiv('storageResults', '❌ sessionStorage failed', 'error');
+                }
+                
+                // Check current mission storage
+                const currentMission = localStorage.getItem('cosmicConquestMission');
+                logToDiv('storageResults', `📋 Current stored mission: ${currentMission || 'None'}`, 'success');
+                
+            } catch (error) {
+                logToDiv('storageResults', `❌ Storage test error: ${error.message}`, 'error');
+            }
+        }
+        
+        function clearStorage() {
+            try {
+                localStorage.removeItem('cosmicConquestMission');
+                sessionStorage.removeItem('cosmicConquestMission');
+                logToDiv('storageResults', '🗑️ Storage cleared', 'success');
+            } catch (error) {
+                logToDiv('storageResults', `❌ Storage clear error: ${error.message}`, 'error');
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateEnvironmentInfo();
+            logToDiv('fileTestResults', '🔧 Diagnostic tool initialized', 'success');
+            logToDiv('launchTestResults', '🔧 Launch test ready', 'success');
+            logToDiv('storageResults', '🔧 Storage test ready', 'success');
+            
+            // Check if we're on GitHub Pages
+            if (window.location.host.includes('github.io')) {
+                logToDiv('fileTestResults', '📍 Running on GitHub Pages', 'warning');
+            } else {
+                logToDiv('fileTestResults', '📍 Running locally', 'success');
+            }
+        });
+    </script>
+</body>
+</html>

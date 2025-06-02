@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Pages Test - Cosmic Conquest</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #00ff88;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #00ff88;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .pass { background: #00ff88; color: #000; }
+        .fail { background: #ff0055; color: #fff; }
+        .warning { background: #ffaa00; color: #000; }
+        button {
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+        #log {
+            background: #000;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 12px;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 GitHub Pages Deployment Test</h1>
+        <p>This page tests if the Cosmic Conquest game can load properly on GitHub Pages.</p>
+        
+        <div class="test-section">
+            <h3>📊 Environment Detection</h3>
+            <div id="environment-info"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📁 File Accessibility Test</h3>
+            <div id="file-test-results"></div>
+            <button onclick="testFileAccess()">Test File Access</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>🎮 Game Launch Test</h3>
+            <div id="launch-test-results"></div>
+            <button onclick="testGameLaunch('exploration')">Test Exploration Mission</button>
+            <button onclick="testGameLaunch('combat')">Test Combat Mission</button>
+            <button onclick="testGameLaunch('rescue')">Test Rescue Mission</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>🔧 Direct Game Links</h3>
+            <button onclick="window.open('index.html', '_blank')">Open Main Menu</button>
+            <button onclick="window.open('ULTRA-COSMIC-CONQUEST.html', '_blank')">Open Game Direct</button>
+            <button onclick="window.open('ULTRA-COSMIC-CONQUEST.html?mission=exploration', '_blank')">Open with Exploration</button>
+        </div>
+        
+        <div id="log"></div>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? '#ff0055' : 
+                         type === 'success' ? '#00ff88' : 
+                         type === 'warning' ? '#ffaa00' : '#ffffff';
+            
+            logDiv.innerHTML += `<div style="color: ${color};">[${timestamp}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[${timestamp}] ${message}`);
+        }
+
+        function addStatus(elementId, message, status) {
+            const element = document.getElementById(elementId);
+            const statusClass = status === 'pass' ? 'pass' : status === 'fail' ? 'fail' : 'warning';
+            element.innerHTML += `<div>${message} <span class="status ${statusClass}">${status.toUpperCase()}</span></div>`;
+        }
+
+        // Environment Detection
+        function detectEnvironment() {
+            const info = document.getElementById('environment-info');
+            
+            // Check if we're on GitHub Pages
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const currentURL = window.location.href;
+            const protocol = window.location.protocol;
+            
+            info.innerHTML = `
+                <div>Current URL: ${currentURL}</div>
+                <div>Protocol: ${protocol}</div>
+                <div>Hostname: ${window.location.hostname}</div>
+                <div>GitHub Pages: ${isGitHubPages ? 'YES' : 'NO'}</div>
+                <div>User Agent: ${navigator.userAgent.substring(0, 100)}...</div>
+            `;
+            
+            log(`Environment detected - GitHub Pages: ${isGitHubPages}, URL: ${currentURL}`);
+        }
+
+        // Test file accessibility
+        async function testFileAccess() {
+            const resultsDiv = document.getElementById('file-test-results');
+            resultsDiv.innerHTML = '<div>Testing file access...</div>';
+            
+            const filesToTest = [
+                'index.html',
+                'ULTRA-COSMIC-CONQUEST.html',
+                'styles.css',
+                'script.js'
+            ];
+            
+            log('Starting file accessibility test...');
+            
+            for (const file of filesToTest) {
+                try {
+                    const response = await fetch(file);
+                    if (response.ok) {
+                        addStatus('file-test-results', `${file}`, 'pass');
+                        log(`✓ ${file} - accessible`, 'success');
+                    } else {
+                        addStatus('file-test-results', `${file} (${response.status})`, 'fail');
+                        log(`✗ ${file} - ${response.status} ${response.statusText}`, 'error');
+                    }
+                } catch (error) {
+                    addStatus('file-test-results', `${file} (${error.message})`, 'fail');
+                    log(`✗ ${file} - ${error.message}`, 'error');
+                }
+            }
+        }
+
+        // Test game launch
+        function testGameLaunch(missionType) {
+            const resultsDiv = document.getElementById('launch-test-results');
+            
+            log(`Testing game launch with mission: ${missionType}`);
+            
+            try {
+                // Test URL parameter method
+                const gameURL = `ULTRA-COSMIC-CONQUEST.html?mission=${missionType}`;
+                
+                // Test localStorage
+                localStorage.setItem('selectedMission', missionType);
+                
+                // Test sessionStorage
+                sessionStorage.setItem('selectedMission', missionType);
+                
+                addStatus('launch-test-results', `Mission ${missionType} parameters set`, 'pass');
+                log(`✓ Mission ${missionType} - parameters stored successfully`, 'success');
+                
+                // Attempt to open the game
+                setTimeout(() => {
+                    window.open(gameURL, '_blank');
+                    log(`Game launched with URL: ${gameURL}`, 'info');
+                }, 500);
+                
+            } catch (error) {
+                addStatus('launch-test-results', `Mission ${missionType} failed: ${error.message}`, 'fail');
+                log(`✗ Mission ${missionType} - ${error.message}`, 'error');
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', () => {
+            detectEnvironment();
+            log('GitHub Pages test page loaded successfully', 'success');
+        });
+    </script>
+</body>
+</html>
