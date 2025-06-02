@@ -1372,12 +1372,29 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const mission = urlParams.get('mission');
                 
-                // Default to 'standard' if no mission specified
-                if (!mission || !['standard', 'hardcore', 'exploration'].includes(mission)) {
+                // Try to get mission from session storage if URL parameter is missing
+                let finalMission = mission;
+                
+                if (!finalMission || !['standard', 'hardcore', 'exploration'].includes(finalMission)) {
+                    try {
+                        const storedMission = sessionStorage.getItem('cosmicConquestMission');
+                        if (storedMission && ['standard', 'hardcore', 'exploration'].includes(storedMission)) {
+                            console.log('🔄 Mission retrieved from session storage:', storedMission);
+                            finalMission = storedMission;
+                        }
+                    } catch (e) {
+                        console.error('Error accessing session storage:', e);
+                    }
+                }
+                
+                // Default to 'standard' if no valid mission specified
+                if (!finalMission || !['standard', 'hardcore', 'exploration'].includes(finalMission)) {
+                    console.log('⚠️ No valid mission specified, defaulting to standard');
                     return 'standard';
                 }
                 
-                return mission;
+                console.log('🚀 Starting mission:', finalMission);
+                return finalMission;
             }
             
             applyMissionSettings() {

@@ -2482,58 +2482,9 @@
             });
             
             // Add touch event to start mission button
-            document.getElementById('startMission').addEventListener('touchend', function() {
-                if (selectedMission) {
-                    playUISound('launch');
-                    
-                    // Add launch animation with enhanced transition
-                    document.body.classList.add('launching');
-                    
-                    // Show mission-specific message
-                    let message = '';
-                    switch(selectedMission) {
-                        case 'standard':
-                            message = 'Launching Standard Mission... Prepare for cosmic adventure!';
-                            break;
-                        case 'hardcore':
-                            message = 'Launching Hardcore Mission... Extra challenges await!';
-                            break;
-                        case 'exploration':
-                            message = 'Launching Exploration Mission... Uncharted territories ahead!';
-                            break;
-                    }
-                    
-                    const notification = document.createElement('div');
-                    notification.textContent = message;
-                    notification.style.position = 'fixed';
-                    notification.style.top = '50%';
-                    notification.style.left = '50%';
-                    notification.style.transform = 'translate(-50%, -50%)';
-                    notification.style.background = 'transparent';
-                    notification.style.color = 'white';
-                    notification.style.zIndex = '10001';
-                    notification.style.fontSize = '1.5rem';
-                    notification.style.fontWeight = 'bold';
-                    notification.style.textShadow = '0 0 10px currentColor';
-                    notification.style.textAlign = 'center';
-                    notification.style.padding = '20px';
-                    
-                    document.body.appendChild(notification);
-                    
-                    // Redirect to the game page with selected mission
-                    setTimeout(() => {
-                        window.location.href = `ULTRA-COSMIC-CONQUEST.html?mission=${selectedMission}`;
-                    }, 2000);
-                } else {
-                    // Visual feedback if no mission selected
-                    this.classList.add('shake');
-                    setTimeout(() => this.classList.remove('shake'), 500);
-                    
-                    playUISound('error');
-                    
-                    // Show error modal
-                    showErrorModal('Please select a mission type before launching.');
-                }
+            document.getElementById('startMission').addEventListener('touchend', function(e) {
+                e.preventDefault(); // Prevent double firing with click event
+                launchMission();
             });
             
             // Add touch event to error modal close button
