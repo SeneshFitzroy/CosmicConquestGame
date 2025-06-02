@@ -2,17 +2,17 @@
 
 ## **🌟 Overview** 
 
-**Cosmic Conquest** is an immersive **browser-based board game** where players navigate a **challenging** path filled with obstacles and opportunities. Players race to be the first to reach the **finish line**, overcoming **traps**, **cards**, and **dice rolls** to claim victory!
+**Cosmic Conquest** is an immersive **browser-based space adventure** where players select different mission types and navigate the cosmos. The game features stunning visuals, engaging sound effects, and interactive elements for an enhanced gaming experience!
 
 ## **✨ Key Features** 
 
-- 🎲 **Dynamic Gameplay**: Simple dice-rolling mechanics for intuitive and fun movement.
-- 🛣️ **Strategic Path**: 15 unique spaces filled with obstacles, challenges, and rewards.
-- 🧩 **Challenge Cards**: Navigate through Obstacle Cards that test your luck and strategy.
-- 🎯 **Opportunity Cards**: Use Chance Cards to gain significant advantages on your journey.
-- 👥 **Multiplayer Support**: Play with friends in **hot-seat mode**, taking turns to conquer the game board.
-- 🎮 **Fully Responsive Design**: Optimized for **desktop**, **tablet**, and **mobile** devices.
-- 🔊 **Engaging Audio**: Dynamic sound effects and background music that enhance the gaming experience.
+- 🚀 **Multiple Mission Types**: Choose between Standard, Hardcore, and Exploration missions.
+- 🎮 **Interactive UI**: Responsive mission cards with visual feedback and particle effects.
+- 💾 **Persistent Selections**: Mission choices saved across sessions for a seamless experience.
+- 🔊 **Immersive Audio**: Web Audio API-based ambient music and sound effects that enhance gameplay.
+- ✨ **Particle Effects**: Dynamic visual effects for all user interactions.
+- 📱 **Adaptive Design**: Responsive layout that works on both desktop and mobile devices.
+- 🌌 **Cosmic Visuals**: Beautiful space-themed animations and background effects.
 
 ## **📋 Table of Contents**
 
