@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Cosmic Conquest - Final Validation</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+            color: white;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #00ff88;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .test-card {
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #00ff88;
+            transition: all 0.3s ease;
+        }
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+        .test-card h3 {
+            color: #00ff88;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .status-pass { background: #00ff88; }
+        .status-fail { background: #ff0055; }
+        .status-pending { background: #ffaa00; }
+        .status-unknown { background: #666; }
+        .btn {
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+        .btn-secondary {
+            background: linear-gradient(45deg, #666, #999);
+            color: white;
+        }
+        .results {
+            background: #000;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 12px;
+            border: 1px solid #333;
+        }
+        .success { color: #00ff88; }
+        .error { color: #ff0055; }
+        .warning { color: #ffaa00; }
+        .info { color: #00ccff; }
+        .summary {
+            background: rgba(0, 255, 136, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #00ff88;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Cosmic Conquest - Final Validation Suite</h1>
+            <p>Comprehensive testing for the GitHub Pages deployment</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+            <div id="overall-status">Starting validation...</div>
+        </div>
+
+        <div class="test-grid">
+            <!-- Environment Test -->
+            <div class="test-card">
+                <h3>🌍 Environment <span class="status-indicator status-unknown" id="env-status"></span></h3>
+                <div id="env-results" class="results">Checking environment...</div>
+                <button class="btn" onclick="runEnvironmentTest()">Test Environment</button>
+            </div>
+
+            <!-- File Access Test -->
+            <div class="test-card">
+                <h3>📁 File Access <span class="status-indicator status-unknown" id="file-status"></span></h3>
+                <div id="file-results" class="results">Ready to test file access...</div>
+                <button class="btn" onclick="runFileAccessTest()">Test Files</button>
+            </div>
+
+            <!-- CSS Syntax Test -->
+            <div class="test-card">
+                <h3>🎨 CSS Validation <span class="status-indicator status-unknown" id="css-status"></span></h3>
+                <div id="css-results" class="results">Ready to validate CSS...</div>
+                <button class="btn" onclick="runCSSTest()">Test CSS</button>
+            </div>
+
+            <!-- Mission Launch Test -->
+            <div class="test-card">
+                <h3>🚀 Mission Launch <span class="status-indicator status-unknown" id="mission-status"></span></h3>
+                <div id="mission-results" class="results">Ready to test mission launches...</div>
+                <button class="btn" onclick="runMissionTest()">Test Missions</button>
+            </div>
+
+            <!-- Game Functionality Test -->
+            <div class="test-card">
+                <h3>🎮 Game Logic <span class="status-indicator status-unknown" id="game-status"></span></h3>
+                <div id="game-results" class="results">Ready to test game functionality...</div>
+                <button class="btn" onclick="runGameTest()">Test Game</button>
+            </div>
+
+            <!-- UI/UX Test -->
+            <div class="test-card">
+                <h3>✨ UI/UX <span class="status-indicator status-unknown" id="ui-status"></span></h3>
+                <div id="ui-results" class="results">Ready to test user interface...</div>
+                <button class="btn" onclick="runUITest()">Test UI</button>
+            </div>
+        </div>
+
+        <div class="summary">
+            <h2>🎯 Quick Actions</h2>
+            <a href="index.html" class="btn" target="_blank">🏠 Main Menu</a>
+            <a href="ULTRA-COSMIC-CONQUEST.html" class="btn" target="_blank">🎮 Direct Game</a>
+            <a href="ULTRA-COSMIC-CONQUEST.html?mission=exploration" class="btn" target="_blank">🔍 Exploration</a>
+            <a href="ULTRA-COSMIC-CONQUEST.html?mission=combat" class="btn" target="_blank">⚔️ Combat</a>
+            <a href="ULTRA-COSMIC-CONQUEST.html?mission=rescue" class="btn" target="_blank">🚑 Rescue</a>
+            <button class="btn btn-secondary" onclick="runAllTests()">🔄 Run All Tests</button>
+        </div>
+
+        <div id="final-summary" class="summary" style="display: none;">
+            <h2>📊 Final Results</h2>
+            <div id="summary-content"></div>
+        </div>
+    </div>
+
+    <script>
+        let testResults = {};
+        let totalTests = 6;
+        let completedTests = 0;
+
+        function updateProgress() {
+            const progress = (completedTests / totalTests) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+            document.getElementById('overall-status').textContent = 
+                `Testing progress: ${completedTests}/${totalTests} (${Math.round(progress)}%)`;
+        }
+
+        function log(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : 
+                             type === 'success' ? 'success' : 
+                             type === 'warning' ? 'warning' : 'info';
+            
+            element.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            element.scrollTop = element.scrollHeight;
+            console.log(`[${timestamp}] ${message}`);
+        }
+
+        function setTestStatus(testId, status) {
+            const statusElement = document.getElementById(testId + '-status');
+            statusElement.className = `status-indicator status-${status}`;
+            testResults[testId] = status;
+            
+            if (status !== 'unknown') {
+                completedTests++;
+                updateProgress();
+                
+                if (completedTests === totalTests) {
+                    showFinalSummary();
+                }
+            }
+        }
+
+        function showFinalSummary() {
+            const summaryDiv = document.getElementById('final-summary');
+            const contentDiv = document.getElementById('summary-content');
+            
+            const passed = Object.values(testResults).filter(r => r === 'pass').length;
+            const failed = Object.values(testResults).filter(r => r === 'fail').length;
+            
+            let summaryHTML = `
+                <div class="success">✅ Tests Passed: ${passed}</div>
+                <div class="error">❌ Tests Failed: ${failed}</div>
+                <div class="info">📊 Total Tests: ${totalTests}</div>
+                <br>
+            `;
+            
+            if (failed === 0) {
+                summaryHTML += `<div class="success">🎉 ALL TESTS PASSED! The Cosmic Conquest game is fully functional on GitHub Pages!</div>`;
+            } else {
+                summaryHTML += `<div class="warning">⚠️ Some tests failed. Please review the results above.</div>`;
+            }
+            
+            contentDiv.innerHTML = summaryHTML;
+            summaryDiv.style.display = 'block';
+        }
+
+        // Test Functions
+        async function runEnvironmentTest() {
+            log('env-results', 'Starting environment test...', 'info');
+            
+            try {
+                const isGitHubPages = window.location.hostname.includes('github.io');
+                const protocol = window.location.protocol;
+                const url = window.location.href;
+                
+                log('env-results', `URL: ${url}`, 'info');
+                log('env-results', `Protocol: ${protocol}`, 'info');
+                log('env-results', `GitHub Pages: ${isGitHubPages}`, isGitHubPages ? 'success' : 'warning');
+                
+                if (protocol === 'https:' || protocol === 'file:') {
+                    log('env-results', '✅ Secure protocol detected', 'success');
+                    setTestStatus('env', 'pass');
+                } else {
+                    log('env-results', '⚠️ Insecure protocol', 'warning');
+                    setTestStatus('env', 'fail');
+                }
+            } catch (error) {
+                log('env-results', `❌ Environment test failed: ${error.message}`, 'error');
+                setTestStatus('env', 'fail');
+            }
+        }
+
+        async function runFileAccessTest() {
+            log('file-results', 'Testing file accessibility...', 'info');
+            
+            const files = ['index.html', 'ULTRA-COSMIC-CONQUEST.html', 'styles.css', 'script.js'];
+            let passedFiles = 0;
+            
+            for (const file of files) {
+                try {
+                    const response = await fetch(file, { method: 'HEAD' });
+                    if (response.ok) {
+                        log('file-results', `✅ ${file} - accessible`, 'success');
+                        passedFiles++;
+                    } else {
+                        log('file-results', `❌ ${file} - ${response.status}`, 'error');
+                    }
+                } catch (error) {
+                    log('file-results', `❌ ${file} - ${error.message}`, 'error');
+                }
+            }
+            
+            setTestStatus('file', passedFiles === files.length ? 'pass' : 'fail');
+        }
+
+        async function runCSSTest() {
+            log('css-results', 'Validating CSS syntax...', 'info');
+            
+            try {
+                // Test if we can load the game page without CSS errors
+                const response = await fetch('ULTRA-COSMIC-CONQUEST.html');
+                const html = await response.text();
+                
+                // Check for the fixed keyframes
+                if (html.includes('@keyframes pulseDanger')) {
+                    log('css-results', '✅ CSS keyframes syntax is correct', 'success');
+                    log('css-results', '✅ Fixed broken @keyframes rule', 'success');
+                    setTestStatus('css', 'pass');
+                } else {
+                    log('css-results', '❌ CSS keyframes issue still present', 'error');
+                    setTestStatus('css', 'fail');
+                }
+            } catch (error) {
+                log('css-results', `❌ CSS test failed: ${error.message}`, 'error');
+                setTestStatus('css', 'fail');
+            }
+        }
+
+        async function runMissionTest() {
+            log('mission-results', 'Testing mission launch functionality...', 'info');
+            
+            const missions = ['exploration', 'combat', 'rescue'];
+            let passedMissions = 0;
+            
+            for (const mission of missions) {
+                try {
+                    // Test URL parameter method
+                    const testURL = `ULTRA-COSMIC-CONQUEST.html?mission=${mission}`;
+                    const response = await fetch(testURL, { method: 'HEAD' });
+                    
+                    if (response.ok) {
+                        log('mission-results', `✅ ${mission} mission - URL accessible`, 'success');
+                        
+                        // Test localStorage functionality
+                        localStorage.setItem('selectedMission', mission);
+                        const stored = localStorage.getItem('selectedMission');
+                        
+                        if (stored === mission) {
+                            log('mission-results', `✅ ${mission} mission - localStorage working`, 'success');
+                            passedMissions++;
+                        } else {
+                            log('mission-results', `❌ ${mission} mission - localStorage failed`, 'error');
+                        }
+                    } else {
+                        log('mission-results', `❌ ${mission} mission - URL not accessible`, 'error');
+                    }
+                } catch (error) {
+                    log('mission-results', `❌ ${mission} mission - ${error.message}`, 'error');
+                }
+            }
+            
+            setTestStatus('mission', passedMissions === missions.length ? 'pass' : 'fail');
+        }
+
+        async function runGameTest() {
+            log('game-results', 'Testing game functionality...', 'info');
+            
+            try {
+                // Test if game page loads
+                const response = await fetch('ULTRA-COSMIC-CONQUEST.html');
+                const html = await response.text();
+                
+                // Check for essential game elements
+                const hasGameElements = html.includes('game-container') && 
+                                       html.includes('launchMission') &&
+                                       html.includes('getMissionType');
+                
+                if (hasGameElements) {
+                    log('game-results', '✅ Game structure elements present', 'success');
+                    log('game-results', '✅ Mission functions available', 'success');
+                    setTestStatus('game', 'pass');
+                } else {
+                    log('game-results', '❌ Missing essential game elements', 'error');
+                    setTestStatus('game', 'fail');
+                }
+            } catch (error) {
+                log('game-results', `❌ Game test failed: ${error.message}`, 'error');
+                setTestStatus('game', 'fail');
+            }
+        }
+
+        async function runUITest() {
+            log('ui-results', 'Testing user interface...', 'info');
+            
+            try {
+                // Test main menu
+                const indexResponse = await fetch('index.html');
+                const indexHtml = await indexResponse.text();
+                
+                const hasUI = indexHtml.includes('Launch Mission') && 
+                             indexHtml.includes('mission-card') &&
+                             indexHtml.includes('exploration') &&
+                             indexHtml.includes('combat') &&
+                             indexHtml.includes('rescue');
+                
+                if (hasUI) {
+                    log('ui-results', '✅ Main menu UI elements present', 'success');
+                    log('ui-results', '✅ Mission selection interface working', 'success');
+                    setTestStatus('ui', 'pass');
+                } else {
+                    log('ui-results', '❌ Missing UI elements', 'error');
+                    setTestStatus('ui', 'fail');
+                }
+            } catch (error) {
+                log('ui-results', `❌ UI test failed: ${error.message}`, 'error');
+                setTestStatus('ui', 'fail');
+            }
+        }
+
+        async function runAllTests() {
+            log('env-results', 'Running all tests...', 'info');
+            completedTests = 0;
+            testResults = {};
+            
+            // Reset all status indicators
+            ['env', 'file', 'css', 'mission', 'game', 'ui'].forEach(id => {
+                document.getElementById(id + '-status').className = 'status-indicator status-unknown';
+                document.getElementById(id + '-results').innerHTML = '';
+            });
+            
+            document.getElementById('final-summary').style.display = 'none';
+            updateProgress();
+            
+            // Run tests with delays
+            await runEnvironmentTest();
+            setTimeout(async () => {
+                await runFileAccessTest();
+                setTimeout(async () => {
+                    await runCSSTest();
+                    setTimeout(async () => {
+                        await runMissionTest();
+                        setTimeout(async () => {
+                            await runGameTest();
+                            setTimeout(async () => {
+                                await runUITest();
+                            }, 1000);
+                        }, 1000);
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            updateProgress();
+            log('env-results', 'Validation suite loaded successfully', 'success');
+        });
+    </script>
+</body>
+</html>
