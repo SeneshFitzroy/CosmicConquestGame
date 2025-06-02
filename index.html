@@ -1294,6 +1294,9 @@
     </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cosmic-cursor"></div>
+    
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner"></div>
@@ -2156,37 +2159,6 @@
                 // Set up controls
                 document.getElementById('playMusic').addEventListener('click', () => this.play());
                 document.getElementById('pauseMusic').addEventListener('click', () => this.pause());
-                document.getElementById('stopMusic').addEventListener('click
-            });
-        });
-
-        // Toggle switch sound effects
-        document.querySelectorAll('.toggle-switch input').forEach(toggle => {
-            toggle.addEventListener('change', () => {
-                playUISound('toggle');
-            });
-        });
-
-        // Advanced Music Player Functionality
-        const musicPlayer = {
-            isPlaying: false,
-            audioContext: null,
-            oscillators: [],
-            gainNodes: [],
-            masterGain: null,
-            currentTrack: '🎵 Cosmic Ambient',
-            volume: 0.5,
-
-            init() {
-                // Create audio context
-                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                this.masterGain = this.audioContext.createGain();
-                this.masterGain.gain.value = this.volume;
-                this.masterGain.connect(this.audioContext.destination);
-
-                // Set up controls
-                document.getElementById('playMusic').addEventListener('click', () => this.play());
-                document.getElementById('pauseMusic').addEventListener('click', () => this.pause());
                 document.getElementById('stopMusic').addEventListener('click', () => this.stop());
                 document.getElementById('volumeControl').addEventListener('input', (e) => this.setVolume(e.target.value));
                 document.getElementById('musicToggle').addEventListener('change', (e) => {
@@ -2221,8 +2193,6 @@
 
             pause() {
                 if (!this.isPlaying) return;
-
-               
 
                 // Fade out all oscillators
                 this.oscillators.forEach((osc, index) => {
