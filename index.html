@@ -2018,6 +2018,12 @@
                     const gameUrl = `ULTRA-COSMIC-CONQUEST.html?mission=${selectedMission}&timestamp=${Date.now()}`;
                     console.log(`🚀 Launching mission at: ${gameUrl}`);
                     
+                    // Additional debugging
+                    console.log('Current location:', window.location.href);
+                    console.log('Target URL:', gameUrl);
+                    console.log('Storage verification - localStorage:', localStorage.getItem('cosmicConquestMission'));
+                    console.log('Storage verification - sessionStorage:', sessionStorage.getItem('cosmicConquestMission'));
+                    
                     // Redirect to the game page
                     window.location.href = gameUrl;
                 } catch (e) {
